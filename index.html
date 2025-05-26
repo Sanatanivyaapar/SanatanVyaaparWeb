@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>केवल सनातनी व्यापार - Dharmic Business Network</title>
-    <meta name="description" content="Connecting Sanatani Businesses to Build a Dharmic Economic Network">
+    <title>ફક્ત સનાતની વ્યાપાર - केवल सनातनी व्यापार - Only Sanatani Business</title>
+    <meta name="description" content="સનાતની વ્યાપારીઓને જોડતું ધાર્મિક આર્થિક નેટવર્ક - Connecting Sanatani Businesses to Build a Dharmic Economic Network">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🕉️%3C/text%3E%3C/svg%3E">
@@ -16,10 +16,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         .hindi-font { font-family: 'Noto Sans Devanagari', sans-serif; }
+        .gujarati-font { font-family: 'Noto Sans Gujarati', sans-serif; }
+        .english-font { font-family: 'Inter', sans-serif; }
+        
+        .gujarati-text { font-family: 'Noto Sans Gujarati', sans-serif; }
+        .hindi-text { font-family: 'Noto Sans Devanagari', sans-serif; }
+        .english-text { font-family: 'Inter', sans-serif; }
+        
+        /* Initially hide all language variants except Hindi */
+        .gujarati-text, .english-text { display: none; }
+        .hindi-text { display: inline; }
         .gradient-bg { background: linear-gradient(135deg, #ff6b35, #f7931e, #ffcc02); }
         .saffron-bg { background: linear-gradient(135deg, #ff6b35, #ff8c00); }
         .floating { animation: float 6s ease-in-out infinite; }
@@ -81,19 +91,55 @@
                 <div class="flex items-center space-x-3">
                     <div class="text-3xl">🕉️</div>
                     <div>
-                        <h1 class="text-xl font-bold text-orange-600 hindi-font">केवल सनातनी व्यापार</h1>
-                        <p class="text-xs text-gray-600">Dharmic Business Network</p>
+                        <h1 class="text-xl font-bold text-orange-600 hindi-font">
+                            <span class="gujarati-text">ફક્ત સનાતની વ્યાપાર</span>
+                            <span class="hindi-text">केवल सनातनी व्यापार</span>
+                            <span class="english-text">Only Sanatani Business</span>
+                        </h1>
+                        <p class="text-xs text-gray-600">
+                            <span class="gujarati-text">ધાર્મિક વ્યાપારિક નેટવર્ક</span>
+                            <span class="hindi-text">धार्मिक व्यापारिक नेटवर्क</span>
+                            <span class="english-text">Dharmic Business Network</span>
+                        </p>
                     </div>
+                </div>
+                
+                <!-- Language Selector -->
+                <div class="hidden md:flex items-center space-x-2">
+                    <select id="language-selector" class="bg-white border border-gray-300 rounded-md px-2 py-1 text-sm">
+                        <option value="gujarati">ગુજરાતી</option>
+                        <option value="hindi" selected>हिंदी</option>
+                        <option value="english">English</option>
+                    </select>
                 </div>
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium">मुख्य पृष्ठ</a>
-                    <a href="#dashboard" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium">व्यापार खोजें</a>
-                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium">पंजीकरण</a>
-                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium">हमारे बारे में</a>
+                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                        <span class="gujarati-text">મુખ્ય પૃષ્ઠ</span>
+                        <span class="hindi-text">मुख्य पृष्ठ</span>
+                        <span class="english-text">Home</span>
+                    </a>
+                    <a href="#dashboard" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                        <span class="gujarati-text">વ્યાપાર શોધો</span>
+                        <span class="hindi-text">व्यापार खोजें</span>
+                        <span class="english-text">Find Business</span>
+                    </a>
+                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                        <span class="gujarati-text">નોંધણી</span>
+                        <span class="hindi-text">पंजीकरण</span>
+                        <span class="english-text">Register</span>
+                    </a>
+                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                        <span class="gujarati-text">અમારા વિશે</span>
+                        <span class="hindi-text">हमारे बारे में</span>
+                        <span class="english-text">About Us</span>
+                    </a>
                     <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
-                        <i class="fab fa-whatsapp mr-2"></i>समुदाय जुड़ें
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        <span class="gujarati-text">સમુદાય જોડાઓ</span>
+                        <span class="hindi-text">समुदाय जुड़ें</span>
+                        <span class="english-text">Join Community</span>
                     </a>
                 </div>
                 
@@ -106,12 +152,38 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="md:hidden hidden pb-4">
                 <div class="flex flex-col space-y-3">
-                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium py-2">मुख्य पृष्ठ</a>
-                    <a href="#dashboard" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium py-2">व्यापार खोजें</a>
-                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium py-2">पंजीकरण</a>
-                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium py-2">हमारे बारे में</a>
+                    <div class="mb-2">
+                        <select id="mobile-language-selector" class="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm w-full">
+                            <option value="gujarati">ગુજરાતી</option>
+                            <option value="hindi" selected>हिंदी</option>
+                            <option value="english">English</option>
+                        </select>
+                    </div>
+                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                        <span class="gujarati-text">મુખ્ય પૃષ્ઠ</span>
+                        <span class="hindi-text">मुख्य पृष्ठ</span>
+                        <span class="english-text">Home</span>
+                    </a>
+                    <a href="#dashboard" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                        <span class="gujarati-text">વ્યાપાર શોધો</span>
+                        <span class="hindi-text">व्यापार खोजें</span>
+                        <span class="english-text">Find Business</span>
+                    </a>
+                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                        <span class="gujarati-text">નોંધણી</span>
+                        <span class="hindi-text">पंजीकरण</span>
+                        <span class="english-text">Register</span>
+                    </a>
+                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                        <span class="gujarati-text">અમારા વિશે</span>
+                        <span class="hindi-text">हमारे बारे में</span>
+                        <span class="english-text">About Us</span>
+                    </a>
                     <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors inline-block text-center">
-                        <i class="fab fa-whatsapp mr-2"></i>समुदाय जुड़ें
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        <span class="gujarati-text">સમુદાય જોડાઓ</span>
+                        <span class="hindi-text">समुदाय जुड़ें</span>
+                        <span class="english-text">Join Community</span>
                     </a>
                 </div>
             </div>
@@ -128,14 +200,19 @@
                         <div class="text-8xl mb-4">🕉️</div>
                     </div>
                     <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 hindi-font">
-                        केवल सनातनी व्यापार
+                        <span class="gujarati-text">ફક્ત સનાતની વ્યાપાર</span>
+                        <span class="hindi-text">केवल सनातनी व्यापार</span>
+                        <span class="english-text">Only Sanatani Business</span>
                     </h1>
                     <p class="text-xl md:text-2xl text-white mb-4 font-medium">
-                        Connecting Sanatani Businesses to Build a Dharmic Economic Network
+                        <span class="gujarati-text">સનાતની વ્યાપારીઓને જોડતું ધાર્મિક આર્થિક નેટવર્ક</span>
+                        <span class="hindi-text">सनातनी व्यापारियों को जोड़ने वाला धार्मिक आर्थिक नेटवर्क</span>
+                        <span class="english-text">Connecting Sanatani Businesses to Build a Dharmic Economic Network</span>
                     </p>
                     <p class="text-lg text-white/90 mb-8 max-w-3xl mx-auto hindi-font">
-                        हमारा उद्देश्य सनातनी व्यापारियों को एक साथ लाना है और धार्मिक आर्थिक नेटवर्क का निर्माण करना है। 
-                        यहाँ आप विश्वसनीय और प्रामाणिक सनातनी व्यापारियों से जुड़ सकते हैं।
+                        <span class="gujarati-text">અમારું લક્ષ્ય સનાતની વ્યાપારીઓને એક સાથે લાવવાનું છે અને ધાર્મિક આર્થિક નેટવર્કનું નિર્માણ કરવાનું છે. અહીં તમે વિશ્વસનીય અને પ્રામાણિક સનાતની વ્યાપારીઓ સાથે જોડાઈ શકો છો.</span>
+                        <span class="hindi-text">हमारा उद्देश्य सनातनी व्यापारियों को एक साथ लाना है और धार्मिक आर्थिक नेटवर्क का निर्माण करना है। यहाँ आप विश्वसनीय और प्रामाणिक सनातनी व्यापारियों से जुड़ सकते हैं।</span>
+                        <span class="english-text">Our mission is to bring together Sanatani traders and build a religious economic network. Here you can connect with reliable and authentic Sanatani businesspeople.</span>
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <button onclick="showSection('dashboard')" class="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors hindi-font">
@@ -183,28 +260,40 @@
         <section id="dashboard" class="py-20 bg-gray-50 hidden">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 hindi-font">सनातनी व्यापार खोजें</h2>
-                    <p class="text-lg text-gray-600 hindi-font">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                        <span class="gujarati-text">સનાતની વ્યાપાર શોધો</span>
+                        <span class="hindi-text">सनातनी व्यापार खोजें</span>
+                        <span class="english-text">Find Sanatani Business</span>
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        <span class="gujarati-text">તમારા વિસ્તારના વિશ્વસનીય વ્યાપારીઓ સાથે જોડાઓ</span>
+                        <span class="hindi-text">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</span>
+                        <span class="english-text">Connect with trusted traders in your area</span>
+                    </p>
                 </div>
                 
                 <!-- Search and Filters -->
                 <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
                     <div class="grid md:grid-cols-4 gap-4 mb-4">
                         <div>
-                            <input type="text" id="search-input" placeholder="व्यापार या मालिक का नाम खोजें" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                            <input type="text" id="search-input" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                         </div>
                         <div>
-                            <select id="district-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
-                                <option value="">सभी जिले</option>
+                            <select id="district-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                                <option value="" class="gujarati-text">બધા જિલ્લા</option>
+                                <option value="" class="hindi-text">सभी जिले</option>
+                                <option value="" class="english-text">All Districts</option>
                             </select>
                         </div>
                         <div>
-                            <select id="category-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
-                                <option value="">सभी श्रेणियां</option>
+                            <select id="category-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                                <option value="" class="gujarati-text">બધી શ્રેણીઓ</option>
+                                <option value="" class="hindi-text">सभी श्रेणियां</option>
+                                <option value="" class="english-text">All Categories</option>
                             </select>
                         </div>
                         <div>
-                            <input type="text" id="pincode-filter" placeholder="पिनकोड" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                            <input type="text" id="pincode-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                         </div>
                     </div>
                     

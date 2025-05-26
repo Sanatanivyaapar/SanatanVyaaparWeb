@@ -8,7 +8,72 @@ let featuredBusinesses = [];
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     initializeSearch();
+    initializeLanguageSelector();
 });
+
+// Language switching functionality
+function initializeLanguageSelector() {
+    const languageSelector = document.getElementById('language-selector');
+    const mobileLanguageSelector = document.getElementById('mobile-language-selector');
+    
+    if (languageSelector) {
+        languageSelector.addEventListener('change', function() {
+            switchLanguage(this.value);
+            // Sync mobile selector
+            if (mobileLanguageSelector) {
+                mobileLanguageSelector.value = this.value;
+            }
+        });
+    }
+    
+    if (mobileLanguageSelector) {
+        mobileLanguageSelector.addEventListener('change', function() {
+            switchLanguage(this.value);
+            // Sync desktop selector
+            if (languageSelector) {
+                languageSelector.value = this.value;
+            }
+        });
+    }
+    
+    // Load saved language preference or set default
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'hindi';
+    if (languageSelector) {
+        languageSelector.value = savedLanguage;
+    }
+    if (mobileLanguageSelector) {
+        mobileLanguageSelector.value = savedLanguage;
+    }
+    switchLanguage(savedLanguage);
+}
+
+function switchLanguage(language) {
+    // Hide all language variants
+    document.querySelectorAll('.gujarati-text, .hindi-text, .english-text').forEach(element => {
+        element.style.display = 'none';
+    });
+    
+    // Show selected language
+    const selector = `.${language}-text`;
+    document.querySelectorAll(selector).forEach(element => {
+        element.style.display = 'inline';
+    });
+    
+    // Update search placeholders
+    updateSearchPlaceholders();
+    
+    // Update page direction and language attribute
+    if (language === 'gujarati') {
+        document.documentElement.setAttribute('lang', 'gu');
+    } else if (language === 'hindi') {
+        document.documentElement.setAttribute('lang', 'hi');
+    } else {
+        document.documentElement.setAttribute('lang', 'en');
+    }
+    
+    // Save language preference
+    localStorage.setItem('selectedLanguage', language);
+}
 
 // Advanced Search Functionality
 function initializeSearch() {
@@ -18,6 +83,9 @@ function initializeSearch() {
     const pincodeFilter = document.getElementById('pincode-filter');
 
     if (searchInput) {
+        // Update placeholder based on language
+        updateSearchPlaceholders();
+        
         // Debounced search
         let searchTimeout;
         searchInput.addEventListener('input', function() {
@@ -25,6 +93,26 @@ function initializeSearch() {
             searchTimeout = setTimeout(() => {
                 performSearch();
             }, 300);
+        });
+    }
+
+    if (pincodeFilter) {
+        // Add pincode suggestions
+        const gujaratPincodes = [
+            '380001', '380002', '380003', '380004', '380005', '380006', '380007', '380008', '380009', '380013', '380015', '380016', '380018', '380019', '380021', '380022', '380024', '380025', '380026', '380027', '380028', '380050', '380051', '380052', '380053', '380054', '380055', '380060', '380061', '380063',
+            '395001', '395002', '395003', '395004', '395005', '395006', '395007', '395008', '395009', '395010', '395017', '394101', '394102', '394103', '394107', '394110', '394210', '394215', '394220', '394230', '394235', '394240', '394245', '394248', '394305', '394310', '394315', '394320', '394325', '394327',
+            '390001', '390002', '390003', '390004', '390005', '390006', '390007', '390008', '390009', '390010', '390011', '390012', '390013', '390014', '390015', '390016', '390017', '390018', '390019', '390020', '390021', '390022', '390023', '391101', '391102', '391110', '391115', '391120', '391125', '391135',
+            '361001', '361002', '361004', '361005', '361006', '361008', '361010', '361011', '361012', '361013', '361014', '361015', '361016', '361020', '361030', '361035', '361140', '361141', '361142', '361160', '361170', '361305', '361335', '361345', '361350', '361345', '361360', '361370', '361280', '361290',
+            '360001', '360002', '360003', '360004', '360005', '360006', '360007', '360009', '360010', '360011', '360020', '360021', '360022', '360023', '360024', '360025', '360110', '360311', '360370', '360410', '360440', '360450', '360480', '360490', '360510', '360515', '360520', '360530', '360540', '360550'
+        ];
+        
+        pincodeFilter.addEventListener('input', function() {
+            const value = this.value;
+            if (value.length >= 2) {
+                // Show matching pincodes
+                console.log('Pincode suggestions for:', value);
+            }
+            performSearch();
         });
     }
 
@@ -37,6 +125,30 @@ function initializeSearch() {
 
     // Initialize filters with data
     populateFilters();
+}
+
+function updateSearchPlaceholders() {
+    const searchInput = document.getElementById('search-input');
+    const pincodeFilter = document.getElementById('pincode-filter');
+    const currentLanguage = document.getElementById('language-selector')?.value || 'hindi';
+    
+    if (searchInput) {
+        const placeholders = {
+            gujarati: 'વ્યાપાર અથવા માલિકનું નામ શોધો',
+            hindi: 'व्यापार या मालिक का नाम खोजें',
+            english: 'Search business or owner name'
+        };
+        searchInput.placeholder = placeholders[currentLanguage];
+    }
+    
+    if (pincodeFilter) {
+        const placeholders = {
+            gujarati: 'પિનકોડ',
+            hindi: 'पिनकोड',
+            english: 'Pincode'
+        };
+        pincodeFilter.placeholder = placeholders[currentLanguage];
+    }
 }
 
 function performSearch() {
@@ -118,13 +230,23 @@ function removeHighlights(element) {
 
 function populateFilters() {
     // This will be called after businesses are loaded
-    // For now, add some common options
     const districtFilter = document.getElementById('district-filter');
     const categoryFilter = document.getElementById('category-filter');
 
     if (districtFilter) {
-        const districts = ['दिल्ली', 'मुंबई', 'बैंगलोर', 'हैदराबाद', 'पुणे', 'कोलकाता', 'चेन्नई', 'अहमदाबाद'];
-        districts.forEach(district => {
+        // All districts of Gujarat with their common pincodes
+        const gujaratDistricts = [
+            'અમદાવાદ (Ahmedabad)', 'અમરેલી (Amreli)', 'આણંદ (Anand)', 'અરાવલ્લી (Aravalli)',
+            'બનાસકાંઠા (Banaskantha)', 'ભરૂચ (Bharuch)', 'ભાવનગર (Bhavnagar)', 'બોટાદ (Botad)',
+            'છોટાઉદેપુર (Chhota Udaipur)', 'દાહોદ (Dahod)', 'દંગ (Dang)', 'દેવભૂમિ દ્વારકા (Devbhoomi Dwarka)',
+            'ગાંધીનગર (Gandhinagar)', 'ગીર સોમનાથ (Gir Somnath)', 'જામનગર (Jamnagar)', 'જૂનાગઢ (Junagadh)',
+            'કચ્છ (Kutch)', 'ખેડા (Kheda)', 'મહિસાગર (Mahisagar)', 'મહેસાણા (Mehsana)',
+            'મોરબી (Morbi)', 'નર્મદા (Narmada)', 'નવસારી (Navsari)', 'પાંચમહાલ (Panchmahal)',
+            'પાટણ (Patan)', 'પોરબંદર (Porbandar)', 'રાજકોટ (Rajkot)', 'સાબરકાંઠા (Sabarkantha)',
+            'સુરત (Surat)', 'સુરેન્દ્રનગર (Surendranagar)', 'તાપી (Tapi)', 'વડોદરા (Vadodara)', 'વલસાડ (Valsad)'
+        ];
+        
+        gujaratDistricts.forEach(district => {
             const option = document.createElement('option');
             option.value = district;
             option.textContent = district;
@@ -133,7 +255,81 @@ function populateFilters() {
     }
 
     if (categoryFilter) {
-        const categories = ['खानपान', 'वस्त्र', 'आभूषण', 'पुस्तक', 'आयुर्वेद', 'जैविक उत्पाद', 'धार्मिक सामग्री', 'हस्तशिल्प'];
+        // Categories from Google Form (same as provided in images)
+        const categories = [
+            'ફળ / શાકભાજી વિક્રેતા (Fruit / Vegetable Vendor)',
+            'ચા / નાસ્તાની સ્ટોલ (Tea / Breakfast Stall)',
+            'કિરાણા સ્ટોર (Grocery Shop)',
+            'કપડાની દુકાન (Clothing Store)',
+            'જૂતા / ચપ્પલ વિક્રેતા (Footwear Shop)',
+            'રેડીમેડ ગારમેન્ટ્સ (Readymade Garments)',
+            'ઓટો ગેરેજ / મિકેનિક (Auto Garage / Mechanic)',
+            'ઇલેક્ટ્રિશિયન / પ્લમ્બર (Electrician / Plumber)',
+            'બ્યુટી પાર્લર / સલૂન (Salon / Parlour)',
+            'ફાર્મસી / મેડિકલ સ્ટોર (Pharmacy / Medical Store)',
+            'ક્લિનિક / ડોક્ટર (Clinic / Doctor)',
+            'હોસ્પિટલ / નર્સિંગ હોમ (Hospital / Nursing Home)',
+            'ઇવેન્ટ પ્લાનર / ડેકોરેટર (Event Planner / Decorator)',
+            'ફોટોગ્રાફર / વિડિયોગ્રાફર (Photographer / Videographer)',
+            'પ્રિન્ટર / ડિઝાઇનર (Printer / Designer)',
+            'ફર્નીચર વ્યવસાય (Furniture Business)',
+            'ઇલેક્ટ્રોનિક્સ સ્ટોર (Electronics Store)',
+            'CA / જ્યોતિષ (Tax Consultant)',
+            'શિક્ષક / કોચિંગ ક્લાસ (Teacher / Coaching)',
+            'કૃષિ વ્યવસાય / બીજ-ઉર્વરક વિતરણ',
+            'બિલ્ડર / કોન્ટ્રાક્ટર (Builder / Contractor)',
+            'ટ્રાન્સપોર્ટ / ટ્રક વ્યવસાય',
+            'મેન્યુફેક્ચરર / ઉદ્યોગપતિ (Manufacturer / Industrialist)',
+            'ઓનલાઇન વ્યવસાય / ડિજિટલ માર્કેટર',
+            'NGO / સામાજિક સંસ્થા',
+            'ફ્રીલાન્સર / સોફ્ટવેર ડેવલપર',
+            'વેબ ડિઝાઇનર / IT સેવાઓ',
+            'હૉકર / સ્ટ્રીટ વેન્ડર (Hawker / Street Vendor)',
+            'રેસ્ટોરન્ટ / હોટેલ (Restaurant / Hotel)',
+            'બેકરી / મિઠાઇ (Bakery / Sweet Shop)',
+            'ડેરી / દૂધ બૂથ (Dairy / Milk Booth)',
+            'ઓટો રિપેર / ગેરેજ (Auto Repair / Garage)',
+            'યોગ / ફિટનેસ ઇન્સ્ટ્રક્ટર (Yoga / Fitness Instructor)',
+            'આયુર્વેદ / પંચકર્મ સેન્ટર (Ayurveda / Panchkarma Center)',
+            'ડોક્ટર / ફિઝિશિયન (Doctor / Physician)',
+            'ક્લિનિક / હોસ્પિટલ / નર્સિંગ હોમ',
+            'ફાર્મસી / મેડિકલ શોપ (Pharmacy / Medical Shop)',
+            'પેથોલોજી / લેબ સેન્ટર (Pathology / Diagnostic Lab)',
+            'લોન્ડ્રી / ડ્રાય ક્લિનિંગ (Laundry / Dry Cleaning)',
+            'પેઇન્ટર / કલર વર્ક (Painter / Color Work)',
+            'સાયબર કેફે / ફોટોકોપી / સ્ટેશનરી',
+            'કોમ્પ્યુટર / લેપટોપ સ્ટોર (Computer / Laptop Store)',
+            'ગ્રાફિક્સ ડિઝાઇનર / DTP (Graphic / Web Designer / DTP)',
+            'CA / એકાઉન્ટન્ટ / ટેક્સ કન્સલ્ટન્ટ',
+            'વકીલ / લો ઓફિસ (Lawyer / Legal Service)',
+            'જમીન એજન્ટ / બિલ્ડર (Land Agent / Builder)',
+            'કન્સ્ટ્રક્શન મટિરિયલ સપ્લાયર (Construction Material Supplier)',
+            'ખેતી / ખેતીના ઉપકરણો વિક્રેતા (Agricultural Equipments Seller)',
+            'બીજ / ખાતર વિક્રેતા (Seed / Fertilizer Seller)',
+            'ટ્રાન્સપોર્ટ સેવા / લોડિંગ સેવા (Transport / Loading Service)',
+            'ટ્રાવેલ એજન્ટ / ટિકિટ બુકિંગ (Travel Agent / Ticket Booking)',
+            'ઓનલાઇન વ્યવસાય / ઇ-કોમર્સ વિક્રેતા',
+            'ફ્રીલાન્સર / સોફ્ટવેર ડેવલપર (Freelancer / Software Developer)',
+            'સોશ્યલ મીડિયા માર્કેટર / એડ એક્સપર્ટ',
+            'MSME / લઘુ ઉદ્યોગ (Small Scale Manufacturer / MSME)',
+            'કુટીર ઉદ્યોગ / હસ્તકલા કામ (Cottage Industry / Hand made Crafts)',
+            'આગરબત્તી / મીણબત્તી બનાવનાર (Incense Stick / Candle Maker)',
+            'હસ્તકલા વ્યાપારી (Handicraft Seller)',
+            'NGO / સામાજીક સેવા સંસ્થા (NGO / Social Welfare Group)',
+            'પુસ્તક વિક્રેતા / શિક્ષણ સામગ્રી (Books / Education Material Seller)',
+            'રમત સામગ્રી વિક્રેતા (Sports Goods Seller)',
+            'જિમ / ફિટનેસ સેન્ટર (Gym / Fitness Center)',
+            'ઇન્ટેરિયર ડેકોરેટર (Interior Decorator)',
+            'રંગરોગન / POP કાર્ય (POP / Painting Worker)',
+            'સિક્યોરિટી / પ્રાઈવેટ સિક્યોરિટી સર્વિસ (CCTV / Security Services)',
+            'કુરિયર સર્વિસ / ડિલિવરી પાર્ટનર (Courier Agency / Delivery Partner)',
+            'ત્યોહાર / મેળા બજારમાં કામ કરનાર (Festival Product Maker)',
+            'જથ્થાબંધ વિક્રેતા (Wholesaler)',
+            'રિટેલ વિક્રેતા (Retailer)',
+            'હોમ બેસ્ડ બિઝનેસ (Home Based Business)',
+            'લેખક / સંપાદક / પત્રકાર (Writer / Editor / Journalist)'
+        ];
+        
         categories.forEach(category => {
             const option = document.createElement('option');
             option.value = category;
