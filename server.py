@@ -17,7 +17,7 @@ from datetime import datetime
 import threading
 import time
 import psycopg2
-from psycopg2 import pool
+import psycopg2.pool
 from psycopg2.extras import RealDictCursor
 
 # Server configuration
@@ -88,6 +88,11 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
             # Parse the URL
             parsed_path = urllib.parse.urlparse(self.path)
             path = parsed_path.path
+            
+            # Handle API endpoints
+            if path == '/api/businesses':
+                self.handle_get_businesses()
+                return
             
             # Handle root path - serve index.html
             if path == '/' or path == '':
@@ -182,6 +187,140 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
             print(f"Error handling POST request: {str(e)}")
             self.send_error(500, "Internal server error")
     
+    def handle_get_businesses(self):
+        """Handle GET request for businesses API"""
+        try:
+            conn = get_db_connection()
+            if not conn:
+                self.send_json_response(500, {'error': 'Database connection failed'})
+                return
+            
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
+            cursor.execute("""
+                SELECT id, sanatani_id, business_name, owner_name, business_type, 
+                       category, district, state, pincode, address, whatsapp, 
+                       phone, email, website, description, business_image, 
+                       status, featured, created_at
+                FROM businesses 
+                WHERE status = 'approved'
+                ORDER BY featured DESC, created_at DESC
+            """)
+            
+            businesses = []
+            for row in cursor.fetchall():
+                business = dict(row)
+                businesses.append(business)
+            
+            cursor.close()
+            return_db_connection(conn)
+            
+            self.send_json_response(200, {'businesses': businesses})
+            
+        except Exception as e:
+            print(f"Error fetching businesses: {str(e)}")
+            if 'conn' in locals():
+                return_db_connection(conn)
+            self.send_json_response(500, {'error': 'Failed to fetch businesses'})
+    
+    def handle_business_registration(self):
+        """Handle business registration"""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length)
+            
+            if self.headers.get('Content-Type', '').startswith('application/json'):
+                form_data = json.loads(post_data.decode('utf-8'))
+            else:
+                form_data = urllib.parse.parse_qs(post_data.decode('utf-8'))
+                form_data = {k: v[0] if isinstance(v, list) and len(v) == 1 else v 
+                           for k, v in form_data.items()}
+            
+            # Validate required fields
+            required_fields = ['businessName', 'ownerName', 'businessType', 'category', 
+                             'district', 'state', 'pincode', 'whatsapp', 'address']
+            
+            for field in required_fields:
+                if not form_data.get(field):
+                    self.send_json_response(400, {
+                        'success': False,
+                        'message': f'आवश्यक फील्ड गुम है: {field}'
+                    })
+                    return
+            
+            # Generate unique Sanatani ID
+            conn = get_db_connection()
+            if not conn:
+                self.send_json_response(500, {'error': 'Database connection failed'})
+                return
+            
+            cursor = conn.cursor()
+            
+            # Generate ID based on category
+            category_prefix = {
+                'खानपान': 'HOS',
+                'वस्त्र': 'TEX', 
+                'आभूषण': 'JEW',
+                'पुस्तक': 'BOO',
+                'आयुर्वेद': 'MED',
+                'जैविक उत्पाद': 'FRU',
+                'धार्मिक सामग्री': 'REL',
+                'हस्तशिल्प': 'CRA'
+            }
+            
+            prefix = category_prefix.get(form_data['category'], 'GEN')
+            
+            # Get next ID number
+            cursor.execute("SELECT COUNT(*) FROM businesses WHERE sanatani_id LIKE %s", (f'SN-{prefix}-%',))
+            count = cursor.fetchone()[0] + 1
+            sanatani_id = f"SN-{prefix}-{count:04d}"
+            
+            # Insert new business
+            cursor.execute("""
+                INSERT INTO businesses (
+                    sanatani_id, business_name, owner_name, business_type, category,
+                    district, state, pincode, address, whatsapp, phone, email,
+                    website, description, business_image, status
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (
+                sanatani_id,
+                form_data['businessName'],
+                form_data['ownerName'], 
+                form_data['businessType'],
+                form_data['category'],
+                form_data['district'],
+                form_data['state'],
+                form_data['pincode'],
+                form_data['address'],
+                form_data['whatsapp'],
+                form_data.get('phone', ''),
+                form_data.get('email', ''),
+                form_data.get('website', ''),
+                form_data.get('description', ''),
+                form_data.get('businessImage', ''),
+                'pending'
+            ))
+            
+            conn.commit()
+            cursor.close()
+            return_db_connection(conn)
+            
+            self.send_json_response(200, {
+                'success': True,
+                'message': 'व्यापार सफलतापूर्वक पंजीकृत हो गया!',
+                'sanatani_id': sanatani_id
+            })
+            
+            print(f"New business registered: {sanatani_id} - {form_data['businessName']}")
+            
+        except Exception as e:
+            print(f"Error registering business: {str(e)}")
+            if 'conn' in locals():
+                return_db_connection(conn)
+            self.send_json_response(500, {
+                'success': False,
+                'message': 'पंजीकरण में समस्या हुई'
+            })
+    
     def do_OPTIONS(self):
         """Handle OPTIONS requests for CORS"""
         self.send_response(200)
@@ -272,7 +411,10 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 form_data = {k: v[0] if isinstance(v, list) and len(v) == 1 else v 
                            for k, v in form_data.items()}
             
-            email = form_data.get('email', '').strip()
+            email_data = form_data.get('email', '')
+            email = email_data[0] if isinstance(email_data, list) else email_data
+            email = email.strip() if email else ''
+            
             if not email:
                 response = {
                     'success': False,
@@ -415,6 +557,11 @@ def create_directories():
 def main():
     """Main server function"""
     try:
+        # Initialize database
+        if not init_database():
+            print("❌ डेटाबेस कनेक्शन नहीं हो सका। कृपया डेटाबेस सेटिंग्स जांचें।")
+            return 1
+        
         # Create necessary directories
         create_directories()
         
