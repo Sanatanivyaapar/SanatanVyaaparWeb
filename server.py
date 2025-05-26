@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Sanatan Vyaapar Website Server
-A simple HTTP server to serve the static website files
+Keval Sanatani Vyapar Website Server
+A comprehensive server for Sanatani business directory with database integration
 """
 
 import os
@@ -11,21 +11,70 @@ import socketserver
 import urllib.parse
 import mimetypes
 import json
+import re
 from pathlib import Path
 from datetime import datetime
 import threading
 import time
+import psycopg2
+from psycopg2 import pool
+from psycopg2.extras import RealDictCursor
 
 # Server configuration
 PORT = 5000
 HOST = '0.0.0.0'
 BASE_DIR = Path(__file__).parent
 
+# Database configuration
+DATABASE_URL = os.getenv('DATABASE_URL')
+DB_HOST = os.getenv('PGHOST', 'localhost')
+DB_PORT = os.getenv('PGPORT', '5432')
+DB_NAME = os.getenv('PGDATABASE', 'postgres')
+DB_USER = os.getenv('PGUSER', 'postgres')
+DB_PASSWORD = os.getenv('PGPASSWORD', '')
+
 # MIME types for better file serving
 mimetypes.add_type('application/javascript', '.js')
 mimetypes.add_type('text/css', '.css')
 mimetypes.add_type('image/svg+xml', '.svg')
 mimetypes.add_type('application/json', '.json')
+
+# Database connection pool
+db_pool = None
+
+def init_database():
+    """Initialize database connection pool"""
+    global db_pool
+    try:
+        if DATABASE_URL:
+            db_pool = psycopg2.pool.SimpleConnectionPool(
+                1, 10, DATABASE_URL
+            )
+        else:
+            db_pool = psycopg2.pool.SimpleConnectionPool(
+                1, 10,
+                host=DB_HOST,
+                port=DB_PORT,
+                database=DB_NAME,
+                user=DB_USER,
+                password=DB_PASSWORD
+            )
+        print("✅ Database connection pool initialized")
+        return True
+    except Exception as e:
+        print(f"❌ Database connection failed: {str(e)}")
+        return False
+
+def get_db_connection():
+    """Get database connection from pool"""
+    if db_pool:
+        return db_pool.getconn()
+    return None
+
+def return_db_connection(conn):
+    """Return database connection to pool"""
+    if db_pool and conn:
+        db_pool.putconn(conn)
 
 class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
     """Custom HTTP request handler for the Sanatan Vyaapar website"""
@@ -112,13 +161,16 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
             self.send_error(500, "Internal server error")
     
     def do_POST(self):
-        """Handle POST requests for form submissions"""
+        """Handle POST requests for form submissions and API calls"""
         try:
             parsed_path = urllib.parse.urlparse(self.path)
             path = parsed_path.path
             
+            # Handle business registration
+            if path == '/api/businesses':
+                self.handle_business_registration()
             # Handle contact form submission
-            if path == '/api/contact' or path == '/contact':
+            elif path == '/api/contact' or path == '/contact':
                 self.handle_contact_form()
             # Handle newsletter subscription
             elif path == '/api/newsletter' or path == '/newsletter':

@@ -3,272 +3,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>सनातन व्यापार - Traditional Business Excellence</title>
-    <meta name="description" content="सनातन व्यापार - पारंपरिक व्यापारिक मूल्यों के साथ आधुनिक समाधान">
-    <meta name="keywords" content="sanatan, vyaapar, traditional business, indian commerce">
+    <title>केवल सनातनी व्यापार - Dharmic Business Network</title>
+    <meta name="description" content="Connecting Sanatani Businesses to Build a Dharmic Economic Network">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🕉️%3C/text%3E%3C/svg%3E">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/components.css">
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome for icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .hindi-font { font-family: 'Noto Sans Devanagari', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #ff6b35, #f7931e, #ffcc02); }
+        .saffron-bg { background: linear-gradient(135deg, #ff6b35, #ff8c00); }
+        .floating { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .fade-in { animation: fadeIn 0.6s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body>
-    <!-- Navigation Header -->
-    <header class="navbar" id="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <a href="index.html" class="brand-link">
-                    <span class="brand-icon">🕉️</span>
-                    <span class="brand-text">सनातन व्यापार</span>
-                </a>
-            </div>
-            
-            <nav class="nav-menu" id="navMenu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link active">मुख्य पृष्ठ</a></li>
-                    <li><a href="pages/about.html" class="nav-link">हमारे बारे में</a></li>
-                    <li><a href="pages/services.html" class="nav-link">सेवाएं</a></li>
-                    <li><a href="pages/products.html" class="nav-link">उत्पाद</a></li>
-                    <li><a href="pages/contact.html" class="nav-link">संपर्क</a></li>
-                </ul>
-            </nav>
-            
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-background">
-            <div class="hero-pattern"></div>
-        </div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">
-                        स्वागत है <span class="highlight">सनातन व्यापार</span> में
-                    </h1>
-                    <p class="hero-subtitle">
-                        पारंपरिक मूल्यों के साथ आधुनिक व्यापारिक समाधान। 
-                        गुणवत्ता, विश्वसनीयता और सेवा में अग्रणी।
-                    </p>
-                    <div class="hero-actions">
-                        <a href="pages/services.html" class="btn btn-primary">
-                            <i class="fas fa-rocket"></i>
-                            हमारी सेवाएं देखें
-                        </a>
-                        <a href="pages/contact.html" class="btn btn-secondary">
-                            <i class="fas fa-phone"></i>
-                            संपर्क करें
-                        </a>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="text-3xl">🕉️</div>
+                    <div>
+                        <h1 class="text-xl font-bold text-orange-600 hindi-font">केवल सनातनी व्यापार</h1>
+                        <p class="text-xs text-gray-600">Dharmic Business Network</p>
                     </div>
                 </div>
-                <div class="hero-visual">
-                    <div class="hero-image">
-                        <div class="floating-elements">
-                            <div class="float-element" style="--delay: 0s">💼</div>
-                            <div class="float-element" style="--delay: 1s">📊</div>
-                            <div class="float-element" style="--delay: 2s">🏪</div>
-                            <div class="float-element" style="--delay: 3s">💰</div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium">मुख्य पृष्ठ</a>
+                    <a href="#dashboard" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium">व्यापार खोजें</a>
+                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium">पंजीकरण</a>
+                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium">हमारे बारे में</a>
+                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                        <i class="fab fa-whatsapp mr-2"></i>समुदाय जुड़ें
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium py-2">मुख्य पृष्ठ</a>
+                    <a href="#dashboard" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium py-2">व्यापार खोजें</a>
+                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium py-2">पंजीकरण</a>
+                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors hindi-font font-medium py-2">हमारे बारे में</a>
+                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors inline-block text-center">
+                        <i class="fab fa-whatsapp mr-2"></i>समुदाय जुड़ें
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section id="home" class="gradient-bg py-20">
+            <div class="container mx-auto px-4">
+                <div class="text-center">
+                    <div class="floating mb-8">
+                        <div class="text-8xl mb-4">🕉️</div>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 hindi-font">
+                        केवल सनातनी व्यापार
+                    </h1>
+                    <p class="text-xl md:text-2xl text-white mb-4 font-medium">
+                        Connecting Sanatani Businesses to Build a Dharmic Economic Network
+                    </p>
+                    <p class="text-lg text-white/90 mb-8 max-w-3xl mx-auto hindi-font">
+                        हमारा उद्देश्य सनातनी व्यापारियों को एक साथ लाना है और धार्मिक आर्थिक नेटवर्क का निर्माण करना है। 
+                        यहाँ आप विश्वसनीय और प्रामाणिक सनातनी व्यापारियों से जुड़ सकते हैं।
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="showSection('dashboard')" class="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors hindi-font">
+                            <i class="fas fa-search mr-2"></i>व्यापार खोजें
+                        </button>
+                        <button onclick="showSection('register')" class="bg-orange-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-800 transition-colors hindi-font">
+                            <i class="fas fa-plus mr-2"></i>अपना व्यापार जोड़ें
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 hindi-font">हमारी विशेषताएं</h2>
+                    <p class="text-lg text-gray-600 hindi-font">सनातनी व्यापारिक समुदाय के लिए विशेष सुविधाएं</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center p-6 bg-orange-50 rounded-xl">
+                        <div class="text-4xl mb-4">🏪</div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">सत्यापित व्यापार</h3>
+                        <p class="text-gray-600 hindi-font">सभी व्यापार मान्यता प्राप्त और सत्यापित हैं</p>
+                    </div>
+                    
+                    <div class="text-center p-6 bg-orange-50 rounded-xl">
+                        <div class="text-4xl mb-4">🔍</div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">आसान खोज</h3>
+                        <p class="text-gray-600 hindi-font">जिला, श्रेणी और पिनकोड के अनुसार खोजें</p>
+                    </div>
+                    
+                    <div class="text-center p-6 bg-orange-50 rounded-xl">
+                        <div class="text-4xl mb-4">📱</div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">तुरंत संपर्क</h3>
+                        <p class="text-gray-600 hindi-font">WhatsApp और फोन से सीधे संपर्क करें</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Business Dashboard Section -->
+        <section id="dashboard" class="py-20 bg-gray-50 hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 hindi-font">सनातनी व्यापार खोजें</h2>
+                    <p class="text-lg text-gray-600 hindi-font">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
+                </div>
+                
+                <!-- Search and Filters -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <div class="grid md:grid-cols-4 gap-4 mb-4">
+                        <div>
+                            <input type="text" id="search-input" placeholder="व्यापार या मालिक का नाम खोजें" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                        </div>
+                        <div>
+                            <select id="district-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                                <option value="">सभी जिले</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id="category-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                                <option value="">सभी श्रेणियां</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="text" id="pincode-filter" placeholder="पिनकोड" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <div class="flex gap-2">
+                            <button onclick="setViewMode('grid')" id="grid-view-btn" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button onclick="setViewMode('list')" id="list-view-btn" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                        <div class="text-gray-600 hindi-font">
+                            <span id="business-count">0</span> व्यापार मिले
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Featured Businesses Banner -->
+                <div id="featured-banner" class="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-6 mb-8 text-white">
+                    <h3 class="text-xl font-semibold mb-4 hindi-font">
+                        <i class="fas fa-star mr-2"></i>विशेष व्यापार
+                    </h3>
+                    <div id="featured-businesses" class="grid md:grid-cols-3 gap-4">
+                        <!-- Featured businesses will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Business Cards -->
+                <div id="business-grid" class="grid md:grid-cols-3 gap-6">
+                    <!-- Businesses will be loaded here -->
+                </div>
+                
+                <div id="business-list" class="space-y-4 hidden">
+                    <!-- List view will be loaded here -->
+                </div>
+                
+                <!-- No Results -->
+                <div id="no-results" class="text-center py-12 hidden">
+                    <div class="text-6xl mb-4">😔</div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2 hindi-font">कोई व्यापार नहीं मिला</h3>
+                    <p class="text-gray-600 hindi-font">कृपया अपने खोज मापदंड बदलकर पुनः प्रयास करें</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Registration Form Section -->
+        <section id="register" class="py-20 bg-white hidden">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 hindi-font">व्यापार पंजीकरण</h2>
+                    <p class="text-lg text-gray-600 hindi-font">अपना व्यापार जोड़ें और सनातनी समुदाय से जुड़ें</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <form id="business-registration-form">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">व्यापार का नाम *</label>
+                                <input type="text" name="businessName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">मालिक का नाम *</label>
+                                <input type="text" name="ownerName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">व्यापार का प्रकार *</label>
+                                <select name="businessType" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                                    <option value="">चुनें</option>
+                                    <option value="रिटेल">रिटेल</option>
+                                    <option value="होटल">होटल/रेस्टोरेंट</option>
+                                    <option value="सेवा">सेवा प्रदाता</option>
+                                    <option value="मैन्युफैक्चरिंग">मैन्युफैक्चरिंग</option>
+                                    <option value="कृषि">कृषि</option>
+                                    <option value="हेल्थकेयर">हेल्थकेयर</option>
+                                    <option value="एजुकेशन">एजुकेशन</option>
+                                    <option value="ट्रांसपोर्ट">ट्रांसपोर्ट</option>
+                                    <option value="अन्य">अन्य</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">श्रेणी *</label>
+                                <select name="category" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                                    <option value="">चुनें</option>
+                                    <option value="खानपान">खानपान</option>
+                                    <option value="वस्त्र">वस्त्र</option>
+                                    <option value="आभूषण">आभूषण</option>
+                                    <option value="पुस्तक">पुस्तक</option>
+                                    <option value="आयुर्वेद">आयुर्वेद</option>
+                                    <option value="जैविक उत्पाद">जैविक उत्पाद</option>
+                                    <option value="धार्मिक सामग्री">धार्मिक सामग्री</option>
+                                    <option value="हस्तशिल्प">हस्तशिल्प</option>
+                                    <option value="अन्य">अन्य</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">राज्य *</label>
+                                <select name="state" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                                    <option value="">चुनें</option>
+                                    <option value="उत्तर प्रदेश">उत्तर प्रदेश</option>
+                                    <option value="दिल्ली">दिल्ली</option>
+                                    <option value="राजस्थान">राजस्थान</option>
+                                    <option value="उत्तराखंड">उत्तराखंड</option>
+                                    <option value="मध्य प्रदेश">मध्य प्रदेश</option>
+                                    <option value="गुजरात">गुजरात</option>
+                                    <option value="महाराष्ट्र">महाराष्ट्र</option>
+                                    <option value="अन्य">अन्य</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">जिला *</label>
+                                <input type="text" name="district" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">पिनकोड *</label>
+                                <input type="text" name="pincode" required pattern="[0-9]{6}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">WhatsApp नंबर *</label>
+                                <input type="tel" name="whatsapp" required pattern="[0-9]{10}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">फोन नंबर</label>
+                                <input type="tel" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">ईमेल</label>
+                                <input type="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">वेबसाइट</label>
+                                <input type="url" name="website" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">व्यापार की फोटो (URL)</label>
+                                <input type="url" name="businessImage" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="block text-gray-700 font-semibold mb-2 hindi-font">पूरा पता *</label>
+                            <textarea name="address" required rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font"></textarea>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="block text-gray-700 font-semibold mb-2 hindi-font">व्यापार का विवरण</label>
+                            <textarea name="description" rows="4" placeholder="अपने व्यापार के बारे में बताएं..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font"></textarea>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <button type="submit" class="w-full bg-orange-500 text-white py-4 rounded-lg font-semibold text-lg hover:bg-orange-600 transition-colors hindi-font">
+                                <i class="fas fa-plus mr-2"></i>व्यापार पंजीकृत करें
+                            </button>
+                        </div>
+                        
+                        <div class="mt-4 text-center text-sm text-gray-600 hindi-font">
+                            * पंजीकरण के बाद आपका व्यापार सत्यापन के लिए भेजा जाएगा
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-gray-50 hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 hindi-font">हमारे बारे में</h2>
+                    <p class="text-lg text-gray-600 hindi-font">सनातनी व्यापारिक समुदाय का मिशन और विजन</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 hindi-font">हमारा मिशन</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed hindi-font">
+                            केवल सनातनी व्यापार का उद्देश्य सनातनी व्यापारियों को एक मंच पर लाना है जहाँ वे अपने व्यापार को बढ़ावा दे सकें 
+                            और धार्मिक मूल्यों के साथ व्यापार कर सकें। हमारा लक्ष्य एक मजबूत धार्मिक आर्थिक नेटवर्क बनाना है।
+                        </p>
+                        <p class="text-gray-600 mb-6 leading-relaxed hindi-font">
+                            यहाँ हर व्यापारी सत्यापित है और सनातनी मूल्यों का पालन करता है। हम विश्वास, गुणवत्ता और सेवा के आधार पर 
+                            व्यापारिक रिश्ते बनाने में विश्वास करते हैं।
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="bg-orange-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-handshake text-orange-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 hindi-font">विश्वसनीयता</h4>
+                                    <p class="text-gray-600 text-sm hindi-font">सभी व्यापार सत्यापित और भरोसेमंद</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="bg-orange-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-users text-orange-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 hindi-font">समुदायिक भावना</h4>
+                                    <p class="text-gray-600 text-sm hindi-font">सनातनी मूल्यों पर आधारित व्यापार</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="bg-orange-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-chart-line text-orange-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 hindi-font">आर्थिक विकास</h4>
+                                    <p class="text-gray-600 text-sm hindi-font">सनातनी समुदाय का आर्थिक सशक्तिकरण</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="bg-orange-100 rounded-xl p-8">
+                            <div class="text-6xl mb-6">🕉️</div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4 hindi-font">हमसे जुड़ें</h3>
+                            <p class="text-gray-600 mb-6 hindi-font">
+                                सनातनी व्यापारिक समुदाय का हिस्सा बनें और अपने व्यापार को नई ऊंचाइयों तक ले जाएं।
+                            </p>
+                            <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors inline-block">
+                                <i class="fab fa-whatsapp mr-2"></i>WhatsApp समुदाय
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">हमारी विशेषताएं</h2>
-                <p class="section-subtitle">
-                    क्यों चुनें सनातन व्यापार को अपने व्यावसायिक साझीदार के रूप में
-                </p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="feature-title">विश्वसनीयता</h3>
-                    <p class="feature-description">
-                        वर्षों का अनुभव और हजारों संतुष्ट ग्राहकों का भरोसा
-                    </p>
-                </div>
-                
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="feature-title">गुणवत्ता</h3>
-                    <p class="feature-description">
-                        उच्चतम गुणवत्ता के मानकों को बनाए रखना हमारी प्राथमिकता है
-                    </p>
-                </div>
-                
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3 class="feature-title">ग्राहक सेवा</h3>
-                    <p class="feature-description">
-                        24/7 ग्राहक सहायता और तत्काल समस्या समाधान
-                    </p>
-                </div>
-                
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="feature-icon">
-                        <i class="fas fa-lightning-bolt"></i>
-                    </div>
-                    <h3 class="feature-title">त्वरित सेवा</h3>
-                    <p class="feature-description">
-                        समय पर डिलीवरी और तेज़ व्यावसायिक प्रक्रियाएं
-                    </p>
-                </div>
-                
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="feature-title">विकास</h3>
-                    <p class="feature-description">
-                        आपके व्यवसाय की वृद्धि में सहायक नवाचार और रणनीति
-                    </p>
-                </div>
-                
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="feature-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3 class="feature-title">पारंपरिक मूल्य</h3>
-                    <p class="feature-description">
-                        सनातन सिद्धांतों पर आधारित ईमानदार व्यापारिक व्यवहार
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number" data-count="5000">0</div>
-                    <div class="stat-label">संतुष्ट ग्राहक</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="100">0</div>
-                    <div class="stat-label">उत्पाद श्रेणियां</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="15">0</div>
-                    <div class="stat-label">वर्षों का अनुभव</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="50">0</div>
-                    <div class="stat-label">शहरों में सेवा</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">क्या आप तैयार हैं?</h2>
-                <p class="cta-subtitle">
-                    आज ही जुड़ें सनातन व्यापार के साथ और अपने व्यवसाय को नई ऊंचाइयों तक पहुंचाएं
-                </p>
-                <div class="cta-actions">
-                    <a href="pages/contact.html" class="btn btn-primary btn-large">
-                        <i class="fas fa-phone"></i>
-                        अभी संपर्क करें
-                    </a>
-                    <a href="pages/services.html" class="btn btn-outline btn-large">
-                        <i class="fas fa-info-circle"></i>
-                        और जानें
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
+        </section>
+    </main>
+    
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-brand">
-                        <h3>🕉️ सनातन व्यापार</h3>
-                        <p>पारंपरिक मूल्यों के साथ आधुनिक व्यापारिक समाधान</p>
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="text-2xl">🕉️</div>
+                        <div>
+                            <h3 class="text-lg font-bold hindi-font">केवल सनातनी व्यापार</h3>
+                            <p class="text-sm text-gray-400">Dharmic Business Network</p>
+                        </div>
                     </div>
+                    <p class="text-gray-400 text-sm hindi-font">
+                        सनातनी व्यापारियों को जोड़ने वाला विश्वसनीय मंच
+                    </p>
                 </div>
                 
-                <div class="footer-section">
-                    <h4>त्वरित लिंक</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">मुख्य पृष्ठ</a></li>
-                        <li><a href="pages/about.html">हमारे बारे में</a></li>
-                        <li><a href="pages/services.html">सेवाएं</a></li>
-                        <li><a href="pages/products.html">उत्पाद</a></li>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 hindi-font">त्वरित लिंक</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors hindi-font">मुख्य पृष्ठ</a></li>
+                        <li><a href="#dashboard" class="text-gray-400 hover:text-white transition-colors hindi-font">व्यापार खोजें</a></li>
+                        <li><a href="#register" class="text-gray-400 hover:text-white transition-colors hindi-font">पंजीकरण</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors hindi-font">हमारे बारे में</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-section">
-                    <h4>संपर्क जानकारी</h4>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+91 9876543210</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>info@sanatanvyaapar.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>भारत</span>
-                        </div>
-                    </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 hindi-font">श्रेणियां</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors hindi-font">खानपान</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors hindi-font">वस्त्र</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors hindi-font">आभूषण</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors hindi-font">धार्मिक सामग्री</a></li>
+                    </ul>
                 </div>
                 
-                <div class="footer-section">
-                    <h4>सोशल मीडिया</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 hindi-font">संपर्क</h4>
+                    <div class="space-y-3">
+                        <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600 transition-colors inline-block">
+                            <i class="fab fa-whatsapp mr-2"></i>समुदाय जुड़ें
+                        </a>
                     </div>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2024 सनातन व्यापार। सभी अधिकार सुरक्षित।</p>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400 text-sm hindi-font">
+                    © 2024 केवल सनातनी व्यापार। सभी अधिकार सुरक्षित।
+                </p>
             </div>
         </div>
     </footer>
-
-    <!-- Scripts -->
-    <script src="scripts/main.js"></script>
-    <script src="scripts/components.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
