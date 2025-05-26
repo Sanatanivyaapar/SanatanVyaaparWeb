@@ -32,11 +32,49 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            animation: marquee 20s linear infinite;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
+    <!-- Sanatani Panchang Bar -->
+    <div id="panchangBar" class="bg-gradient-to-r from-orange-600 to-red-600 text-white py-2 overflow-hidden relative">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between text-sm">
+                <div class="flex items-center space-x-6">
+                    <div id="currentTithi" class="flex items-center">
+                        <span class="font-semibold">आज की तिथि:</span>
+                        <span id="tithiText" class="ml-2">लोड हो रही है...</span>
+                    </div>
+                    <div id="hinduTime" class="flex items-center">
+                        <span class="font-semibold">हिंदू समय:</span>
+                        <span id="hinduTimeText" class="ml-2">--:--:--</span>
+                    </div>
+                    <div id="sunTimes" class="flex items-center space-x-4">
+                        <span>सूर्योदय: <span id="sunriseTime">--:--</span></span>
+                        <span>सूर्यास्त: <span id="sunsetTime">--:--</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scrolling Events Banner -->
+    <div id="eventsBanner" class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-1 overflow-hidden">
+        <div class="whitespace-nowrap animate-marquee">
+            <span id="specialEvents" class="inline-block px-4 font-medium">
+                🚩 आज के विशेष अवसर लोड हो रहे हैं... 🚩
+            </span>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+    <nav class="bg-white shadow-lg fixed w-full top-16 z-50">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
@@ -450,12 +488,66 @@
                 
                 <div>
                     <h4 class="text-lg font-semibold mb-4 hindi-font">संपर्क</h4>
-                    <div class="space-y-3">
-                        <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600 transition-colors inline-block">
-                            <i class="fab fa-whatsapp mr-2"></i>समुदाय जुड़ें
-                        </a>
+                    <div class="space-y-3 text-sm">
+                        <div class="text-gray-400">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <a href="mailto:hindubalsanskaarkendra@gmail.com" class="hover:text-white">
+                                hindubalsanskaarkendra@gmail.com
+                            </a>
+                        </div>
+                        <div class="text-gray-400">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            240, Mandir Faliyu, Village - Kasad, Olpad, Surat. 394540
+                        </div>
+                        <div class="flex space-x-2">
+                            <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-green-600 transition-colors inline-block">
+                                <i class="fab fa-whatsapp mr-1"></i>WhatsApp
+                            </a>
+                            <a href="https://t.me/+40O2yI1B2vsyOThl" target="_blank" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-blue-600 transition-colors inline-block">
+                                <i class="fab fa-telegram mr-1"></i>Telegram
+                            </a>
+                        </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Organizations Section -->
+            <div class="border-t border-gray-700 mt-8 pt-8">
+                <h3 class="text-lg font-semibold mb-6 text-center hindi-font">हमारे संगठन</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- DevRatna Charitable Trust -->
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <img src="attached_assets/DRCT LOGO col.png" alt="DevRatna Charitable Trust" class="w-20 h-20 mx-auto rounded-full object-cover">
+                        </div>
+                        <h4 class="font-semibold text-white mb-1">DevRatna Charitable Trust</h4>
+                        <p class="text-gray-400 text-sm">संस्थापक</p>
+                        <p class="text-gray-400 text-xs mt-1">सूरत - गुजरात</p>
+                    </div>
+                    
+                    <!-- Antariksh Life Energy Healing Center -->
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <img src="attached_assets/Antariksh Life Energy Healing Center_bg_removed.png" alt="Antariksh Life Energy Healing Center" class="w-20 h-20 mx-auto rounded-full object-cover">
+                        </div>
+                        <h4 class="font-semibold text-white mb-1">Antariksh Life Energy Healing Center</h4>
+                        <p class="text-gray-400 text-sm">Powered by</p>
+                        <p class="text-gray-400 text-xs mt-1">ऊर्जा चिकित्सा केंद्र</p>
+                    </div>
+                    
+                    <!-- DeepJyot Natural Farm -->
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <img src="attached_assets/DJFARM LOGO (2).jpg" alt="DeepJyot Natural Farm" class="w-20 h-20 mx-auto rounded-full object-cover">
+                        </div>
+                        <h4 class="font-semibold text-white mb-1">DeepJyot Natural Farm</h4>
+                        <p class="text-gray-400 text-sm">100% प्राकृतिक</p>
+                        <p class="text-gray-400 text-xs mt-1">जैविक कृषि फार्म</p>
+                    </div>
+                </div>
+                <p class="text-center text-gray-500 text-xs mt-4">
+                    पता: 240, Mandir Faliyu, Village - Kasad, Olpad, Surat. 394540
+                </p>
             </div>
             
             <div class="border-t border-gray-700 mt-8 pt-8 text-center">

@@ -209,6 +209,9 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
             businesses = []
             for row in cursor.fetchall():
                 business = dict(row)
+                # Convert datetime to string for JSON serialization
+                if business.get('created_at'):
+                    business['created_at'] = business['created_at'].isoformat()
                 businesses.append(business)
             
             cursor.close()
@@ -218,8 +221,11 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
             
         except Exception as e:
             print(f"Error fetching businesses: {str(e)}")
-            if 'conn' in locals():
-                return_db_connection(conn)
+            try:
+                if 'conn' in locals() and conn:
+                    return_db_connection(conn)
+            except:
+                pass
             self.send_json_response(500, {'error': 'Failed to fetch businesses'})
     
     def handle_business_registration(self):
