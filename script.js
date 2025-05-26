@@ -14,6 +14,142 @@ function initializeApp() {
     loadBusinessesFromDatabase();
     setupEventListeners();
     setupFormValidation();
+    initializePanchang();
+}
+
+// Panchang and Hindu Calendar Functions
+function initializePanchang() {
+    updatePanchangData();
+    updateHinduTime();
+    updateSpecialEvents();
+    
+    // Update every minute
+    setInterval(updateHinduTime, 60000);
+    // Update panchang data once a day
+    setInterval(updatePanchangData, 24 * 60 * 60 * 1000);
+}
+
+function updatePanchangData() {
+    const today = new Date();
+    
+    // Calculate current tithi (simplified calculation)
+    const tithiNames = [
+        'प्रतिपदा', 'द्वितीया', 'तृतीया', 'चतुर्थी', 'पंचमी', 'षष्ठी', 'सप्तमी', 'अष्टमी', 
+        'नवमी', 'दशमी', 'एकादशी', 'द्वादशी', 'त्रयोदशी', 'चतुर्दशी', 'पूर्णिमा', 'अमावस्या'
+    ];
+    
+    // Simplified tithi calculation based on lunar day
+    const lunarDay = Math.floor((today.getDate() % 30) / 2);
+    const currentTithi = tithiNames[lunarDay] || 'प्रतिपदा';
+    
+    // Calculate paksha
+    const paksha = today.getDate() <= 15 ? 'शुक्ल पक्ष' : 'कृष्ण पक्ष';
+    
+    document.getElementById('tithiText').textContent = `${currentTithi} (${paksha})`;
+    
+    // Calculate sunrise and sunset for Surat location (approximate)
+    updateSunTimes();
+}
+
+function updateHinduTime() {
+    const now = new Date();
+    
+    // Convert to IST if needed
+    const istOffset = 5.5 * 60; // IST is UTC+5:30
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const istTime = new Date(utc + (istOffset * 60000));
+    
+    // Calculate ghati, pal, vipal
+    const hours = istTime.getHours();
+    const minutes = istTime.getMinutes();
+    const seconds = istTime.getSeconds();
+    
+    // 1 day = 60 ghati, 1 ghati = 60 pal, 1 pal = 60 vipal
+    const totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
+    const totalGhatiSeconds = 24 * 60 * 60 / 60; // seconds per ghati
+    
+    const ghati = Math.floor(totalSeconds / totalGhatiSeconds);
+    const remainingSeconds = totalSeconds % totalGhatiSeconds;
+    const pal = Math.floor(remainingSeconds / (totalGhatiSeconds / 60));
+    const vipal = Math.floor((remainingSeconds % (totalGhatiSeconds / 60)) / (totalGhatiSeconds / 3600));
+    
+    document.getElementById('hinduTimeText').textContent = `${ghati}:${pal.toString().padStart(2, '0')}:${vipal.toString().padStart(2, '0')}`;
+}
+
+function updateSunTimes() {
+    // Approximate sunrise and sunset for Surat, Gujarat
+    // This is a simplified calculation - in real implementation, you'd use an astronomy API
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    
+    // Approximate times for Surat (21.1702° N, 72.8311° E)
+    const baserise = 6.5; // Base sunrise hour
+    const baseset = 18.5; // Base sunset hour
+    
+    // Simple seasonal variation
+    const seasonalVar = Math.sin((dayOfYear - 81) * 2 * Math.PI / 365) * 1.2;
+    
+    const sunriseHour = baserise - seasonalVar;
+    const sunsetHour = baseset + seasonalVar;
+    
+    const sunriseMinutes = Math.floor((sunriseHour % 1) * 60);
+    const sunsetMinutes = Math.floor((sunsetHour % 1) * 60);
+    
+    document.getElementById('sunriseTime').textContent = 
+        `${Math.floor(sunriseHour)}:${sunriseMinutes.toString().padStart(2, '0')}`;
+    document.getElementById('sunsetTime').textContent = 
+        `${Math.floor(sunsetHour)}:${sunsetMinutes.toString().padStart(2, '0')}`;
+}
+
+function updateSpecialEvents() {
+    const today = new Date();
+    const events = [];
+    
+    // Check for special Hindu festivals and observances
+    const dayOfMonth = today.getDate();
+    const month = today.getMonth() + 1;
+    
+    // Ekadashi (11th day of lunar fortnight) - approximate
+    if (dayOfMonth === 11 || dayOfMonth === 26) {
+        events.push('एकादशी व्रत');
+    }
+    
+    // Purnima (Full Moon) - approximate
+    if (dayOfMonth === 15) {
+        events.push('पूर्णिमा');
+    }
+    
+    // Amavasya (New Moon) - approximate  
+    if (dayOfMonth === 30 || (dayOfMonth === 29 && month === 2)) {
+        events.push('अमावस्या');
+    }
+    
+    // Major festivals (simplified calendar)
+    const festivals = {
+        '1-26': 'गणतंत्र दिवस',
+        '3-8': 'महाशिवरात्रि',
+        '3-21': 'होली',
+        '4-14': 'बैसाखी',
+        '8-15': 'स्वतंत्रता दिवस',
+        '8-19': 'जन्माष्टमी',
+        '9-2': 'गणेश चतुर्थी',
+        '10-2': 'गांधी जयंती',
+        '10-24': 'दशहरा',
+        '11-12': 'दीपावली',
+        '11-14': 'बाल दिवस'
+    };
+    
+    const todayKey = `${month}-${dayOfMonth}`;
+    if (festivals[todayKey]) {
+        events.push(festivals[todayKey]);
+    }
+    
+    // Update the scrolling banner
+    const eventText = events.length > 0 
+        ? `🚩 आज के विशेष अवसर: ${events.join(' • ')} 🚩`
+        : '🚩 आज शुभ दिन है - सनातनी व्यापारियों से जुड़ें 🚩';
+    
+    document.getElementById('specialEvents').textContent = eventText;
 }
 
 // Navigation Functions

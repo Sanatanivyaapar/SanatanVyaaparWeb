@@ -209,9 +209,12 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
             businesses = []
             for row in cursor.fetchall():
                 business = dict(row)
-                # Convert datetime to string for JSON serialization
-                if business.get('created_at'):
-                    business['created_at'] = business['created_at'].isoformat()
+                # Convert datetime and other objects to string for JSON serialization
+                for key, value in business.items():
+                    if isinstance(value, datetime):
+                        business[key] = value.isoformat()
+                    elif value is None:
+                        business[key] = ''
                 businesses.append(business)
             
             cursor.close()
