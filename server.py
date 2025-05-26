@@ -43,7 +43,7 @@ mimetypes.add_type('application/json', '.json')
 db_pool = None
 
 def init_database():
-    """Initialize database connection pool"""
+    """Initialize database connection pool and setup tables"""
     global db_pool
     try:
         if DATABASE_URL:
@@ -59,11 +59,100 @@ def init_database():
                 user=DB_USER,
                 password=DB_PASSWORD
             )
+        
+        # Setup database tables
+        setup_database_tables()
         print("✅ Database connection pool initialized")
         return True
     except Exception as e:
         print(f"❌ Database connection failed: {str(e)}")
         return False
+
+def setup_database_tables():
+    """Create database tables and insert sample data"""
+    conn = get_db_connection()
+    if not conn:
+        return
+    
+    try:
+        cursor = conn.cursor()
+        
+        # Create businesses table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS businesses (
+                id SERIAL PRIMARY KEY,
+                sanatani_id VARCHAR(20) UNIQUE NOT NULL,
+                business_name VARCHAR(255) NOT NULL,
+                owner_name VARCHAR(255) NOT NULL,
+                business_type VARCHAR(100) NOT NULL,
+                category VARCHAR(100) NOT NULL,
+                district VARCHAR(100) NOT NULL,
+                state VARCHAR(100) NOT NULL,
+                pincode VARCHAR(10) NOT NULL,
+                address TEXT NOT NULL,
+                whatsapp VARCHAR(15) NOT NULL,
+                phone VARCHAR(15),
+                email VARCHAR(255),
+                website VARCHAR(255),
+                description TEXT,
+                business_image VARCHAR(500),
+                status VARCHAR(20) DEFAULT 'pending',
+                featured BOOLEAN DEFAULT FALSE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        # Create contacts table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS contacts (
+                id SERIAL PRIMARY KEY,
+                first_name VARCHAR(100) NOT NULL,
+                last_name VARCHAR(100),
+                email VARCHAR(255) NOT NULL,
+                phone VARCHAR(15),
+                company VARCHAR(255),
+                subject VARCHAR(255) NOT NULL,
+                message TEXT NOT NULL,
+                newsletter BOOLEAN DEFAULT FALSE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        # Check if sample data exists
+        cursor.execute("SELECT COUNT(*) FROM businesses")
+        count = cursor.fetchone()[0]
+        
+        if count == 0:
+            # Insert sample businesses
+            sample_businesses = [
+                ('SN-HOS-0001', 'राम स्वीट्स', 'श्री राम शर्मा', 'रिटेल', 'खानपान', 'दिल्ली', 'दिल्ली', '110001', 'मुख्य बाजार, दिल्ली', '9876543210', '011-12345678', 'ram@example.com', '', 'स्वादिष्ट मिठाइयां और नमकीन', '', 'approved', True),
+                ('SN-TEX-0001', 'सनातन वस्त्रालय', 'श्रीमती गीता देवी', 'रिटेल', 'वस्त्र', 'वाराणसी', 'उत्तर प्रदेश', '221001', 'गोदौलिया, वाराणसी', '9876543211', '', 'geeta@example.com', '', 'पारंपरिक भारतीय वस्त्र', '', 'approved', True),
+                ('SN-JEW-0001', 'श्री गणेश ज्वेलर्स', 'श्री विनोद अग्रवाल', 'रिटेल', 'आभूषण', 'जयपुर', 'राजस्थान', '302001', 'जोहरी बाजार, जयपुर', '9876543212', '0141-1234567', 'vinod@example.com', 'www.ganeshejwellers.com', 'सोने और चांदी के आभूषण', '', 'approved', False),
+                ('SN-MED-0001', 'आयुर्वेद केंद्र', 'डॉ. अजय कुमार', 'सेवा', 'आयुर्वेद', 'हरिद्वार', 'उत्तराखंड', '249401', 'हर की पौड़ी, हरिद्वार', '9876543213', '01334-567890', 'ajay@example.com', '', 'आयुर्वेदिक चिकित्सा और दवाइयां', '', 'approved', True),
+                ('SN-REL-0001', 'श्री हनुमान मंदिर स्टोर', 'श्री रामेश गुप्ता', 'रिटेल', 'धार्मिक सामग्री', 'अयोध्या', 'उत्तर प्रदेश', '224123', 'हनुमानगढ़ी, अयोध्या', '9876543214', '', 'ramesh@example.com', '', 'पूजा सामग्री और धार्मिक वस्तुएं', '', 'approved', False)
+            ]
+            
+            for business in sample_businesses:
+                cursor.execute("""
+                    INSERT INTO businesses (
+                        sanatani_id, business_name, owner_name, business_type, category,
+                        district, state, pincode, address, whatsapp, phone, email,
+                        website, description, business_image, status, featured
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """, business)
+            
+            print("✅ Sample business data inserted")
+        
+        conn.commit()
+        cursor.close()
+        return_db_connection(conn)
+        print("✅ Database tables setup completed")
+        
+    except Exception as e:
+        print(f"❌ Database setup error: {str(e)}")
+        if conn:
+            return_db_connection(conn)
 
 def get_db_connection():
     """Get database connection from pool"""
