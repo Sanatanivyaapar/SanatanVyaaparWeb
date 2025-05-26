@@ -354,6 +354,14 @@ function displayBusinesses(businesses = allBusinesses) {
     }
 }
 
+// HTML escape function to prevent XSS
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 // Create business card for grid view
 function createBusinessCard(business) {
     const card = document.createElement('div');
@@ -362,7 +370,7 @@ function createBusinessCard(business) {
     card.innerHTML = `
         <div class="relative">
             ${business.business_image ? 
-                `<img src="${business.business_image}" alt="${business.business_name}" class="w-full h-48 object-cover">` :
+                `<img src="${escapeHtml(business.business_image)}" alt="${escapeHtml(business.business_name)}" class="w-full h-48 object-cover">` :
                 `<div class="w-full h-48 bg-orange-100 flex items-center justify-center">
                     <i class="fas fa-store text-4xl text-orange-500"></i>
                 </div>`
@@ -371,30 +379,30 @@ function createBusinessCard(business) {
         </div>
         
         <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-800 mb-2 hindi-font">${business.business_name}</h3>
-            <p class="text-gray-600 mb-2 hindi-font">${business.owner_name}</p>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 hindi-font">${escapeHtml(business.business_name)}</h3>
+            <p class="text-gray-600 mb-2 hindi-font">${escapeHtml(business.owner_name)}</p>
             <div class="flex items-center mb-2">
-                <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-sm hindi-font">${business.category}</span>
-                <span class="ml-2 text-gray-500 text-sm">${business.district}</span>
+                <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-sm hindi-font">${escapeHtml(business.category)}</span>
+                <span class="ml-2 text-gray-500 text-sm">${escapeHtml(business.district)}</span>
             </div>
             
-            <p class="text-gray-600 text-sm mb-4 hindi-font line-clamp-2">${business.description || 'विवरण उपलब्ध नहीं'}</p>
+            <p class="text-gray-600 text-sm mb-4 hindi-font line-clamp-2">${escapeHtml(business.description || 'विवरण उपलब्ध नहीं')}</p>
             
             <div class="flex items-center justify-between mb-4">
-                <span class="text-gray-500 text-sm">${business.pincode}</span>
-                <span class="text-xs text-gray-400">ID: ${business.sanatani_id}</span>
+                <span class="text-gray-500 text-sm">${escapeHtml(business.pincode)}</span>
+                <span class="text-xs text-gray-400">ID: ${escapeHtml(business.sanatani_id)}</span>
             </div>
             
             <div class="flex gap-2">
                 ${business.whatsapp ? 
-                    `<a href="https://wa.me/91${business.whatsapp}" target="_blank" class="flex-1 bg-green-500 text-white px-3 py-2 rounded-lg text-center text-sm hover:bg-green-600 transition-colors">
+                    `<a href="https://wa.me/91${escapeHtml(business.whatsapp)}" target="_blank" class="flex-1 bg-green-500 text-white px-3 py-2 rounded-lg text-center text-sm hover:bg-green-600 transition-colors">
                         <i class="fab fa-whatsapp mr-1"></i>WhatsApp
                     </a>` : ''
                 }
-                <button onclick="shareBusinessWhatsApp('${business.sanatani_id}')" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-600 transition-colors">
+                <button onclick="shareBusinessWhatsApp('${escapeHtml(business.sanatani_id)}')" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-600 transition-colors">
                     <i class="fas fa-share"></i>
                 </button>
-                <button onclick="viewBusinessProfile('${business.sanatani_id}')" class="bg-orange-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-orange-600 transition-colors">
+                <button onclick="viewBusinessProfile('${escapeHtml(business.sanatani_id)}')" class="bg-orange-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-orange-600 transition-colors">
                     <i class="fas fa-eye"></i>
                 </button>
             </div>
