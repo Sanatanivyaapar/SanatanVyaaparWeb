@@ -19,6 +19,10 @@ import time
 import psycopg2
 import psycopg2.pool
 from psycopg2.extras import RealDictCursor
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+import google.auth
+from google.auth.transport.requests import Request
 
 # Server configuration
 PORT = 5000
@@ -41,6 +45,49 @@ mimetypes.add_type('application/json', '.json')
 
 # Database connection pool
 db_pool = None
+
+# Google Sheets configuration
+GOOGLE_SHEETS_ID = "1FAIpQLSdE3kVjS_o42jsoEg23Wy4-wQqBZBqVKgpFAK5IuJX1-LizXw"  # Extract from form URL
+GOOGLE_CREDENTIALS = None
+
+def init_google_sheets():
+    """Initialize Google Sheets API"""
+    global GOOGLE_CREDENTIALS
+    try:
+        # Try to load credentials from environment variable
+        credentials_json = os.getenv('GOOGLE_SERVICE_ACCOUNT_KEY')
+        if credentials_json:
+            import json
+            credentials_dict = json.loads(credentials_json)
+            GOOGLE_CREDENTIALS = Credentials.from_service_account_info(
+                credentials_dict,
+                scopes=['https://www.googleapis.com/auth/spreadsheets.readonly']
+            )
+            print("✅ Google Sheets API initialized")
+            return True
+        else:
+            print("⚠️  Google Sheets credentials not found in environment")
+            return False
+    except Exception as e:
+        print(f"❌ Google Sheets API initialization failed: {str(e)}")
+        return False
+
+def sync_from_google_sheets():
+    """Sync business data from Google Sheets"""
+    if not GOOGLE_CREDENTIALS:
+        return False
+    
+    try:
+        service = build('sheets', 'v4', credentials=GOOGLE_CREDENTIALS)
+        
+        # For now, we'll focus on the existing database
+        # Later, you can implement reading from the Google Sheets response data
+        print("📊 Google Sheets sync functionality ready")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Google Sheets sync error: {str(e)}")
+        return False
 
 def init_database():
     """Initialize database connection pool and setup tables"""
@@ -659,6 +706,9 @@ def main():
         if not init_database():
             print("❌ डेटाबेस कनेक्शन नहीं हो सका। कृपया डेटाबेस सेटिंग्स जांचें।")
             return 1
+        
+        # Initialize Google Sheets (optional)
+        init_google_sheets()
         
         # Create necessary directories
         create_directories()

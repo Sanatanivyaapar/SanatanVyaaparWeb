@@ -259,122 +259,82 @@
                     <p class="text-lg text-gray-600 hindi-font">अपना व्यापार जोड़ें और सनातनी समुदाय से जुड़ें</p>
                 </div>
                 
+                <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg p-8 text-white text-center mb-8">
+                    <div class="text-6xl mb-6">📝</div>
+                    <h3 class="text-2xl font-bold mb-4 hindi-font">अब Google Form के माध्यम से पंजीकरण करें</h3>
+                    <p class="text-lg mb-6 hindi-font">
+                        हमने आपकी सुविधा के लिए व्यापार पंजीकरण को Google Form में स्थानांतरित कर दिया है। 
+                        यह अधिक सुरक्षित और तेज़ है।
+                    </p>
+                    <div class="space-y-4">
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdE3kVjS_o42jsoEg23Wy4-wQqBZBqVKgpFAK5IuJX1-LizXw/viewform?usp=header" 
+                           target="_blank" 
+                           class="inline-block bg-white text-orange-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-external-link-alt mr-2"></i>Google Form में पंजीकरण करें
+                        </a>
+                        <div class="text-sm opacity-90 hindi-font">
+                            फॉर्म नई विंडो में खुलेगा
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefits of Google Form Registration -->
                 <div class="bg-white rounded-xl shadow-lg p-8">
-                    <form id="business-registration-form">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">व्यापार का नाम *</label>
-                                <input type="text" name="businessName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 hindi-font text-center">Google Form के फायदे</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="bg-green-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-shield-alt text-green-600 text-xl"></i>
                             </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">मालिक का नाम *</label>
-                                <input type="text" name="ownerName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">व्यापार का प्रकार *</label>
-                                <select name="businessType" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
-                                    <option value="">चुनें</option>
-                                    <option value="रिटेल">रिटेल</option>
-                                    <option value="होटल">होटल/रेस्टोरेंट</option>
-                                    <option value="सेवा">सेवा प्रदाता</option>
-                                    <option value="मैन्युफैक्चरिंग">मैन्युफैक्चरिंग</option>
-                                    <option value="कृषि">कृषि</option>
-                                    <option value="हेल्थकेयर">हेल्थकेयर</option>
-                                    <option value="एजुकेशन">एजुकेशन</option>
-                                    <option value="ट्रांसपोर्ट">ट्रांसपोर्ट</option>
-                                    <option value="अन्य">अन्य</option>
-                                </select>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">श्रेणी *</label>
-                                <select name="category" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
-                                    <option value="">चुनें</option>
-                                    <option value="खानपान">खानपान</option>
-                                    <option value="वस्त्र">वस्त्र</option>
-                                    <option value="आभूषण">आभूषण</option>
-                                    <option value="पुस्तक">पुस्तक</option>
-                                    <option value="आयुर्वेद">आयुर्वेद</option>
-                                    <option value="जैविक उत्पाद">जैविक उत्पाद</option>
-                                    <option value="धार्मिक सामग्री">धार्मिक सामग्री</option>
-                                    <option value="हस्तशिल्प">हस्तशिल्प</option>
-                                    <option value="अन्य">अन्य</option>
-                                </select>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">राज्य *</label>
-                                <select name="state" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
-                                    <option value="">चुनें</option>
-                                    <option value="उत्तर प्रदेश">उत्तर प्रदेश</option>
-                                    <option value="दिल्ली">दिल्ली</option>
-                                    <option value="राजस्थान">राजस्थान</option>
-                                    <option value="उत्तराखंड">उत्तराखंड</option>
-                                    <option value="मध्य प्रदेश">मध्य प्रदेश</option>
-                                    <option value="गुजरात">गुजरात</option>
-                                    <option value="महाराष्ट्र">महाराष्ट्र</option>
-                                    <option value="अन्य">अन्य</option>
-                                </select>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2 hindi-font">जिला *</label>
-                                <input type="text" name="district" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">पिनकोड *</label>
-                                <input type="text" name="pincode" required pattern="[0-9]{6}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">WhatsApp नंबर *</label>
-                                <input type="tel" name="whatsapp" required pattern="[0-9]{10}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">फोन नंबर</label>
-                                <input type="tel" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">ईमेल</label>
-                                <input type="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">वेबसाइट</label>
-                                <input type="url" name="website" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">व्यापार की फोटो (URL)</label>
-                                <input type="url" name="businessImage" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-2 hindi-font">सुरक्षित</h4>
+                            <p class="text-gray-600 text-sm hindi-font">Google की सुरक्षा के साथ आपका डेटा सुरक्षित</p>
                         </div>
                         
-                        <div class="mt-6">
-                            <label class="block text-gray-700 font-semibold mb-2 hindi-font">पूरा पता *</label>
-                            <textarea name="address" required rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font"></textarea>
+                        <div class="text-center">
+                            <div class="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-bolt text-blue-600 text-xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-2 hindi-font">तेज़</h4>
+                            <p class="text-gray-600 text-sm hindi-font">तुरंत फॉर्म भरें और सबमिट करें</p>
                         </div>
                         
-                        <div class="mt-6">
-                            <label class="block text-gray-700 font-semibold mb-2 hindi-font">व्यापार का विवरण</label>
-                            <textarea name="description" rows="4" placeholder="अपने व्यापार के बारे में बताएं..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent hindi-font"></textarea>
+                        <div class="text-center">
+                            <div class="bg-purple-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-sync text-purple-600 text-xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-2 hindi-font">Auto-Sync</h4>
+                            <p class="text-gray-600 text-sm hindi-font">आपका डेटा automatic sheets में save होता है</p>
                         </div>
-                        
-                        <div class="mt-8">
-                            <button type="submit" class="w-full bg-orange-500 text-white py-4 rounded-lg font-semibold text-lg hover:bg-orange-600 transition-colors hindi-font">
-                                <i class="fas fa-plus mr-2"></i>व्यापार पंजीकृत करें
-                            </button>
-                        </div>
-                        
-                        <div class="mt-4 text-center text-sm text-gray-600 hindi-font">
-                            * पंजीकरण के बाद आपका व्यापार सत्यापन के लिए भेजा जाएगा
-                        </div>
-                    </form>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="bg-orange-50 rounded-xl p-6 mt-8">
+                    <h4 class="font-semibold text-gray-800 mb-4 hindi-font">पंजीकरण के लिए निर्देश:</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-700 hindi-font">
+                        <li>ऊपर दिए गए "Google Form में पंजीकरण करें" बटन पर क्लिक करें</li>
+                        <li>फॉर्म में सभी आवश्यक जानकारी भरें</li>
+                        <li>अपने व्यापार की सही जानकारी दें</li>
+                        <li>फॉर्म सबमिट करने के बाद हम 24-48 घंटे में सत्यापन करेंगे</li>
+                        <li>सत्यापन के बाद आपका व्यापार वेबसाइट पर दिखाई देगा</li>
+                    </ol>
+                </div>
+
+                <!-- Contact for Help -->
+                <div class="text-center mt-8">
+                    <p class="text-gray-600 mb-4 hindi-font">
+                        पंजीकरण में कोई समस्या? हमसे संपर्क करें:
+                    </p>
+                    <div class="flex justify-center gap-4">
+                        <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" 
+                           class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                            <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                        </a>
+                        <a href="mailto:hindubalsanskaarkendra@gmail.com" 
+                           class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                            <i class="fas fa-envelope mr-2"></i>Email
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>

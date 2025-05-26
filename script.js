@@ -893,6 +893,11 @@ async function syncWithGoogleSheets() {
     console.log('Google Sheets sync would happen here');
 }
 
+// Redirect to Google Form
+function redirectToGoogleForm() {
+    window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSdE3kVjS_o42jsoEg23Wy4-wQqBZBqVKgpFAK5IuJX1-LizXw/viewform?usp=header';
+}
+
 // Export functions for global access
 window.showSection = showSection;
 window.setViewMode = setViewMode;
