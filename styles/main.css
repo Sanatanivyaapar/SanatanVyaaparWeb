@@ -6,7 +6,7 @@
     --primary-dark: 33 82% 45%; /* Darker green */
     --secondary: 24 100% 50%; /* #FF6600 - Saffron */
     --accent: 45 100% 51%; /* #FFB000 - Golden */
-    
+
     /* Neutral Colors */
     --background: 210 11% 98%; /* #F5F7FA */
     --surface: 0 0% 100%; /* #FFFFFF */
@@ -15,7 +15,7 @@
     --text-muted: 215 13% 65%; /* #9CA3AF */
     --border: 215 12% 91%; /* #E5E7EB */
     --shadow: 215 28% 17% / 0.1; /* rgba(31, 41, 55, 0.1) */
-    
+
     /* Spacing */
     --space-xs: 0.25rem;
     --space-sm: 0.5rem;
@@ -24,17 +24,17 @@
     --space-xl: 2rem;
     --space-2xl: 3rem;
     --space-3xl: 4rem;
-    
+
     /* Border Radius */
     --radius-sm: 0.25rem;
     --radius-md: 0.5rem;
     --radius-lg: 0.75rem;
     --radius-xl: 1rem;
-    
+
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-hindi: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    
+
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
     --text-md: 1rem;
@@ -44,18 +44,18 @@
     --text-3xl: 1.875rem;
     --text-4xl: 2.25rem;
     --text-5xl: 3rem;
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 hsla(var(--shadow));
     --shadow-md: 0 4px 6px -1px hsla(var(--shadow)), 0 2px 4px -1px hsla(var(--shadow));
     --shadow-lg: 0 10px 15px -3px hsla(var(--shadow)), 0 4px 6px -2px hsla(var(--shadow));
     --shadow-xl: 0 20px 25px -5px hsla(var(--shadow)), 0 10px 10px -5px hsla(var(--shadow));
-    
+
     /* Transitions */
     --transition-fast: 150ms ease-in-out;
     --transition-normal: 250ms ease-in-out;
     --transition-slow: 350ms ease-in-out;
-    
+
     /* Z-Index */
     --z-dropdown: 1000;
     --z-sticky: 1020;
@@ -337,16 +337,16 @@ a:hover {
         --text-3xl: 1.75rem;
         --text-2xl: 1.5rem;
     }
-    
+
     .container {
         padding: 0 var(--space-sm);
     }
-    
+
     .btn {
         width: 100%;
         justify-content: center;
     }
-    
+
     .section-title {
         font-size: var(--text-3xl);
     }
@@ -380,25 +380,36 @@ a:hover {
         box-shadow: none !important;
         text-shadow: none !important;
     }
-    
+
     a,
     a:visited {
         text-decoration: underline;
     }
-    
+
     img {
         page-break-inside: avoid;
     }
-    
+
     p,
     h2,
     h3 {
         orphans: 3;
         widows: 3;
     }
-    
+
     h2,
     h3 {
         page-break-after: avoid;
     }
 }
+
+.hindu-time {
+            font-size: 0.8rem;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .hindu-time small {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }

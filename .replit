@@ -24,6 +24,15 @@ task = "shell.exec"
 args = "python server.py"
 waitForPort = 5000
 
+[[workflows.workflow]]
+name = "TailwindCSS Watch"
+author = 43154074
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx tailwindcss -i ./styles/tailwind.css -o ./styles/output.css --watch"
+
 [deployment]
 run = ["sh", "-c", "python server.py"]
 
