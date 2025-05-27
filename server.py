@@ -76,15 +76,15 @@ def sync_from_google_sheets():
     """Sync business data from Google Sheets"""
     if not GOOGLE_CREDENTIALS:
         return False
-
+    
     try:
         service = build('sheets', 'v4', credentials=GOOGLE_CREDENTIALS)
-
+        
         # For now, we'll focus on the existing database
         # Later, you can implement reading from the Google Sheets response data
         print("📊 Google Sheets sync functionality ready")
         return True
-
+        
     except Exception as e:
         print(f"❌ Google Sheets sync error: {str(e)}")
         return False
@@ -106,7 +106,7 @@ def init_database():
                 user=DB_USER,
                 password=DB_PASSWORD
             )
-
+        
         # Setup database tables
         setup_database_tables()
         print("✅ Database connection pool initialized")
@@ -120,10 +120,10 @@ def setup_database_tables():
     conn = get_db_connection()
     if not conn:
         return
-
+    
     try:
         cursor = conn.cursor()
-
+        
         # Create businesses table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS businesses (
@@ -149,7 +149,7 @@ def setup_database_tables():
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-
+        
         # Create contacts table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS contacts (
@@ -165,11 +165,11 @@ def setup_database_tables():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-
+        
         # Check if sample data exists
         cursor.execute("SELECT COUNT(*) FROM businesses")
         count = cursor.fetchone()[0]
-
+        
         if count == 0:
             # Insert sample businesses
             sample_businesses = [
@@ -179,7 +179,7 @@ def setup_database_tables():
                 ('SN-MED-0001', 'आयुर्वेद केंद्र', 'डॉ. अजय कुमार', 'सेवा', 'आयुर्वेद', 'हरिद्वार', 'उत्तराखंड', '249401', 'हर की पौड़ी, हरिद्वार', '9876543213', '01334-567890', 'ajay@example.com', '', 'आयुर्वेदिक चिकित्सा और दवाइयां', '', 'approved', True),
                 ('SN-REL-0001', 'श्री हनुमान मंदिर स्टोर', 'श्री रामेश गुप्ता', 'रिटेल', 'धार्मिक सामग्री', 'अयोध्या', 'उत्तर प्रदेश', '224123', 'हनुमानगढ़ी, अयोध्या', '9876543214', '', 'ramesh@example.com', '', 'पूजा सामग्री और धार्मिक वस्तुएं', '', 'approved', False)
             ]
-
+            
             for business in sample_businesses:
                 cursor.execute("""
                     INSERT INTO businesses (
@@ -188,14 +188,14 @@ def setup_database_tables():
                         website, description, business_image, status, featured
                     ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, business)
-
+            
             print("✅ Sample business data inserted")
-
+        
         conn.commit()
         cursor.close()
         return_db_connection(conn)
         print("✅ Database tables setup completed")
-
+        
     except Exception as e:
         print(f"❌ Database setup error: {str(e)}")
         if conn:
@@ -214,34 +214,34 @@ def return_db_connection(conn):
 
 class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
     """Custom HTTP request handler for the Sanatan Vyaapar website"""
-
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(BASE_DIR), **kwargs)
-
+    
     def do_GET(self):
         """Handle GET requests"""
         try:
             # Parse the URL
             parsed_path = urllib.parse.urlparse(self.path)
             path = parsed_path.path
-
+            
             # Handle API endpoints
             if path == '/api/businesses':
                 self.handle_get_businesses()
                 return
-
+            
             # Handle root path - serve index.html
             if path == '/' or path == '':
                 path = '/index.html'
-
+            
             # Security check - prevent directory traversal
             if '..' in path or path.startswith('//'):
                 self.send_error(404, "File not found")
                 return
-
+            
             # Construct file path
             file_path = BASE_DIR / path.lstrip('/')
-
+            
             # Check if file exists
             if not file_path.exists():
                 # Try to serve index.html for SPA routing
@@ -253,7 +253,7 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 else:
                     self.send_error(404, "File not found")
                     return
-
+            
             # Check if it's a directory
             if file_path.is_dir():
                 # Look for index.html in the directory
@@ -263,50 +263,50 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 else:
                     self.send_error(403, "Directory listing not allowed")
                     return
-
+            
             # Read and serve the file
             try:
                 with open(file_path, 'rb') as f:
                     content = f.read()
-
+                
                 # Determine content type
                 content_type = mimetypes.guess_type(str(file_path))[0] or 'application/octet-stream'
-
+                
                 # Send response
                 self.send_response(200)
                 self.send_header('Content-Type', content_type)
                 self.send_header('Content-Length', str(len(content)))
-
+                
                 # Add cache headers for static assets
                 if path.endswith(('.css', '.js', '.svg', '.png', '.jpg', '.jpeg', '.gif', '.ico')):
                     self.send_header('Cache-Control', 'public, max-age=3600')
                 else:
                     self.send_header('Cache-Control', 'no-cache')
-
+                
                 # CORS headers for development
                 self.send_header('Access-Control-Allow-Origin', '*')
                 self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
                 self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-
+                
                 self.end_headers()
                 self.wfile.write(content)
-
+                
                 # Log the request
                 self.log_request(200)
-
+                
             except IOError as e:
                 self.send_error(500, f"Internal server error: {str(e)}")
-
+                
         except Exception as e:
             print(f"Error handling GET request: {str(e)}")
             self.send_error(500, "Internal server error")
-
+    
     def do_POST(self):
         """Handle POST requests for form submissions and API calls"""
         try:
             parsed_path = urllib.parse.urlparse(self.path)
             path = parsed_path.path
-
+            
             # Handle business registration
             if path == '/api/businesses':
                 self.handle_business_registration()
@@ -318,11 +318,11 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 self.handle_newsletter_subscription()
             else:
                 self.send_error(404, "Endpoint not found")
-
+                
         except Exception as e:
             print(f"Error handling POST request: {str(e)}")
             self.send_error(500, "Internal server error")
-
+    
     def handle_get_businesses(self):
         """Handle GET request for businesses API"""
         try:
@@ -330,7 +330,7 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
             if not conn:
                 self.send_json_response(500, {'error': 'Database connection failed'})
                 return
-
+            
             cursor = conn.cursor(cursor_factory=RealDictCursor)
             cursor.execute("""
                 SELECT id, sanatani_id, business_name, owner_name, business_type, 
@@ -341,7 +341,7 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 WHERE status = 'approved'
                 ORDER BY featured DESC, created_at DESC
             """)
-
+            
             businesses = []
             for row in cursor.fetchall():
                 business = dict(row)
@@ -352,12 +352,12 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                     elif value is None:
                         business[key] = ''
                 businesses.append(business)
-
+            
             cursor.close()
             return_db_connection(conn)
-
+            
             self.send_json_response(200, {'businesses': businesses})
-
+            
         except Exception as e:
             print(f"Error fetching businesses: {str(e)}")
             try:
@@ -366,24 +366,24 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
             except:
                 pass
             self.send_json_response(500, {'error': 'Failed to fetch businesses'})
-
+    
     def handle_business_registration(self):
         """Handle business registration"""
         try:
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length)
-
+            
             if self.headers.get('Content-Type', '').startswith('application/json'):
                 form_data = json.loads(post_data.decode('utf-8'))
             else:
                 form_data = urllib.parse.parse_qs(post_data.decode('utf-8'))
                 form_data = {k: v[0] if isinstance(v, list) and len(v) == 1 else v 
                            for k, v in form_data.items()}
-
+            
             # Validate required fields
             required_fields = ['businessName', 'ownerName', 'businessType', 'category', 
                              'district', 'state', 'pincode', 'whatsapp', 'address']
-
+            
             for field in required_fields:
                 if not form_data.get(field):
                     self.send_json_response(400, {
@@ -391,15 +391,15 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                         'message': f'आवश्यक फील्ड गुम है: {field}'
                     })
                     return
-
+            
             # Generate unique Sanatani ID
             conn = get_db_connection()
             if not conn:
                 self.send_json_response(500, {'error': 'Database connection failed'})
                 return
-
+            
             cursor = conn.cursor()
-
+            
             # Generate ID based on category (from Google Form)
             category_prefix = {
                 'फल / सब्जी विक्रेता': 'FRU', 'चाय / नाश्ता देला': 'TEA', 'किराणा स्टोर': 'GRO',
@@ -416,14 +416,14 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 'हस्तकला व्यापारी': 'HAN', 'कुटीर उद्योग': 'KUT', 'पुस्तक विक्रेता': 'BOO',
                 'खेल सामग्री': 'SPO', 'फ्रीलांसर': 'FRE', 'होम बेस्ड': 'HOM'
             }
-
+            
             prefix = category_prefix.get(form_data['category'], 'GEN')
-
+            
             # Get next ID number
             cursor.execute("SELECT COUNT(*) FROM businesses WHERE sanatani_id LIKE %s", (f'SN-{prefix}-%',))
             count = cursor.fetchone()[0] + 1
             sanatani_id = f"SN-{prefix}-{count:04d}"
-
+            
             # Insert new business
             cursor.execute("""
                 INSERT INTO businesses (
@@ -449,19 +449,19 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 form_data.get('businessImage', ''),
                 'pending'
             ))
-
+            
             conn.commit()
             cursor.close()
             return_db_connection(conn)
-
+            
             self.send_json_response(200, {
                 'success': True,
                 'message': 'व्यापार सफलतापूर्वक पंजीकृत हो गया!',
                 'sanatani_id': sanatani_id
             })
-
+            
             print(f"New business registered: {sanatani_id} - {form_data['businessName']}")
-
+            
         except Exception as e:
             print(f"Error registering business: {str(e)}")
             if 'conn' in locals():
@@ -470,7 +470,7 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 'success': False,
                 'message': 'पंजीकरण में समस्या हुई'
             })
-
+    
     def do_OPTIONS(self):
         """Handle OPTIONS requests for CORS"""
         self.send_response(200)
@@ -478,16 +478,16 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
-
+    
     def handle_contact_form(self):
         """Handle contact form submissions"""
         try:
             # Get content length
             content_length = int(self.headers.get('Content-Length', 0))
-
+            
             # Read POST data
             post_data = self.rfile.read(content_length)
-
+            
             # Parse form data
             if self.headers.get('Content-Type', '').startswith('application/json'):
                 form_data = json.loads(post_data.decode('utf-8'))
@@ -496,11 +496,11 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 # Convert lists to single values
                 form_data = {k: v[0] if isinstance(v, list) and len(v) == 1 else v 
                            for k, v in form_data.items()}
-
+            
             # Validate required fields
             required_fields = ['firstName', 'email', 'subject', 'message']
             missing_fields = [field for field in required_fields if not form_data.get(field)]
-
+            
             if missing_fields:
                 response = {
                     'success': False,
@@ -509,7 +509,7 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 }
                 self.send_json_response(400, response)
                 return
-
+            
             # Log the form submission (in a real app, you'd save to database or send email)
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             log_entry = {
@@ -518,19 +518,19 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 'data': form_data,
                 'ip': self.client_address[0]
             }
-
+            
             # Save to log file
             self.save_form_data('contact_submissions.log', log_entry)
-
+            
             # Send success response
             response = {
                 'success': True,
                 'message': 'आपका संदेश सफलतापूर्वक भेज दिया गया है! हम जल्दी ही आपसे संपर्क करेंगे।',
                 'submission_id': f"CONTACT_{int(time.time())}"
             }
-
+            
             self.send_json_response(200, response)
-
+            
             # Print to console for development
             print(f"[{timestamp}] Contact form submitted:")
             print(f"  Name: {form_data.get('firstName', '')} {form_data.get('lastName', '')}")
@@ -539,7 +539,7 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
             print(f"  Company: {form_data.get('company', 'N/A')}")
             print(f"  Phone: {form_data.get('phone', 'N/A')}")
             print(f"  Message: {form_data.get('message', '')[:100]}...")
-
+            
         except Exception as e:
             print(f"Error handling contact form: {str(e)}")
             response = {
@@ -547,24 +547,24 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 'message': 'सर्वर में कोई समस्या हुई है। कृपया बाद में पुनः प्रयास करें।'
             }
             self.send_json_response(500, response)
-
+    
     def handle_newsletter_subscription(self):
         """Handle newsletter subscription"""
         try:
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length)
-
+            
             if self.headers.get('Content-Type', '').startswith('application/json'):
                 form_data = json.loads(post_data.decode('utf-8'))
             else:
                 form_data = urllib.parse.parse_qs(post_data.decode('utf-8'))
                 form_data = {k: v[0] if isinstance(v, list) and len(v) == 1 else v 
                            for k, v in form_data.items()}
-
+            
             email_data = form_data.get('email', '')
             email = email_data[0] if isinstance(email_data, list) else email_data
             email = email.strip() if email else ''
-
+            
             if not email:
                 response = {
                     'success': False,
@@ -572,7 +572,7 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 }
                 self.send_json_response(400, response)
                 return
-
+            
             # Basic email validation
             if '@' not in email or '.' not in email:
                 response = {
@@ -581,7 +581,7 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 }
                 self.send_json_response(400, response)
                 return
-
+            
             # Log subscription
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             log_entry = {
@@ -590,18 +590,18 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 'email': email,
                 'ip': self.client_address[0]
             }
-
+            
             self.save_form_data('newsletter_subscriptions.log', log_entry)
-
+            
             response = {
                 'success': True,
                 'message': 'न्यूज़लेटर की सदस्यता सफल हो गई! धन्यवाद।'
             }
-
+            
             self.send_json_response(200, response)
-
+            
             print(f"[{timestamp}] Newsletter subscription: {email}")
-
+            
         except Exception as e:
             print(f"Error handling newsletter subscription: {str(e)}")
             response = {
@@ -609,12 +609,12 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
                 'message': 'सर्वर में कोई समस्या हुई है। कृपया बाद में पुनः प्रयास करें।'
             }
             self.send_json_response(500, response)
-
+    
     def send_json_response(self, status_code, data):
         """Send JSON response"""
         response_data = json.dumps(data, ensure_ascii=False, indent=2)
         response_bytes = response_data.encode('utf-8')
-
+        
         self.send_response(status_code)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
         self.send_header('Content-Length', str(len(response_bytes)))
@@ -623,26 +623,26 @@ class SanatanVyaaparHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
         self.wfile.write(response_bytes)
-
+    
     def save_form_data(self, filename, data):
         """Save form data to log file"""
         try:
             logs_dir = BASE_DIR / 'logs'
             logs_dir.mkdir(exist_ok=True)
-
+            
             log_file = logs_dir / filename
             with open(log_file, 'a', encoding='utf-8') as f:
                 f.write(json.dumps(data, ensure_ascii=False) + '\n')
-
+                
         except Exception as e:
             print(f"Error saving form data: {str(e)}")
-
+    
     def log_message(self, format, *args):
         """Custom log message format"""
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         message = format % args
         print(f"[{timestamp}] {self.client_address[0]} - {message}")
-
+    
     def log_request(self, code='-', size='-'):
         """Log successful requests"""
         self.log_message('"%s" %s %s',
@@ -662,18 +662,18 @@ def check_files():
         'scripts/main.js',
         'scripts/components.js'
     ]
-
+    
     missing_files = []
     for file_path in required_files:
         if not (BASE_DIR / file_path).exists():
             missing_files.append(file_path)
-
+    
     if missing_files:
         print("⚠️  चेतावनी: निम्नलिखित आवश्यक फाइलें गुम हैं:")
         for file_path in missing_files:
             print(f"   - {file_path}")
         print()
-
+    
     return len(missing_files) == 0
 
 def print_server_info():
@@ -711,22 +711,22 @@ def main():
         if not init_database():
             print("❌ डेटाबेस कनेक्शन नहीं हो सका। कृपया डेटाबेस सेटिंग्स जांचें।")
             return 1
-
+        
         # Initialize Google Sheets (optional)
         init_google_sheets()
-
+        
         # Create necessary directories
         create_directories()
-
+        
         # Check for required files
         if not check_files():
             print("❌ कुछ आवश्यक फाइलें गुम हैं। कृपया सुनिश्चित करें कि सभी फाइलें मौजूद हैं।")
             return 1
-
+        
         # Create and start the server
         with ThreadedHTTPServer((HOST, PORT), SanatanVyaaparHandler) as httpd:
             print_server_info()
-
+            
             try:
                 # Start the server
                 httpd.serve_forever()
@@ -736,7 +736,7 @@ def main():
                 httpd.shutdown()
                 print("✅ सर्वर सफलतापूर्वक बंद हो गया। धन्यवाद!")
                 return 0
-
+                
     except OSError as e:
         if e.errno == 98:  # Address already in use
             print(f"❌ त्रुटि: पोर्ट {PORT} पहले से उपयोग में है।")
