@@ -394,44 +394,30 @@ function initializePanchang() {
     
     // Start updating Hindu time
     updateHinduTime();
-    setInterval(updateHinduTime, 1000); // Update every second
-    
-    // Update sun times
-    updateSunTimes();
-    
-    // Update special events
-    updateSpecialEvents();
-    setInterval(updateSpecialEvents, 3600000); // Update every hour
     updatePanchangData();
-    updateHinduTime();
+    updateSunTimes();
     updateSpecialEvents();
 
-    // Update every minute
+    // Update time every minute
     setInterval(updateHinduTime, 60000);
+
     // Update panchang data once a day
     setInterval(updatePanchangData, 24 * 60 * 60 * 1000);
+
+    // Update sun times once per hour
+    setInterval(updateSunTimes, 60 * 60 * 1000);
+}
+
+// Special event handling for dashboard
+function handleDashboardSection() {
+    displayBusinesses();
+    displayFeaturedBusinesses();
 }
 
 function updatePanchangData() {
     // Get current date
     const today = new Date();
-    const tithiNames = [
-        'प्रतिपदा', 'द्वितीया', 'तृतीया', 'चतुर्थी', 'पंचमी',
-        'षष्ठी', 'सप्तमी', 'अष्टमी', 'नवमी', 'दशमी',
-        'एकादशी', 'द्वादशी', 'त्रयोदशी', 'चतुर्दशी', 'पूर्णिमा/अमावस्या'
-    ];
     
-    // Simplified tithi calculation (for demonstration)
-    const lunarDay = Math.floor((today.getDate() + today.getMonth() * 30) % 15);
-    const tithi = tithiNames[lunarDay];
-    
-    // Update tithi display
-    const tithiText = document.getElementById('tithiText');
-    if (tithiText) {
-        tithiText.textContent = tithi;
-    }
-    const today = new Date();
-
     // Calculate current tithi (simplified calculation)
     const tithiNames = [
         'प्रतिपदा', 'द्वितीया', 'तृतीया', 'चतुर्थी', 'पंचमी', 'षष्ठी', 'सप्तमी', 'अष्टमी', 
@@ -452,21 +438,6 @@ function updatePanchangData() {
 }
 
 function updateHinduTime() {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    
-    // Convert to Hindu time (divide day into 60 ghatis)
-    const daySeconds = hours * 3600 + minutes * 60 + seconds;
-    const ghati = Math.floor(daySeconds / 1440); // 24 minutes = 1 ghati
-    const pal = Math.floor((daySeconds % 1440) / 24); // 1 ghati = 60 pal
-    const vipal = Math.floor((daySeconds % 24) * 2.5); // 1 pal = 60 vipal
-    
-    const hinduTimeText = document.getElementById('hinduTimeText');
-    if (hinduTimeText) {
-        hinduTimeText.textContent = `${ghati.toString().padStart(2, '0')}:${pal.toString().padStart(2, '0')}:${vipal.toString().padStart(2, '0')}`;
-    }
     const now = new Date();
 
     // Convert to IST if needed
@@ -492,32 +463,6 @@ function updateHinduTime() {
 }
 
 function updateSunTimes() {
-    // Example coordinates for India (can be made dynamic based on user location)
-    const latitude = 23.2599; // Default to central India
-    const longitude = 77.4126;
-    
-    // Calculate sunrise and sunset (simplified)
-    const now = new Date();
-    const jan1 = new Date(now.getFullYear(), 0, 1);
-    const dayOfYear = Math.floor((now - jan1) / (24 * 60 * 60 * 1000));
-    
-    // Approximate sunrise and sunset times
-    const sunriseHour = 5 + Math.floor(Math.sin(dayOfYear / 365 * 2 * Math.PI) * 1);
-    const sunriseMinute = 30 + Math.floor(Math.sin(dayOfYear / 365 * 2 * Math.PI) * 30);
-    
-    const sunsetHour = 18 + Math.floor(Math.sin(dayOfYear / 365 * 2 * Math.PI) * 1);
-    const sunsetMinute = 30 + Math.floor(Math.sin(dayOfYear / 365 * 2 * Math.PI) * 30);
-    
-    // Update display
-    const sunriseTime = document.getElementById('sunriseTime');
-    const sunsetTime = document.getElementById('sunsetTime');
-    
-    if (sunriseTime) {
-        sunriseTime.textContent = `${sunriseHour.toString().padStart(2, '0')}:${sunriseMinute.toString().padStart(2, '0')}`;
-    }
-    if (sunsetTime) {
-        sunsetTime.textContent = `${sunsetHour.toString().padStart(2, '0')}:${sunsetMinute.toString().padStart(2, '0')}`;
-    }
     // Approximate sunrise and sunset for Surat, Gujarat
     // This is a simplified calculation - in real implementation, you'd use an astronomy API
     const today = new Date();
@@ -542,57 +487,6 @@ function updateSunTimes() {
         `${Math.floor(sunsetHour)}:${sunsetMinutes.toString().padStart(2, '0')}`;
 }
 
-function updateSpecialEvents() {
-    const today = new Date();
-    const events = [];
-
-    // Check for special Hindu festivals and observances
-    const dayOfMonth = today.getDate();
-    const month = today.getMonth() + 1;
-
-    // Ekadashi (11th day of lunar fortnight) - approximate
-    if (dayOfMonth === 11 || dayOfMonth === 26) {
-        events.push('एकादशी व्रत');
-    }
-
-    // Purnima (Full Moon) - approximate
-    if (dayOfMonth === 15) {
-        events.push('पूर्णिमा');
-    }
-
-    // Amavasya (New Moon) - approximate  
-    if (dayOfMonth === 30 || (dayOfMonth === 29 && month === 2)) {
-        events.push('अमावस्या');
-    }
-
-    // Major festivals (simplified calendar)
-    const festivals = {
-        '1-26': 'गणतंत्र दिवस',
-        '3-8': 'महाशिवरात्रि',
-        '3-21': 'होली',
-        '4-14': 'बैसाखी',
-        '8-15': 'स्वतंत्रता दिवस',
-        '8-19': 'जन्माष्टमी',
-        '9-2': 'गणेश चतुर्थी',
-        '10-2': 'गांधी जयंती',
-        '10-24': 'दशहरा',
-        '11-12': 'दीपावली',
-        '11-14': 'बाल दिवस'
-    };
-
-    const todayKey = `${month}-${dayOfMonth}`;
-    if (festivals[todayKey]) {
-        events.push(festivals[todayKey]);
-    }
-
-    // Update the scrolling banner
-    const eventText = events.length > 0 
-        ? `🚩 आज के विशेष अवसर: ${events.join(' • ')} 🚩`
-        : '🚩 आज शुभ दिन है - सनातनी व्यापारियों से जुड़ें 🚩';
-
-    document.getElementById('specialEvents').textContent = eventText;
-}
-
 // Navigation Functions
 function setupNavigation() {
     // Handle navigation clicks
@@ -607,42 +501,27 @@ function setupNavigation() {
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-}
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
 
     if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', function() {
             mobileMenu.classList.toggle('hidden');
         });
     }
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                showSection(this.getAttribute('href').substring(1));
-            }
-        });
-    });
 }
 
 function showSection(sectionId) {
     // Hide all sections
     const sections = ['home', 'dashboard', 'register', 'about'];
     sections.forEach(section => {
-        const sectionElement = document.getElementById(section);
-        if (sectionElement) {
-            sectionElement.style.display = section === sectionId ? 'block' : 'none';
+        const element = document.getElementById(section);
+        if (element) {
+            if (section === sectionId) {
+                element.classList.remove('hidden');
+                element.classList.add('fade-in');
+            } else {
+                element.classList.add('hidden');
+                element.classList.remove('fade-in');
+            }
         }
     });
 
@@ -657,31 +536,12 @@ function showSection(sectionId) {
         }
     });
 
-    // Close mobile menu if open
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenu) {
-        mobileMenu.classList.add('hidden');
-    }
-        const element = document.getElementById(section);
-        if (element) {
-            if (section === sectionId) {
-                element.classList.remove('hidden');
-                element.classList.add('fade-in');
-            } else {
-                element.classList.add('hidden');
-                ```text
-element.classList.remove('fade-in');
-            }
-        }
-    });
-
     // Special handling for dashboard section
     if (sectionId === 'dashboard') {
-        displayBusinesses();
-        displayFeaturedBusinesses();
+        handleDashboardSection();
     }
 
-    // Close mobile menu
+    // Close mobile menu if open
     const mobileMenu = document.getElementById('mobile-menu');
     if (mobileMenu) {
         mobileMenu.classList.add('hidden');
@@ -690,6 +550,9 @@ element.classList.remove('fade-in');
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// Call initialize when the DOM is ready
+document.addEventListener('DOMContentLoaded', initialize);
 
 // Load businesses from database
 async function loadBusinessesFromDatabase() {
