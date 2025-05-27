@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "postgresql-16", "python-3.11"]
+modules = ["python-3.11", "postgresql-16"]
 
 [nix]
 channel = "stable-24_05"
@@ -28,15 +28,6 @@ waitForPort = 5000
 name = "TailwindCSS Watch"
 author = 43154074
 mode = "parallel"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "npx tailwindcss -i ./styles/tailwind.css -o ./styles/output.css --watch"
-
-[[workflows.workflow]]
-name = "TailwindCSS Build"
-author = 43154074
-mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
