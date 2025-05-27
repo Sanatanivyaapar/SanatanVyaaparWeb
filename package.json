@@ -1,0 +1,26 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "main": "script.js",
+  "dependencies": {
+    "cssesc": "^3.0.0",
+    "lodash.castarray": "^4.4.0",
+    "lodash.isplainobject": "^4.0.6",
+    "lodash.merge": "^4.6.2",
+    "mini-svg-data-uri": "^1.4.4",
+    "postcss-selector-parser": "^6.0.10",
+    "util-deprecate": "^1.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
