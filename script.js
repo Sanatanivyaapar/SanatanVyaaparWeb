@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     initializeSearch();
     initializeLanguageSelector();
+    initializePanchang();
+    setupNavigation();
+    
+    // Show home section by default
+    showSection('home');
 });
 
 // Language switching functionality
@@ -383,6 +388,20 @@ function initializeApp() {
 
 // Panchang and Hindu Calendar Functions
 function initializePanchang() {
+    // Start updating Panchang data
+    updatePanchangData();
+    setInterval(updatePanchangData, 60000); // Update every minute
+    
+    // Start updating Hindu time
+    updateHinduTime();
+    setInterval(updateHinduTime, 1000); // Update every second
+    
+    // Update sun times
+    updateSunTimes();
+    
+    // Update special events
+    updateSpecialEvents();
+    setInterval(updateSpecialEvents, 3600000); // Update every hour
     updatePanchangData();
     updateHinduTime();
     updateSpecialEvents();
@@ -394,6 +413,23 @@ function initializePanchang() {
 }
 
 function updatePanchangData() {
+    // Get current date
+    const today = new Date();
+    const tithiNames = [
+        'प्रतिपदा', 'द्वितीया', 'तृतीया', 'चतुर्थी', 'पंचमी',
+        'षष्ठी', 'सप्तमी', 'अष्टमी', 'नवमी', 'दशमी',
+        'एकादशी', 'द्वादशी', 'त्रयोदशी', 'चतुर्दशी', 'पूर्णिमा/अमावस्या'
+    ];
+    
+    // Simplified tithi calculation (for demonstration)
+    const lunarDay = Math.floor((today.getDate() + today.getMonth() * 30) % 15);
+    const tithi = tithiNames[lunarDay];
+    
+    // Update tithi display
+    const tithiText = document.getElementById('tithiText');
+    if (tithiText) {
+        tithiText.textContent = tithi;
+    }
     const today = new Date();
 
     // Calculate current tithi (simplified calculation)
@@ -416,6 +452,21 @@ function updatePanchangData() {
 }
 
 function updateHinduTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    
+    // Convert to Hindu time (divide day into 60 ghatis)
+    const daySeconds = hours * 3600 + minutes * 60 + seconds;
+    const ghati = Math.floor(daySeconds / 1440); // 24 minutes = 1 ghati
+    const pal = Math.floor((daySeconds % 1440) / 24); // 1 ghati = 60 pal
+    const vipal = Math.floor((daySeconds % 24) * 2.5); // 1 pal = 60 vipal
+    
+    const hinduTimeText = document.getElementById('hinduTimeText');
+    if (hinduTimeText) {
+        hinduTimeText.textContent = `${ghati.toString().padStart(2, '0')}:${pal.toString().padStart(2, '0')}:${vipal.toString().padStart(2, '0')}`;
+    }
     const now = new Date();
 
     // Convert to IST if needed
@@ -441,6 +492,32 @@ function updateHinduTime() {
 }
 
 function updateSunTimes() {
+    // Example coordinates for India (can be made dynamic based on user location)
+    const latitude = 23.2599; // Default to central India
+    const longitude = 77.4126;
+    
+    // Calculate sunrise and sunset (simplified)
+    const now = new Date();
+    const jan1 = new Date(now.getFullYear(), 0, 1);
+    const dayOfYear = Math.floor((now - jan1) / (24 * 60 * 60 * 1000));
+    
+    // Approximate sunrise and sunset times
+    const sunriseHour = 5 + Math.floor(Math.sin(dayOfYear / 365 * 2 * Math.PI) * 1);
+    const sunriseMinute = 30 + Math.floor(Math.sin(dayOfYear / 365 * 2 * Math.PI) * 30);
+    
+    const sunsetHour = 18 + Math.floor(Math.sin(dayOfYear / 365 * 2 * Math.PI) * 1);
+    const sunsetMinute = 30 + Math.floor(Math.sin(dayOfYear / 365 * 2 * Math.PI) * 30);
+    
+    // Update display
+    const sunriseTime = document.getElementById('sunriseTime');
+    const sunsetTime = document.getElementById('sunsetTime');
+    
+    if (sunriseTime) {
+        sunriseTime.textContent = `${sunriseHour.toString().padStart(2, '0')}:${sunriseMinute.toString().padStart(2, '0')}`;
+    }
+    if (sunsetTime) {
+        sunsetTime.textContent = `${sunsetHour.toString().padStart(2, '0')}:${sunsetMinute.toString().padStart(2, '0')}`;
+    }
     // Approximate sunrise and sunset for Surat, Gujarat
     // This is a simplified calculation - in real implementation, you'd use an astronomy API
     const today = new Date();
@@ -518,6 +595,25 @@ function updateSpecialEvents() {
 
 // Navigation Functions
 function setupNavigation() {
+    // Handle navigation clicks
+    document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sectionId = this.getAttribute('href').substring(1);
+            showSection(sectionId);
+        });
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+}
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -544,6 +640,28 @@ function showSection(sectionId) {
     // Hide all sections
     const sections = ['home', 'dashboard', 'register', 'about'];
     sections.forEach(section => {
+        const sectionElement = document.getElementById(section);
+        if (sectionElement) {
+            sectionElement.style.display = section === sectionId ? 'block' : 'none';
+        }
+    });
+
+    // Update active state in navigation
+    document.querySelectorAll('nav a').forEach(link => {
+        if (link.getAttribute('href') === '#' + sectionId) {
+            link.classList.add('text-orange-600');
+            link.classList.remove('text-gray-700');
+        } else {
+            link.classList.remove('text-orange-600');
+            link.classList.add('text-gray-700');
+        }
+    });
+
+    // Close mobile menu if open
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
+    }
         const element = document.getElementById(section);
         if (element) {
             if (section === sectionId) {
