@@ -550,7 +550,9 @@ function showSection(sectionId) {
                 element.classList.remove('hidden');
                 element.classList.add('fade-in');
             } else {
-                element.classList.add('hidden');                element.classList.remove('fade-in');
+                element.classList.add('hidden');
+                ```text
+element.classList.remove('fade-in');
             }
         }
     });
