@@ -108,3 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('categoryFilter').addEventListener('change', filterAndDisplay);
   document.getElementById('searchInput').addEventListener('input', filterAndDisplay);
 });
+<script>
+  // 👇 Yahan aapka pura code jo aapne diya hai
+  // Fetch and populate filters + cards from Google Sheet
+  fetch("https://opensheet.elk.sh/...")
+  .then(... // pura code yahan paste kijiye
+  );
+</script>
