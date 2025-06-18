@@ -269,13 +269,7 @@
                         <p class="text-gray-600 hindi-font">सभी व्यापार मान्यता प्राप्त और सत्यापित हैं</p>
                     </div>
                     
-                    <div class="text-center p-6 bg-orange-50 rounded-xl">
-                        <div class="text-4xl mb-4">🔍</div>
-                        <h3 class="text-xl font-semibold mb-3 hindi-font">आसान खोज</h3>
-                        <p class="text-gray-600 hindi-font">जिला, श्रेणी और पिनकोड के अनुसार खोजें</p>
-                    </div>
-                    
-                    <div class="text-center p-6 bg-orange-50 rounded-xl">
+                  <div class="text-center p-6 bg-orange-50 rounded-xl">
                         <div class="text-4xl mb-4">📱</div>
                         <h3 class="text-xl font-semibold mb-3 hindi-font">तुरंत संपर्क</h3>
                         <p class="text-gray-600 hindi-font">WhatsApp और फोन से सीधे संपर्क करें</p>
@@ -285,15 +279,12 @@
         </section>
         
         <!-- Business Dashboard Section -->
-        <section id="dashboard" class="py-20 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                        <span class="gujarati-text">સનાતની વ્યાપાર શોધો</span>
-                        <span class="hindi-text">सनातनी व्यापार खोजें</span>
-                        <span class="english-text">Find Sanatani Business</span>
-                    </h2>
-                    <p class="text-lg text-gray-600">
+        <div class="text-center p-6 bg-orange-50 rounded-xl">
+                        <div class="text-4xl mb-4">🔍</div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">आसान खोज</h3>
+                        <p class="text-gray-600 hindi-font">जिला, श्रेणी और पिनकोड के अनुसार खोजें</p>
+                    </div>
+                                        <p class="text-lg text-gray-600">
                         <span class="gujarati-text">તમારા વિસ્તારના વિશ્વસનીય વ્યાપારીઓ સાથે જોડાઓ</span>
                         <span class="hindi-text">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</span>
                         <span class="english-text">Connect with trusted traders in your area</span>
@@ -644,6 +635,58 @@
     </footer>
     
     <!-- JavaScript -->
+    <script>
+  async function loadBusinessData() {
+    const sheetID = '1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk';
+    const sheetName = 'View';
+    const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const container = document.getElementById('cardsContainer');
+    container.innerHTML = '';
+
+    data.forEach(row => {
+      // Column A: Full Name
+      // Column B: Mobile
+      // Column C: Business Name
+      // Column D: Business Address (isko hata diya gaya)
+      // Column E: District
+      // Column F: Pincode
+      // Column G: Business Category
+      // Column H: Shop Photo Link
+
+      const name = row['Full Name'] || '';
+      const mobile = row['Mobile Number'] || '';
+      const businessName = row['Business Name'] || '';
+      const district = row['District'] || '';
+      const pincode = row['Pincode'] || '';
+      const category = row['Business Category'] || '';
+      // const address = row['Business Address']; // HATA DIYA
+      const photoUrl = row['Shop Photo Link'];
+
+      const card = document.createElement('div');
+      card.className = 'bg-white shadow rounded-lg p-4 border border-orange-200';
+
+      card.innerHTML = `
+        <div class="text-lg font-bold text-orange-700">${businessName}</div>
+        <div class="text-sm text-gray-700">${name}</div>
+        <div class="text-sm text-gray-600">📞 ${mobile}</div>
+        <div class="text-sm text-gray-600">🏷️ ${category}</div>
+        <div class="text-sm text-gray-600">📍 ${district}, ${pincode}</div>
+        <div class="w-full h-40 bg-gray-100 mt-2 rounded overflow-hidden flex items-center justify-center text-gray-400 text-sm">
+          फोटो उपलब्ध नहीं
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  loadBusinessData();
+</script>
+
     <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
