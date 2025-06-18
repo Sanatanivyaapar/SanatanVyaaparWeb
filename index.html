@@ -306,91 +306,7 @@
   <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
 </section>
 
-<script>
-let allData = [];
-
-fetch("https://opensheet.elk.sh/1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk/Approved")
-  .then(res => res.json())
-  .then(data => {
-    allData = data;
-    populateFilters(data);
-    renderCards(data);
-  });
-
-function getDriveThumbnail(link) {
-  const match = link.match(/[-\w]{25,}/);
-  return match ? `https://drive.google.com/thumbnail?id=${match[0]}&sz=w300` : "https://via.placeholder.com/300x180?text=No+Image";
-}
-
-function renderCard(entry) {
-  const imageUrl = entry["Shop Photo"] ? getDriveThumbnail(entry["Shop Photo"]) : "https://via.placeholder.com/300x180?text=No+Image";
-  const card = document.createElement("div");
-  card.className = "bg-white shadow-md rounded-lg overflow-hidden border border-orange-200";
-  card.innerHTML = `
-    <img src="${imageUrl}" alt="Shop Image" class="w-full h-40 object-cover">
-    <div class="p-4">
-      <h3 class="text-lg font-semibold text-orange-700">${entry["Full Name"]}</h3>
-      <p class="text-sm text-gray-700">📞 ${entry["Mobile Number"]}</p>
-      <p class="text-sm text-gray-600">🏪 ${entry["Business Name"]}</p>
-      <p class="text-sm text-gray-500">🗂️ ${entry["Business Category"]}</p>
-    </div>
-  `;
-  return card;
-}
-
-function renderCards(data) {
-  const container = document.getElementById("cardsContainer");
-  container.innerHTML = "";
-  data.forEach(entry => container.appendChild(renderCard(entry)));
-}
-
-function populateFilters(data) {
-  const districtSet = new Set();
-  const pincodeSet = new Set();
-  const categorySet = new Set();
-
-  data.forEach(entry => {
-    if (entry["District"]) districtSet.add(entry["District"]);
-    if (entry["Pincode"]) pincodeSet.add(entry["Pincode"]);
-    if (entry["Business Category"]) categorySet.add(entry["Business Category"]);
-  });
-
-  const addOptions = (selectId, items) => {
-    const select = document.getElementById(selectId);
-    items.forEach(item => {
-      const opt = document.createElement("option");
-      opt.value = item;
-      opt.textContent = item;
-      select.appendChild(opt);
-    });
-  };
-
-  addOptions("districtFilter", [...districtSet].sort());
-  addOptions("pincodeFilter", [...pincodeSet].sort());
-  addOptions("categoryFilter", [...categorySet].sort());
-
-  document.getElementById("districtFilter").addEventListener("change", filterAndRender);
-  document.getElementById("pincodeFilter").addEventListener("change", filterAndRender);
-  document.getElementById("categoryFilter").addEventListener("change", filterAndRender);
-  document.getElementById("searchInput").addEventListener("input", filterAndRender);
-}
-
-function filterAndRender() {
-  const d = document.getElementById("districtFilter").value;
-  const p = document.getElementById("pincodeFilter").value;
-  const c = document.getElementById("categoryFilter").value;
-  const q = document.getElementById("searchInput").value.toLowerCase();
-
-  const filtered = allData.filter(entry =>
-    (!d || entry["District"] === d) &&
-    (!p || entry["Pincode"] === p) &&
-    (!c || entry["Business Category"] === c) &&
-    (entry["Full Name"] + entry["Business Name"] + entry["Business Category"]).toLowerCase().includes(q)
-  );
-
-  renderCards(filtered);
-}
-</script>
+<!-- Removed duplicate script block that redeclared allData to fix redeclaration error -->
                 
                 <!-- No Results -->
                 <div id="no-results" class="text-center py-12 hidden">
@@ -671,123 +587,96 @@ function filterAndRender() {
     </footer>
     
     <!-- JavaScript -->
-    <script>
-  async function loadBusinessData() {
-    const sheetID = '1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk';
-    const sheetName = 'View';
-    const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
+<script>
+let allData = [];
 
-    const response = await fetch(url);
-    const data = await response.json();
+const sheetURL = "https://opensheet.elk.sh/1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk/Approved";
 
-    const container = document.getElementById('cardsContainer');
-    container.innerHTML = '';
-
-    data.forEach(row => {
-      // Column A: Full Name
-      // Column B: Mobile
-      // Column C: Business Name
-      // Column D: Business Address (isko hata diya gaya)
-      // Column E: District
-      // Column F: Pincode
-      // Column G: Business Category
-      // Column H: Shop Photo Link
-
-      const name = row['Full Name'] || '';
-      const mobile = row['Mobile Number'] || '';
-      const businessName = row['Business Name'] || '';
-      const district = row['District'] || '';
-      const pincode = row['Pincode'] || '';
-      const category = row['Business Category'] || '';
-      // const address = row['Business Address']; // HATA DIYA
-      const photoUrl = row['Shop Photo Link'];
-
-      const card = document.createElement('div');
-      card.className = 'bg-white shadow rounded-lg p-4 border border-orange-200';
-
-      card.innerHTML = `
-        <div class="text-lg font-bold text-orange-700">${businessName}</div>
-        <div class="text-sm text-gray-700">${name}</div>
-        <div class="text-sm text-gray-600">📞 ${mobile}</div>
-        <div class="text-sm text-gray-600">🏷️ ${category}</div>
-        <div class="text-sm text-gray-600">📍 ${district}, ${pincode}</div>
-        <div class="w-full h-40 bg-gray-100 mt-2 rounded overflow-hidden flex items-center justify-center text-gray-400 text-sm">
-          फोटो उपलब्ध नहीं
-        </div>
-      `;
-
-      container.appendChild(card);
-    });
-  }
-
-  loadBusinessData();
-// Fetch and populate filters + cards from Google Sheet
-fetch("https://opensheet.elk.sh/https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv")
+fetch(sheetURL)
   .then(res => res.json())
   .then(data => {
-    const cardsContainer = document.getElementById("cardsContainer");
-    const districtFilter = document.getElementById("districtFilter");
-    const pincodeFilter = document.getElementById("pincodeFilter");
-    const categoryFilter = document.getElementById("categoryFilter");
-    const searchInput = document.getElementById("searchInput");
+    allData = data;
+    populateFilters(data);
+    renderCards(data);
+  })
+  .catch(err => console.error("Error fetching data:", err));
 
-    const uniquePincodes = new Set();
-    const uniqueCategories = new Set();
+function getDriveThumbnail(link) {
+  const match = link.match(/[-\w]{25,}/);
+  return match ? `https://drive.google.com/thumbnail?id=${match[0]}&sz=w300` : "https://via.placeholder.com/300x180?text=No+Image";
+}
 
-    cardsContainer.innerHTML = "";
-    data.forEach(entry => {
-      uniquePincodes.add(entry[5]);
-      uniqueCategories.add(entry[6]);
-      cardsContainer.appendChild(renderCard(entry));
-    });
+function renderCard(entry) {
+  const imageUrl = entry[7] ? getDriveThumbnail(entry[7]) : "https://via.placeholder.com/300x180?text=No+Image";
+  const card = document.createElement("div");
+  card.className = "bg-white shadow-md rounded-lg overflow-hidden border border-orange-200";
+  card.innerHTML = `
+    <img src="${imageUrl}" alt="Shop Image" class="w-full h-40 object-cover">
+    <div class="p-4">
+      <h3 class="text-lg font-semibold text-orange-700">${entry[0]}</h3>
+      <p class="text-sm text-gray-700">📞 ${entry[1]}</p>
+      <p class="text-sm text-gray-600">🏪 ${entry[2]}</p>
+      <p class="text-sm text-gray-500">🗂️ ${entry[6]}</p>
+    </div>
+  `;
+  return card;
+}
 
-    // Fill pincode filter
-    Array.from(uniquePincodes)
-      .filter(p => p)
-      .sort()
-      .forEach(pin => {
-        const option = document.createElement("option");
-        option.value = pin;
-        option.textContent = pin;
-        pincodeFilter.appendChild(option);
-      });
+function renderCards(data) {
+  const container = document.getElementById("cardsContainer");
+  container.innerHTML = "";
+  data.forEach(entry => container.appendChild(renderCard(entry)));
+}
 
-    // Fill category filter
-    Array.from(uniqueCategories)
-      .filter(c => c)
-      .sort()
-      .forEach(cat => {
-        const option = document.createElement("option");
-        option.value = cat;
-        option.textContent = cat;
-        categoryFilter.appendChild(option);
-      });
+function populateFilters(data) {
+  const districtSet = new Set();
+  const categorySet = new Set();
+  const pincodeSet = new Set();
 
-    function filterAndRender() {
-      const selectedDistrict = districtFilter.value;
-      const selectedPincode = pincodeFilter.value;
-      const selectedCategory = categoryFilter.value;
-      const searchQuery = searchInput.value.toLowerCase();
-
-      cardsContainer.innerHTML = "";
-      let filtered = data.filter(entry => {
-        return (
-          (!selectedDistrict || entry[4] === selectedDistrict) &&
-          (!selectedPincode || entry[5] === selectedPincode) &&
-          (!selectedCategory || entry[6] === selectedCategory) &&
-          (entry[0] + entry[2] + entry[4] + entry[5] + entry[6]).toLowerCase().includes(searchQuery)
-        );
-      });
-
-      filtered.forEach(entry => cardsContainer.appendChild(renderCard(entry)));
-    }
-
-    districtFilter.addEventListener("change", filterAndRender);
-    pincodeFilter.addEventListener("change", filterAndRender);
-    categoryFilter.addEventListener("change", filterAndRender);
-    searchInput.addEventListener("input", filterAndRender);
+  data.forEach(entry => {
+    if (entry[4]) districtSet.add(entry[4]);
+    if (entry[5]) pincodeSet.add(entry[5]);
+    if (entry[6]) categorySet.add(entry[6]);
   });
 
+  const districtFilter = document.getElementById("districtFilter");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const pincodeFilter = document.getElementById("pincodeFilter");
+
+  const addOptions = (select, set) => {
+    [...set].sort().forEach(value => {
+      const opt = document.createElement("option");
+      opt.value = value;
+      opt.textContent = value;
+      select.appendChild(opt);
+    });
+  };
+
+  addOptions(districtFilter, districtSet);
+  addOptions(pincodeFilter, pincodeSet);
+  addOptions(categoryFilter, categorySet);
+
+  districtFilter.addEventListener("change", filterAndRender);
+  pincodeFilter.addEventListener("change", filterAndRender);
+  categoryFilter.addEventListener("change", filterAndRender);
+  document.getElementById("searchInput").addEventListener("input", filterAndRender);
+}
+
+function filterAndRender() {
+  const d = document.getElementById("districtFilter").value;
+  const p = document.getElementById("pincodeFilter").value;
+  const c = document.getElementById("categoryFilter").value;
+  const q = document.getElementById("searchInput").value.toLowerCase();
+
+  const filtered = allData.filter(entry =>
+    (!d || entry[4] === d) &&
+    (!p || entry[5] === p) &&
+    (!c || entry[6] === c) &&
+    (entry[0] + entry[2] + entry[6]).toLowerCase().includes(q)
+  );
+
+  renderCards(filtered);
+}
 </script>
 
     <script src="data.js"></script>
