@@ -140,13 +140,19 @@
 
   <input type="text" id="searchInput" placeholder="नाम, व्यापार, पता खोजें..." style="padding: 0.5rem; width: 250px;">
 </div>
-
-<!-- Business Cards will appear here -->
-<div id="cardsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; padding: 1rem;">
-  <!-- कार्ड्स यहाँ दिखेंगे -->
+<!-- Business Cards Container -->
+<div id="cardsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; padding: 2rem;">
+  <!-- Sample Business Card -->
+  <div class="business-card" style="background: white; border-radius: 1rem; padding: 1rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+    <div class="photo" style="height: 180px; background-color: #e5e5e5; border-radius: 0.75rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #888;">
+      दुकान की फोटो
+    </div>
+    <h2 class="business-name" style="font-size: 1.25rem; font-weight: bold; color: #e65100;">व्यापार नाम</h2>
+    <p class="owner-name" style="margin: 0.5rem 0; color: #444;">मालिक: नाम</p>
+    <p class="mobile" style="margin: 0.25rem 0;">📞 मोबाइल: 1234567890</p>
+    <p class="address" style="margin: 0.25rem 0; color: #666;">📍 पता: पता यहाँ</p>
+  </div>
 </div>
-
-                    </a>
                     <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
                         <span class="gujarati-text">નોંધણી</span>
                         <span class="hindi-text">पंजीकरण</span>
