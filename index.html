@@ -253,7 +253,7 @@
                     </p>
                 </div>
                 
-                  <!-- Filters Section with Titles -->
+                  <!-- Filters Section with Titles --><!-- Filters Section with Titles -->
 <section id="filtersSection" class="bg-orange-50 py-6 px-4">
   <div class="text-center mb-4">
     <h2 class="text-2xl font-bold text-orange-700 hindi-font">🔍 सनातनी व्यापार खोजें</h2>
@@ -304,7 +304,6 @@
       <label for="pincodeFilter" class="block text-sm font-medium text-gray-700">पिनकोड चुनें</label>
       <select id="pincodeFilter" class="border border-gray-300 rounded-md px-3 py-2">
         <option value="">सभी पिनकोड</option>
-        <!-- Dynamic values will be filled via script -->
       </select>
     </div>
 
@@ -312,7 +311,6 @@
       <label for="categoryFilter" class="block text-sm font-medium text-gray-700">व्यापार श्रेणी</label>
       <select id="categoryFilter" class="border border-gray-300 rounded-md px-3 py-2">
         <option value="">सभी श्रेणियाँ</option>
-        <!-- सभी श्रेणियाँ JavaScript से भरेंगे -->
       </select>
     </div>
 
@@ -329,17 +327,32 @@
   </div>
 </section>
 
-  <!-- Sample Business Card -->
-  <div class="business-card" style="background: white; border-radius: 1rem; padding: 1rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-    <div class="photo" style="height: 180px; background-color: #e5e5e5; border-radius: 0.75rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #888;">
-      दुकान की फोटो
+<script>
+// Example of rendering cards — assumes 'data' is an array of objects from Google Sheet
+function renderCard(entry) {
+  const card = document.createElement("div");
+  card.className = "bg-white shadow-md rounded-lg overflow-hidden border border-orange-200";
+
+  const imageUrl = entry[7] ? getDriveThumbnail(entry[7]) : "https://via.placeholder.com/300x180?text=No+Image";
+
+  card.innerHTML = `
+    <img src="${imageUrl}" alt="Shop Image" class="w-full h-40 object-cover">
+    <div class="p-4">
+      <h3 class="text-lg font-semibold text-orange-700">${entry[0]}</h3>
+      <p class="text-sm text-gray-700">📞 ${entry[1]}</p>
+      <p class="text-sm text-gray-600">🏪 ${entry[2]}</p>
+      <p class="text-sm text-gray-500">🗂️ ${entry[6]}</p>
     </div>
-    <h2 class="business-name" style="font-size: 1.25rem; font-weight: bold; color: #e65100;">व्यापार नाम</h2>
-    <p class="owner-name" style="margin: 0.5rem 0; color: #444;">मालिक: नाम</p>
-    <p class="mobile" style="margin: 0.25rem 0;">📞 मोबाइल: 1234567890</p>
-    <p class="address" style="margin: 0.25rem 0; color: #666;">📍 पता: पता यहाँ</p>
-  </div>
-</div>                  
+  `;
+  return card;
+}
+
+function getDriveThumbnail(link) {
+  const fileIdMatch = link.match(/[-\w]{25,}/);
+  return fileIdMatch ? `https://drive.google.com/thumbnail?id=${fileIdMatch[0]}&sz=w300` : "https://via.placeholder.com/300x180?text=Invalid+Image";
+}
+</script>
+
                 <!-- Featured Businesses Banner -->
                 <div id="featured-banner" class="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-6 mb-8 text-white">
                     <h3 class="text-xl font-semibold mb-4 hindi-font">
