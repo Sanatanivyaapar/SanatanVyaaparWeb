@@ -65,29 +65,6 @@
     <!-- Sanatani Panchang Bar -->
     <div id="panchangBar" class="...">...</div>
 
-    <!-- Filters and Search Bar -->
-    <div class="filters" ...>...</div>
-
-                    <!-- Filters and Search Bar -->
-<div class="filters" style="padding: 1rem; background: #f5f5f5; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-  <select id="districtFilter">
-    <option value="">जिला चुनें</option>
-  </select>
-
-  <select id="pincodeFilter">
-    <option value="">पिनकोड चुनें</option>
-  </select>
-
-  <select id="categoryFilter">
-    <option value="">व्यापार श्रेणी</option>
-  </select>
-
-  <input type="text" id="searchInput" placeholder="नाम, व्यापार, पता खोजें..." style="padding: 0.5rem; width: 250px;">
-</div>
-<!-- Business Cards will appear here -->
-<div id="cardsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; padding: 1rem;">
-  <!-- कार्ड्स यहाँ दिखेंगे -->
-</div>
                     <div id="hinduTime" class="flex items-center">
                         <span class="font-semibold">हिंदू समय:</span>
                         <span id="hinduTimeText" class="ml-2">--:--:--</span>
@@ -147,10 +124,28 @@
                         <span class="hindi-text">मुख्य पृष्ठ</span>
                         <span class="english-text">Home</span>
                     </a>
-                    <a href="#dashboard" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
-                        <span class="gujarati-text">વ્યાપાર શોધો</span>
-                        <span class="hindi-text">व्यापार खोजें</span>
-                        <span class="english-text">Find Business</span>
+                    <!-- Filters and Search Bar -->
+<div class="filters" style="padding: 1rem; background: #f5f5f5; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+  <select id="districtFilter">
+    <option value="">जिला चुनें</option>
+  </select>
+
+  <select id="pincodeFilter">
+    <option value="">पिनकोड चुनें</option>
+  </select>
+
+  <select id="categoryFilter">
+    <option value="">व्यापार श्रेणी</option>
+  </select>
+
+  <input type="text" id="searchInput" placeholder="नाम, व्यापार, पता खोजें..." style="padding: 0.5rem; width: 250px;">
+</div>
+
+<!-- Business Cards will appear here -->
+<div id="cardsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; padding: 1rem;">
+  <!-- कार्ड्स यहाँ दिखेंगे -->
+</div>
+
                     </a>
                     <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
                         <span class="gujarati-text">નોંધણી</span>
