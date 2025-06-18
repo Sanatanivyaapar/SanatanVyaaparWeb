@@ -49,6 +49,19 @@
         .animate-marquee {
             animation: marquee 20s linear infinite;
         }
+        .org-logo-fallback {
+            display: none;
+            width: 80px;
+            height: 80px;
+            background: #f3f4f6;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .org-logo-fallback span {
+            color: #6b7280;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -110,7 +123,7 @@
                 
                 <!-- Language Selector -->
                 <div class="hidden md:flex items-center space-x-2">
-                    <select id="language-selector" class="bg-white border border-gray-300 rounded-md px-2 py-1 text-sm">
+                    <select id="language-selector" aria-label="भाषा चुनें" class="bg-white border border-gray-300 rounded-md px-2 py-1 text-sm">
                         <option value="gujarati">ગુજરાતી</option>
                         <option value="hindi" selected>हिंदी</option>
                         <option value="english">English</option>
@@ -119,10 +132,11 @@
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors font-medium"> </a>
+                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
                         <span class="gujarati-text">મુખ્ય પૃષ્ઠ</span>
                         <span class="hindi-text">मुख्य पृष्ठ</span>
                         <span class="english-text">Home</span>
+                    </a>
                     
                     <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
                         <span class="gujarati-text">નોંધણી</span>
@@ -134,7 +148,7 @@
                         <span class="hindi-text">हमारे बारे में</span>
                         <span class="english-text">About Us</span>
                     </a>
-                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
                         <i class="fab fa-whatsapp mr-2"></i>
                         <span class="gujarati-text">સમુદાય જોડાઓ</span>
                         <span class="hindi-text">समुदाय जुड़ें</span>
@@ -143,7 +157,7 @@
                 </div>
                 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700" aria-label="Open mobile menu" title="Open mobile menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
@@ -152,7 +166,7 @@
             <div id="mobile-menu" class="md:hidden hidden pb-4">
                 <div class="flex flex-col space-y-3">
                     <div class="mb-2">
-                        <select id="mobile-language-selector" class="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm w-full">
+                        <select id="mobile-language-selector" class="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm w-full" aria-label="भाषा चुनें" title="भाषा चुनें">
                             <option value="gujarati">ગુજરાતી</option>
                             <option value="hindi" selected>हिंदी</option>
                             <option value="english">English</option>
@@ -173,7 +187,7 @@
                         <span class="hindi-text">हमारे बारे में</span>
                         <span class="english-text">About Us</span>
                     </a>
-                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors inline-block text-center">
+                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors inline-block text-center">
                         <i class="fab fa-whatsapp mr-2"></i>
                         <span class="gujarati-text">સમુદાય જોડાઓ</span>
                         <span class="hindi-text">समुदाय जुड़ें</span>
@@ -404,8 +418,8 @@ function filterAndRender() {
                     </p>
                     <div class="space-y-4">
                         <a href="https://docs.google.com/forms/d/e/1FAIpQLSdE3kVjS_o42jsoEg23Wy4-wQqBZBqVKgpFAK5IuJX1-LizXw/viewform?usp=header" 
-                           target="_blank" 
-                           class="inline-block bg-white text-orange-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors">
+                                                   target="_blank" rel="noopener"
+                                                   class="inline-block bg-white text-orange-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors">
                             <i class="fas fa-external-link-alt mr-2"></i>Google Form में पंजीकरण करें
                         </a>
                         <div class="text-sm opacity-90 hindi-font">
@@ -462,8 +476,8 @@ function filterAndRender() {
                         पंजीकरण में कोई समस्या? हमसे संपर्क करें:
                     </p>
                     <div class="flex justify-center gap-4">
-                        <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" 
-                           class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                        <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener"
+                                                   class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
                             <i class="fab fa-whatsapp mr-2"></i>WhatsApp
                         </a>
                         <a href="mailto:hindubalsanskaarkendra@gmail.com" 
@@ -535,7 +549,7 @@ function filterAndRender() {
                             <p class="text-gray-600 mb-6 hindi-font">
                                 सनातनी व्यापारिक समुदाय का हिस्सा बनें और अपने व्यापार को नई ऊंचाइयों तक ले जाएं।
                             </p>
-                            <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors inline-block">
+                            <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors inline-block">
                                 <i class="fab fa-whatsapp mr-2"></i>WhatsApp समुदाय
                             </a>
                         </div>
@@ -595,13 +609,13 @@ function filterAndRender() {
                             240, Mandir Faliyu, Village - Kasad, Olpad, Surat. 394540
                         </div>
                         <div class="flex space-x-2">
-                            <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" class="bg-green-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-green-600 transition-colors inline-block">
+                            <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-green-600 transition-colors inline-block">
                                 <i class="fab fa-whatsapp mr-1"></i>WhatsApp
                             </a>
-                            <a href="https://t.me/+40O2yI1B2vsyOThl" target="_blank" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-blue-600 transition-colors inline-block">
+                            <a href="https://t.me/+40O2yI1B2vsyOThl" target="_blank" rel="noopener" title="Join us on Telegram" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-blue-600 transition-colors inline-block">
                                 <i class="fab fa-telegram mr-1"></i>Telegram
-                            </a>
-                        </div>
+                            <img src="attached_assets/drct-logo.png" alt="DevRatna Charitable Trust" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="org-logo-fallback"><span>🏢</span></div>
                     </div>
                 </div>
             </div>
@@ -611,10 +625,10 @@ function filterAndRender() {
                 <h3 class="text-lg font-semibold mb-6 text-center hindi-font">हमारे संगठन</h3>
                 <div class="grid md:grid-cols-3 gap-6">
                     <!-- DevRatna Charitable Trust -->
-                    <div class="text-center">
-                        <div class="mb-3">
+                            <img src="attached_assets/antariksh-logo.png" alt="Antariksh Life Energy Healing Center" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="org-logo-fallback"><span>🌟</span></div>
                             <img src="attached_assets/drct-logo.png" alt="DevRatna Charitable Trust" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div style="display:none; width:80px; height:80px; background:#f3f4f6; border-radius:50%; align-items:center; justify-content:center; margin:0 auto;"><span style="color:#6b7280;">🏢</span></div>
+                            <div class="org-logo-fallback"><span>🏢</span></div>
                         </div>
                         <h4 class="font-semibold text-white mb-1">DevRatna Charitable Trust</h4>
                         <p class="text-gray-400 text-sm">संस्थापक</p>
@@ -622,10 +636,10 @@ function filterAndRender() {
                     </div>
                     
                     <!-- Antariksh Life Energy Healing Center -->
-                    <div class="text-center">
-                        <div class="mb-3">
+                            <img src="attached_assets/djfarm-logo.jpg" alt="DeepJyot Natural Farm" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="org-logo-fallback"><span>🌱</span></div>
                             <img src="attached_assets/antariksh-logo.png" alt="Antariksh Life Energy Healing Center" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div style="display:none; width:80px; height:80px; background:#f3f4f6; border-radius:50%; align-items:center; justify-content:center; margin:0 auto;"><span style="color:#6b7280;">🌟</span></div>
+                            <div class="org-logo-fallback"><span>🌟</span></div>
                         </div>
                         <h4 class="font-semibold text-white mb-1">Antariksh Life Energy Healing Center</h4>
                         <p class="text-gray-400 text-sm">Powered by</p>
@@ -636,7 +650,7 @@ function filterAndRender() {
                     <div class="text-center">
                         <div class="mb-3">
                             <img src="attached_assets/djfarm-logo.jpg" alt="DeepJyot Natural Farm" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div style="display:none; width:80px; height:80px; background:#f3f4f6; border-radius:50%; align-items:center; justify-content:center; margin:0 auto;"><span style="color:#6b7280;">🌱</span></div>
+                            <div class="org-logo-fallback"><span>🌱</span></div>
                         </div>
                         <h4 class="font-semibold text-white mb-1">DeepJyot Natural Farm</h4>
                         <p class="text-gray-400 text-sm">100% प्राकृतिक</p>

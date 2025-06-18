@@ -326,6 +326,7 @@ a:hover {
 /* Glass Effect */
 .glass {
     background: rgba(255, 255, 255, 0.25);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
@@ -390,12 +391,7 @@ a:hover {
         page-break-inside: avoid;
     }
 
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
+    /* Firefox में 'widows' सपोर्ट नहीं करता है, इसलिए इसे हटाया गया है */
 
     h2,
     h3 {
