@@ -252,8 +252,7 @@
                         <span class="english-text">Connect with trusted traders in your area</span>
                     </p>
                 </div>
-                
-          <!-- Filters Section with Titles -->
+                <!-- Filters Section with Titles -->
 <section id="filtersSection" class="bg-orange-50 py-8 px-4">
   <div class="text-center mb-6">
     <h2 class="text-3xl font-extrabold text-orange-800 hindi-font">🔍 सनातनी व्यापार खोजें</h2>
@@ -283,137 +282,101 @@
     </div>
 
     <div class="w-full text-center">
-      <input type="text" id="searchInput" placeholder="नाम, व्यापार, पता खोजें..." class="mt-2 w-full md:w-96 px-4 py-3 border border-gray-300 rounded-md">
+      <input type="text" id="searchInput" placeholder="नाम, व्यापार खोजें..." class="mt-2 w-full md:w-96 px-4 py-3 border border-gray-300 rounded-md">
     </div>
   </div>
 </section>
 
-<!-- Business Cards Grid -->
+<!-- Cards Section -->
 <section id="cardsSection" class="bg-white py-6 px-4">
-  <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <!-- कार्ड्स यहाँ JavaScript से जोड़ेंगे -->
-  </div>
+  <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
 </section>
 
 <script>
 let allData = [];
 
-fetch("https://opensheet.elk.sh/https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv) // REPLACE with actual Sheet ID
+fetch("https://opensheet.elk.sh/1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk/Approved")
   .then(res => res.json())
   .then(data => {
     allData = data;
     populateFilters(data);
-    renderAllCards(data);
+    renderCards(data);
   });
 
 function getDriveThumbnail(link) {
-  const fileIdMatch = link.match(/[-\w]{25,}/);
-  return fileIdMatch ? `https://drive.google.com/thumbnail?id=${fileIdMatch[0]}&sz=w300` : "https://via.placeholder.com/300x180?text=Invalid+Image";
+  const match = link.match(/[-\w]{25,}/);
+  return match ? `https://drive.google.com/thumbnail?id=${match[0]}&sz=w300` : "https://via.placeholder.com/300x180?text=No+Image";
 }
 
 function renderCard(entry) {
+  const imageUrl = entry["Shop Photo"] ? getDriveThumbnail(entry["Shop Photo"]) : "https://via.placeholder.com/300x180?text=No+Image";
   const card = document.createElement("div");
   card.className = "bg-white shadow-md rounded-lg overflow-hidden border border-orange-200";
-  const imageUrl = entry[7] ? getDriveThumbnail(entry[7]) : "https://via.placeholder.com/300x180?text=No+Image";
-
   card.innerHTML = `
     <img src="${imageUrl}" alt="Shop Image" class="w-full h-40 object-cover">
     <div class="p-4">
-      <h3 class="text-lg font-semibold text-orange-700">${entry[0]}</h3>
-      <p class="text-sm text-gray-700">📞 ${entry[1]}</p>
-      <p class="text-sm text-gray-600">🏪 ${entry[2]}</p>
-      <p class="text-sm text-gray-500">🗂️ ${entry[6]}</p>
+      <h3 class="text-lg font-semibold text-orange-700">${entry["Full Name"]}</h3>
+      <p class="text-sm text-gray-700">📞 ${entry["Mobile Number"]}</p>
+      <p class="text-sm text-gray-600">🏪 ${entry["Business Name"]}</p>
+      <p class="text-sm text-gray-500">🗂️ ${entry["Business Category"]}</p>
     </div>
   `;
   return card;
 }
 
-function renderAllCards(data) {
+function renderCards(data) {
   const container = document.getElementById("cardsContainer");
   container.innerHTML = "";
-  data.forEach(entry => {
-    container.appendChild(renderCard(entry));
-  });
+  data.forEach(entry => container.appendChild(renderCard(entry)));
 }
 
 function populateFilters(data) {
   const districtSet = new Set();
-  const categorySet = new Set();
   const pincodeSet = new Set();
+  const categorySet = new Set();
 
   data.forEach(entry => {
-    if (entry[4]) districtSet.add(entry[4]);
-    if (entry[6]) categorySet.add(entry[6]);
-    if (entry[5]) pincodeSet.add(entry[5]);
+    if (entry["District"]) districtSet.add(entry["District"]);
+    if (entry["Pincode"]) pincodeSet.add(entry["Pincode"]);
+    if (entry["Business Category"]) categorySet.add(entry["Business Category"]);
   });
 
-  const districtFilter = document.getElementById("districtFilter");
-  const categoryFilter = document.getElementById("categoryFilter");
-  const pincodeFilter = document.getElementById("pincodeFilter");
+  const addOptions = (selectId, items) => {
+    const select = document.getElementById(selectId);
+    items.forEach(item => {
+      const opt = document.createElement("option");
+      opt.value = item;
+      opt.textContent = item;
+      select.appendChild(opt);
+    });
+  };
 
-  [...districtSet].sort().forEach(d => {
-    districtFilter.innerHTML += `<option value="${d}">${d}</option>`;
-  });
-  [...categorySet].sort().forEach(c => {
-    categoryFilter.innerHTML += `<option value="${c}">${c}</option>`;
-  });
-  [...pincodeSet].sort().forEach(p => {
-    pincodeFilter.innerHTML += `<option value="${p}">${p}</option>`;
-  });
+  addOptions("districtFilter", [...districtSet].sort());
+  addOptions("pincodeFilter", [...pincodeSet].sort());
+  addOptions("categoryFilter", [...categorySet].sort());
+
+  document.getElementById("districtFilter").addEventListener("change", filterAndRender);
+  document.getElementById("pincodeFilter").addEventListener("change", filterAndRender);
+  document.getElementById("categoryFilter").addEventListener("change", filterAndRender);
+  document.getElementById("searchInput").addEventListener("input", filterAndRender);
+}
+
+function filterAndRender() {
+  const d = document.getElementById("districtFilter").value;
+  const p = document.getElementById("pincodeFilter").value;
+  const c = document.getElementById("categoryFilter").value;
+  const q = document.getElementById("searchInput").value.toLowerCase();
+
+  const filtered = allData.filter(entry =>
+    (!d || entry["District"] === d) &&
+    (!p || entry["Pincode"] === p) &&
+    (!c || entry["Business Category"] === c) &&
+    (entry["Full Name"] + entry["Business Name"] + entry["Business Category"]).toLowerCase().includes(q)
+  );
+
+  renderCards(filtered);
 }
 </script>
-
-<!-- Business Cards Grid -->
-<section id="cardsSection" class="bg-white py-6 px-4">
-  <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <!-- कार्ड्स यहाँ JavaScript से जोड़ेंगे -->
-  </div>
-</section>
-
-<script>
-// Example of rendering cards — assumes 'data' is an array of objects from Google Sheet
-function renderCard(entry) {
-  const card = document.createElement("div");
-  card.className = "bg-white shadow-md rounded-lg overflow-hidden border border-orange-200";
-
-  const imageUrl = entry[7] ? getDriveThumbnail(entry[7]) : "https://via.placeholder.com/300x180?text=No+Image";
-
-  card.innerHTML = `
-    <img src="${imageUrl}" alt="Shop Image" class="w-full h-40 object-cover">
-    <div class="p-4">
-      <h3 class="text-lg font-semibold text-orange-700">${entry[0]}</h3>
-      <p class="text-sm text-gray-700">📞 ${entry[1]}</p>
-      <p class="text-sm text-gray-600">🏪 ${entry[2]}</p>
-      <p class="text-sm text-gray-500">🗂️ ${entry[6]}</p>
-    </div>
-  `;
-  return card;
-}
-
-function getDriveThumbnail(link) {
-  const fileIdMatch = link.match(/[-\w]{25,}/);
-  return fileIdMatch ? `https://drive.google.com/thumbnail?id=${fileIdMatch[0]}&sz=w300` : "https://via.placeholder.com/300x180?text=Invalid+Image";
-}
-</script>
-
-                <!-- Featured Businesses Banner -->
-                <div id="featured-banner" class="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-6 mb-8 text-white">
-                    <h3 class="text-xl font-semibold mb-4 hindi-font">
-                        <i class="fas fa-star mr-2"></i>विशेष व्यापार
-                    </h3>
-                    <div id="featured-businesses" class="grid md:grid-cols-3 gap-4">
-                        <!-- Featured businesses will be loaded here -->
-                    </div>
-                </div>
-                
-                <!-- Business Cards -->
-                <div id="business-grid" class="grid md:grid-cols-3 gap-6">
-                    <!-- Businesses will be loaded here -->
-                </div>
-                
-                <div id="business-list" class="space-y-4 hidden">
-                    <!-- List view will be loaded here -->
-                </div>
                 
                 <!-- No Results -->
                 <div id="no-results" class="text-center py-12 hidden">
