@@ -293,10 +293,10 @@
 <section id="cardsSection" class="bg-white py-6 px-4">
   <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
 </section>
-
 <script>
 let allData = [];
 
+// SIRF EK Sahi fetch block
 fetch("https://opensheet.elk.sh/1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk/Approved")
   .then(res => res.json())
   .then(data => {
@@ -306,21 +306,23 @@ fetch("https://opensheet.elk.sh/1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk/App
   });
 
 function getDriveThumbnail(link) {
+  if (!link) return "https://via.placeholder.com/300x180?text=No+Image";
   const match = link.match(/[-\w]{25,}/);
   return match ? `https://drive.google.com/thumbnail?id=${match[0]}&sz=w300` : "https://via.placeholder.com/300x180?text=No+Image";
 }
 
 function renderCard(entry) {
-  const imageUrl = entry["Shop Photo"] ? getDriveThumbnail(entry["Shop Photo"]) : "https://via.placeholder.com/300x180?text=No+Image";
+  const imageUrl = getDriveThumbnail(entry["Shop Photo"]);
   const card = document.createElement("div");
   card.className = "bg-white shadow-md rounded-lg overflow-hidden border border-orange-200";
   card.innerHTML = `
     <img src="${imageUrl}" alt="Shop Image" class="w-full h-40 object-cover">
     <div class="p-4">
-      <h3 class="text-lg font-semibold text-orange-700">${entry["Full Name"]}</h3>
-      <p class="text-sm text-gray-700">📞 ${entry["Mobile Number"]}</p>
-      <p class="text-sm text-gray-600">🏪 ${entry["Business Name"]}</p>
-      <p class="text-sm text-gray-500">🗂️ ${entry["Business Category"]}</p>
+      <h3 class="text-lg font-semibold text-orange-700">${entry["Full Name"] || "नाम उपलब्ध नहीं"}</h3>
+      <p class="text-sm text-gray-700">📞 ${entry["Mobile Number"] || "-"}</p>
+      <p class="text-sm text-gray-600">🏪 ${entry["Business Name"] || "-"}</p>
+      <p class="text-sm text-gray-500">🗂️ ${entry["Business Category"] || "-"}</p>
+      <p class="text-sm text-gray-500">📍 ${entry["District"] || "-"}, ${entry["Pincode"] || "-"}</p>
     </div>
   `;
   return card;
@@ -329,6 +331,10 @@ function renderCard(entry) {
 function renderCards(data) {
   const container = document.getElementById("cardsContainer");
   container.innerHTML = "";
+  if (!data.length) {
+    container.innerHTML = '<div class="text-center text-gray-500 py-8">कोई व्यापार नहीं मिला</div>';
+    return;
+  }
   data.forEach(entry => container.appendChild(renderCard(entry)));
 }
 
@@ -345,6 +351,7 @@ function populateFilters(data) {
 
   const addOptions = (selectId, items) => {
     const select = document.getElementById(selectId);
+    select.innerHTML = '<option value="">सभी</option>';
     items.forEach(item => {
       const opt = document.createElement("option");
       opt.value = item;
@@ -378,57 +385,6 @@ function filterAndRender() {
 
   renderCards(filtered);
 }
-
-// Location-based Sunrise/Sunset and Hindu Time
-function pad(n) { return n < 10 ? '0' + n : n; }
-
-function updateHinduTime() {
-    const now = new Date();
-    // Hindu time = IST (UTC+5:30)
-    now.setMinutes(now.getMinutes() + now.getTimezoneOffset() + 330);
-    document.getElementById('hinduTimeText').textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
-}
-setInterval(updateHinduTime, 1000);
-updateHinduTime();
-
-// Get user location and fetch sunrise/sunset
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(pos) {
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
-        fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`)
-            .then(res => res.json())
-            .then(data => {
-                const sunrise = new Date(data.results.sunrise);
-                const sunset = new Date(data.results.sunset);
-                // Convert to IST
-                sunrise.setMinutes(sunrise.getMinutes() + 330);
-                sunset.setMinutes(sunset.getMinutes() + 330);
-                document.getElementById('sunriseTime').textContent = pad(sunrise.getHours()) + ':' + pad(sunrise.getMinutes());
-                document.getElementById('sunsetTime').textContent = pad(sunset.getHours()) + ':' + pad(sunset.getMinutes());
-            });
-    }, function() {
-        document.getElementById('sunriseTime').textContent = '--:--';
-        document.getElementById('sunsetTime').textContent = '--:--';
-    });
-} else {
-    document.getElementById('sunriseTime').textContent = '--:--';
-    document.getElementById('sunsetTime').textContent = '--:--';
-}
-
-// Fetch today's tithi (free API)
-fetch('https://www.vedicrishiastro.com/api/v1/tithi?day=today&api_key=public')
-    .then(res => res.json())
-    .then(data => {
-        if(data && data.tithi && data.tithi.details) {
-            document.getElementById('tithiText').textContent = data.tithi.details.tithi_name;
-        } else {
-            document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
-        }
-    })
-    .catch(() => {
-        document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
-    });
 </script>
                 
                 <!-- No Results -->
