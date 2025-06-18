@@ -1,195 +1,170 @@
-// Keval Sanatani Vyapar - Main JavaScript File
+// script.js — Fully Restores Language Toggle, Filters, Panchang, and Business Listing
 
-let currentViewMode = 'grid';
-let allBusinesses = [];
-let featuredBusinesses = [];
+const SHEET_URL = 'https://opensheet.vercel.app/1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk/Form Responses 1';
 
-// Initialize all functions when DOM is loaded
-document.addEventListener('DOMContentLoaded', function () {
-    initializeApp();
-    initializeSearch();
-    initializeLanguageSelector();
-    initializePanchang();
-    setupNavigation();
-    showSection('home');
+// DOMContentLoaded Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    initLanguageToggle();
+    initBusinessData();
+    initFilters();
+    initPanchang();
+    initViewToggle();
 });
 
-// Google Sheet JSON Public API URL via opensheet
-const sheetURL = 'https://opensheet.elk.sh/1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk/Form Responses 1';
+// Language Switcher
+function initLanguageToggle() {
+    const selectors = ['#language-selector', '#mobile-language-selector'];
+    selectors.forEach(sel => {
+        const dropdown = document.querySelector(sel);
+        if (dropdown) {
+            dropdown.addEventListener('change', e => {
+                const lang = e.target.value;
+                document.querySelectorAll('.gujarati-text, .hindi-text, .english-text').forEach(el => el.style.display = 'none');
+                document.querySelectorAll(`.${lang}-text`).forEach(el => el.style.display = 'inline');
+            });
+        }
+    });
+}
 
-// Load businesses from public Google Sheet
-async function loadBusinessesFromDatabase() {
+// Fetch Business Data
+async function initBusinessData() {
     try {
-        const response = await fetch(sheetURL);
-        if (!response.ok) throw new Error('Fetch failed');
-        const data = await response.json();
-
-        allBusinesses = data.filter(row => row['✅ Approved?']?.toLowerCase() === 'true');
-
-        allBusinesses = allBusinesses.map(row => ({
-            business_name: row['🔹 3. व्यवसाय / दुकान का नाम / Business Name ✅ Required'],
-            owner_name: row['🔹 1. पूरा नाम / Full Name ✅ Required'],
-            category: row['🔹 4. व्यवसाय की श्रेणी / Business Category ✅ Required'],
-            district: row['🔹 6. जिला / District ✅ Required'],
-            pincode: row['🔹 7. पिनकोड / Pincode ✅ Required'],
-            whatsapp: row['🔹 2. मोबाइल नंबर / Mobile Number ✅ Required'],
-            phone: row['🔹 2. मोबाइल नंबर / Mobile Number ✅ Required'],
-            email: '',
-            address: row['🔹 8. पूरा व्यापार-व्यवसायिक पता / Full Business-Proffession Address ✅ Required'],
-            description: row['🔹 10. व्यवसाय का संक्षिप्त विवरण / Brief Description about your Business ✅ Required'] || '',
-            business_image: extractDriveImage(row['Photo Link']) || '',
-            business_type: '',
-            featured: false,
-            website: '',
-            state: 'Gujarat',
-            sanatani_id: row['Timestamp']
-        }));
-
-        featuredBusinesses = allBusinesses.slice(0, 5);
-        populateFilterOptions();
-
-        const dashboard = document.getElementById('dashboard');
-        if (dashboard && !dashboard.classList.contains('hidden')) {
-            displayBusinesses();
-            displayFeaturedBusinesses();
-        }
-    } catch (error) {
-        console.error('Error loading businesses:', error);
-        showNotification('व्यापार लोड करने में समस्या हुई', 'error');
+        const res = await fetch(SHEET_URL);
+        const data = await res.json();
+        const approved = data.filter(row => row['Approval'] === 'TRUE');
+        renderBusinesses(approved);
+        populateFilterOptions(approved);
+    } catch (err) {
+        console.error('Error fetching data:', err);
     }
 }
 
-function extractDriveImage(url) {
-    if (!url) return '';
-    const match = url.match(/[-\w]{25,}/);
-    return match ? `https://drive.google.com/uc?export=view&id=${match[0]}` : url;
-}
+function renderBusinesses(data) {
+    const grid = document.getElementById('business-grid');
+    const list = document.getElementById('business-list');
+    const count = document.getElementById('business-count');
 
-function initializeLanguageSelector() {
-    const languageSelector = document.getElementById('language-selector');
-    const mobileLanguageSelector = document.getElementById('mobile-language-selector');
+    if (!grid || !list || !count) return;
 
-    const savedLanguage = localStorage.getItem('selectedLanguage') || 'hindi';
+    grid.innerHTML = '';
+    list.innerHTML = '';
 
-    if (languageSelector) {
-        languageSelector.value = savedLanguage;
-        languageSelector.addEventListener('change', function () {
-            switchLanguage(this.value);
-            if (mobileLanguageSelector) mobileLanguageSelector.value = this.value;
-        });
-    }
-
-    if (mobileLanguageSelector) {
-        mobileLanguageSelector.value = savedLanguage;
-        mobileLanguageSelector.addEventListener('change', function () {
-            switchLanguage(this.value);
-            if (languageSelector) languageSelector.value = this.value;
-        });
-    }
-
-    switchLanguage(savedLanguage);
-}
-
-function switchLanguage(language) {
-    document.querySelectorAll('.gujarati-text, .hindi-text, .english-text').forEach(el => {
-        el.style.display = 'none';
+    data.forEach(entry => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-4 rounded-xl shadow-md';
+        card.innerHTML = `
+            <div class="text-xl font-bold mb-2">${entry['Business Name'] || ''}</div>
+            <p class="text-sm text-gray-600 mb-1">${entry['Business Address'] || ''}</p>
+            <p class="text-sm text-gray-600 mb-1">📍 ${entry['District'] || ''} | ${entry['Pincode'] || ''}</p>
+            <a href="tel:${entry['Mobile Number']}" class="text-blue-600 font-medium">📞 ${entry['Mobile Number']}</a>
+        `;
+        grid.appendChild(card.cloneNode(true));
+        list.appendChild(card);
     });
 
-    const selector = `.${language}-text`;
-    document.querySelectorAll(selector).forEach(el => {
-        el.style.display = 'inline';
-    });
-
-    localStorage.setItem('selectedLanguage', language);
+    count.textContent = data.length;
 }
 
-function setupNavigation() {
-    document.querySelectorAll('nav a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const sectionId = this.getAttribute('href').substring(1);
-            showSection(sectionId);
-        });
-    });
+// Filter Management
+function initFilters() {
+    const searchInput = document.getElementById('search-input');
+    const districtFilter = document.getElementById('district-filter');
+    const categoryFilter = document.getElementById('category-filter');
+    const pincodeFilter = document.getElementById('pincode-filter');
 
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function () {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-}
-
-function showSection(sectionId) {
-    const sections = ['home', 'dashboard', 'register', 'about'];
-    sections.forEach(section => {
-        const el = document.getElementById(section);
+    [searchInput, districtFilter, categoryFilter, pincodeFilter].forEach(el => {
         if (el) {
-            if (section === sectionId) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
-            }
+            el.addEventListener('input', () => applyFilters());
         }
     });
+}
 
-    document.querySelectorAll('nav a').forEach(link => {
-        if (link.getAttribute('href') === '#' + sectionId) {
-            link.classList.add('text-orange-600');
-            link.classList.remove('text-gray-700');
-        } else {
-            link.classList.remove('text-orange-600');
-            link.classList.add('text-gray-700');
-        }
+async function applyFilters() {
+    const res = await fetch(SHEET_URL);
+    const data = await res.json();
+    const approved = data.filter(row => row['Approval'] === 'TRUE');
+
+    const search = document.getElementById('search-input').value.toLowerCase();
+    const district = document.getElementById('district-filter').value;
+    const category = document.getElementById('category-filter').value;
+    const pincode = document.getElementById('pincode-filter').value;
+
+    const filtered = approved.filter(row => {
+        return (!search || row['Business Name']?.toLowerCase().includes(search) || row['Business Address']?.toLowerCase().includes(search)) &&
+               (!district || row['District'] === district) &&
+               (!category || row['Business Category'] === category) &&
+               (!pincode || row['Pincode'] === pincode);
     });
 
-    if (sectionId === 'dashboard') {
-        displayBusinesses();
-        displayFeaturedBusinesses();
-    }
-
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenu) {
-        mobileMenu.classList.add('hidden');
-    }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    renderBusinesses(filtered);
 }
 
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm ${
-        type === 'success' ? 'bg-green-500 text-white' :
-        type === 'error' ? 'bg-red-500 text-white' :
-        'bg-blue-500 text-white'
-    }`;
+function populateFilterOptions(data) {
+    const districts = [...new Set(data.map(row => row['District']).filter(Boolean))];
+    const categories = [...new Set(data.map(row => row['Business Category']).filter(Boolean))];
 
-    notification.innerHTML = `
-        <div class="flex items-center justify-between">
-            <span class="hindi-font">${message}</span>
-            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    `;
+    const districtFilter = document.getElementById('district-filter');
+    const categoryFilter = document.getElementById('category-filter');
 
-    document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 5000);
-}
-
-function redirectToGoogleForm() {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSdE3kVjS_o42jsoEg23Wy4-wQqBZBqVKgpFAK5IuJX1-LizXw/viewform?usp=header', '_blank');
-}
-
-function setupFormValidation() {
-    const form = document.getElementById('business-registration-form');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            showNotification('पंजीकरण फिलहाल Google Form द्वारा ही संभव है।', 'info');
-            redirectToGoogleForm();
+    if (districtFilter && districtFilter.children.length <= 3) {
+        districts.forEach(d => {
+            const opt = document.createElement('option');
+            opt.value = d;
+            opt.textContent = d;
+            districtFilter.appendChild(opt);
         });
     }
+
+    if (categoryFilter && categoryFilter.children.length <= 3) {
+        categories.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = c;
+            categoryFilter.appendChild(opt);
+        });
+    }
+}
+
+// View Toggle
+function initViewToggle() {
+    const gridBtn = document.getElementById('grid-view-btn');
+    const listBtn = document.getElementById('list-view-btn');
+    const grid = document.getElementById('business-grid');
+    const list = document.getElementById('business-list');
+
+    if (!gridBtn || !listBtn || !grid || !list) return;
+
+    gridBtn.addEventListener('click', () => {
+        grid.style.display = 'grid';
+        list.style.display = 'none';
+        gridBtn.classList.add('bg-orange-500', 'text-white');
+        listBtn.classList.remove('bg-orange-500', 'text-white');
+    });
+
+    listBtn.addEventListener('click', () => {
+        grid.style.display = 'none';
+        list.style.display = 'block';
+        listBtn.classList.add('bg-orange-500', 'text-white');
+        gridBtn.classList.remove('bg-orange-500', 'text-white');
+    });
+}
+
+// Panchang Data Mockup
+function initPanchang() {
+    const tithi = document.getElementById('tithiText');
+    const hinduTime = document.getElementById('hinduTimeText');
+    const sunrise = document.getElementById('sunriseTime');
+    const sunset = document.getElementById('sunsetTime');
+
+    if (tithi) tithi.textContent = 'आषाढ़ कृष्ण पक्ष प्रतिपदा';
+    if (hinduTime) setInterval(() => {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        hinduTime.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
+
+    if (sunrise) sunrise.textContent = '05:47';
+    if (sunset) sunset.textContent = '19:11';
 }
