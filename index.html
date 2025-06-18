@@ -190,7 +190,7 @@
     
     <!-- Main Content -->
     <main class="pt-20">
-        <!-- Hero Section -->
+        <!-- Hero Section (Home) -->
         <section id="home" class="gradient-bg py-20">
             <div class="container mx-auto px-4">
                 <div class="text-center">
@@ -213,37 +213,8 @@
             </div>
         </section>
         
-        <!-- Features Section -->
-        <section class="py-20 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 hindi-font">हमारी विशेषताएं</h2>
-                    <p class="text-lg text-gray-600 hindi-font">सनातनी व्यापारिक समुदाय के लिए विशेष सुविधाएं</p>
-                </div>
-                
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="text-center p-6 bg-orange-50 rounded-xl">
-                        <div class="text-4xl mb-4">🏪</div>
-                        <h3 class="text-xl font-semibold mb-3 hindi-font">सत्यापित व्यापार</h3>
-                        <p class="text-gray-600 hindi-font">सभी व्यापार मान्यता प्राप्त और सत्यापित हैं</p>
-                    </div>
-                    
-                  <div class="text-center p-6 bg-orange-50 rounded-xl">
-                        <div class="text-4xl mb-4">📱</div>
-                        <h3 class="text-xl font-semibold mb-3 hindi-font">तुरंत संपर्क</h3>
-                        <p class="text-gray-600 hindi-font">WhatsApp और फोन से सीधे संपर्क करें</p>
-                    </div>
-                    <div class="text-center p-6 bg-orange-50 rounded-xl">
-                        <div class="text-4xl mb-4">🔍</div>
-                        <h3 class="text-xl font-semibold mb-3 hindi-font">आसान खोज</h3>
-                        <p class="text-gray-600 hindi-font">जिला, श्रेणी और पिनकोड के अनुसार खोजें</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Filters Section: Make bigger, bolder, more attractive, add search button -->
-<section id="filtersSection" class="bg-orange-50 py-12 px-4 rounded-xl shadow-lg max-w-3xl mx-auto mb-8">
+        <!-- Search & Filter Section (immediately after home) -->
+        <section id="filtersSection" class="bg-orange-50 py-12 px-4 rounded-xl shadow-lg max-w-3xl mx-auto mb-8">
   <div class="text-center mb-8">
     <h2 class="text-4xl font-extrabold text-orange-800 hindi-font flex items-center justify-center gap-2"><span>🔍</span> सनातनी व्यापार खोजें</h2>
     <p class="text-xl text-gray-700 hindi-font mt-2">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
@@ -274,7 +245,7 @@
   </div>
 </section>
 
-<!-- Cards Section -->
+<!-- Business Cards Section (show only 6 latest) -->
 <section id="cardsSection" class="bg-white py-6 px-4">
   <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
 </section>
@@ -320,7 +291,8 @@ function renderCards(data) {
     container.innerHTML = '<div class="text-center text-gray-500 py-8">कोई व्यापार नहीं मिला</div>';
     return;
   }
-  data.forEach(entry => container.appendChild(renderCard(entry)));
+  // Show only 6 latest cards
+  data.slice(0, 6).forEach(entry => container.appendChild(renderCard(entry)));
 }
 
 function populateFilters(data) {
@@ -386,7 +358,7 @@ if (document.getElementById('searchBtn')) {
             </div>
         </section>
         
-        <!-- Registration Form Section -->
+        <!-- Registration Form Section (Google Form) -->
         <section id="register" class="py-20 bg-white">
             <div class="container mx-auto px-4 max-w-4xl">
                 <div class="text-center mb-12">
@@ -469,6 +441,35 @@ if (document.getElementById('searchBtn')) {
                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
                             <i class="fas fa-envelope mr-2"></i>Email
                         </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 hindi-font">हमारी विशेषताएं</h2>
+                    <p class="text-lg text-gray-600 hindi-font">सनातनी व्यापारिक समुदाय के लिए विशेष सुविधाएं</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center p-6 bg-orange-50 rounded-xl">
+                        <div class="text-4xl mb-4">🏪</div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">सत्यापित व्यापार</h3>
+                        <p class="text-gray-600 hindi-font">सभी व्यापार मान्यता प्राप्त और सत्यापित हैं</p>
+                    </div>
+                    
+                  <div class="text-center p-6 bg-orange-50 rounded-xl">
+                        <div class="text-4xl mb-4">📱</div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">तुरंत संपर्क</h3>
+                        <p class="text-gray-600 hindi-font">WhatsApp और फोन से सीधे संपर्क करें</p>
+                    </div>
+                    <div class="text-center p-6 bg-orange-50 rounded-xl">
+                        <div class="text-4xl mb-4">🔍</div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">आसान खोज</h3>
+                        <p class="text-gray-600 hindi-font">जिला, श्रेणी और पिनकोड के अनुसार खोजें</p>
                     </div>
                 </div>
             </div>
