@@ -253,24 +253,82 @@
                     </p>
                 </div>
                 
-                  <!-- Filters and Search Bar -->
-<div class="filters" style="padding: 1rem; background: #f5f5f5; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-  <select id="districtFilter">
-    <option value="">जिला चुनें</option>
-  </select>
+                  <!-- Filters Section with Titles -->
+<section id="filtersSection" class="bg-orange-50 py-6 px-4">
+  <div class="text-center mb-4">
+    <h2 class="text-2xl font-bold text-orange-700 hindi-font">🔍 सनातनी व्यापार खोजें</h2>
+    <p class="text-sm text-gray-600 hindi-font">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
+  </div>
 
-  <select id="pincodeFilter">
-    <option value="">पिनकोड चुनें</option>
-  </select>
+  <div class="filters flex flex-wrap gap-4 justify-center">
+    <div>
+      <label for="districtFilter" class="block text-sm font-medium text-gray-700">जिला चुनें</label>
+      <select id="districtFilter" class="border border-gray-300 rounded-md px-3 py-2">
+        <option value="">सभी जिले</option>
+        <option value="अमरेली">अमरेली</option>
+        <option value="आनन्द">आनन्द</option>
+        <option value="अरावली">अरावली</option>
+        <option value="बनासकांठा">बनासकांठा</option>
+        <option value="भरूच">भरूच</option>
+        <option value="भावनगर">भावनगर</option>
+        <option value="बोटाड">बोटाड</option>
+        <option value="छोटा उदयपुर">छोटा उदयपुर</option>
+        <option value="दाहोद">दाहोद</option>
+        <option value="डांग">डांग</option>
+        <option value="देवभूमि द्वारिका">देवभूमि द्वारिका</option>
+        <option value="गांधीनगर">गांधीनगर</option>
+        <option value="गिर सोमनाथ">गिर सोमनाथ</option>
+        <option value="जामनगर">जामनगर</option>
+        <option value="जूनागढ़">जूनागढ़</option>
+        <option value="कच्छ">कच्छ</option>
+        <option value="खेड़ा">खेड़ा</option>
+        <option value="महेसाणा">महेसाणा</option>
+        <option value="Mahisagar">Mahisagar</option>
+        <option value="मोरबी">मोरबी</option>
+        <option value="नर्मदा">नर्मदा</option>
+        <option value="नवसारी">नवसारी</option>
+        <option value="पंचमहल">पंचमहल</option>
+        <option value="पाटन">पाटन</option>
+        <option value="पोरबंदर">पोरबंदर</option>
+        <option value="राजकोट">राजकोट</option>
+        <option value="साबरकांठा">साबरकांठा</option>
+        <option value="सूरत">सूरत</option>
+        <option value="सुरेंद्रनगर">सुरेंद्रनगर</option>
+        <option value="तापी">तापी</option>
+        <option value="वडोदरा">वडोदरा</option>
+        <option value="वलसाड">वलसाड</option>
+      </select>
+    </div>
 
-  <select id="categoryFilter">
-    <option value="">व्यापार श्रेणी</option>
-  </select>
+    <div>
+      <label for="pincodeFilter" class="block text-sm font-medium text-gray-700">पिनकोड चुनें</label>
+      <select id="pincodeFilter" class="border border-gray-300 rounded-md px-3 py-2">
+        <option value="">सभी पिनकोड</option>
+        <!-- Dynamic values will be filled via script -->
+      </select>
+    </div>
 
-  <input type="text" id="searchInput" placeholder="नाम, व्यापार, पता खोजें..." style="padding: 0.5rem; width: 250px;">
-</div>
-<!-- Business Cards Container -->
-<div id="cardsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; padding: 2rem;">
+    <div>
+      <label for="categoryFilter" class="block text-sm font-medium text-gray-700">व्यापार श्रेणी</label>
+      <select id="categoryFilter" class="border border-gray-300 rounded-md px-3 py-2">
+        <option value="">सभी श्रेणियाँ</option>
+        <!-- सभी श्रेणियाँ JavaScript से भरेंगे -->
+      </select>
+    </div>
+
+    <div class="w-full text-center">
+      <input type="text" id="searchInput" placeholder="नाम, व्यापार, पता खोजें..." class="mt-2 w-full md:w-96 px-4 py-2 border border-gray-300 rounded-md">
+    </div>
+  </div>
+</section>
+
+<!-- Business Cards Grid -->
+<section id="cardsSection" class="bg-white py-6 px-4">
+  <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- कार्ड्स यहाँ JavaScript से जोड़ेंगे -->
+  </div>
+</section>
+
   <!-- Sample Business Card -->
   <div class="business-card" style="background: white; border-radius: 1rem; padding: 1rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
     <div class="photo" style="height: 180px; background-color: #e5e5e5; border-radius: 0.75rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #888;">
