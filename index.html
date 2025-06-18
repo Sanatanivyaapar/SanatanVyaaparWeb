@@ -378,6 +378,57 @@ function filterAndRender() {
 
   renderCards(filtered);
 }
+
+// Location-based Sunrise/Sunset and Hindu Time
+function pad(n) { return n < 10 ? '0' + n : n; }
+
+function updateHinduTime() {
+    const now = new Date();
+    // Hindu time = IST (UTC+5:30)
+    now.setMinutes(now.getMinutes() + now.getTimezoneOffset() + 330);
+    document.getElementById('hinduTimeText').textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+}
+setInterval(updateHinduTime, 1000);
+updateHinduTime();
+
+// Get user location and fetch sunrise/sunset
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`)
+            .then(res => res.json())
+            .then(data => {
+                const sunrise = new Date(data.results.sunrise);
+                const sunset = new Date(data.results.sunset);
+                // Convert to IST
+                sunrise.setMinutes(sunrise.getMinutes() + 330);
+                sunset.setMinutes(sunset.getMinutes() + 330);
+                document.getElementById('sunriseTime').textContent = pad(sunrise.getHours()) + ':' + pad(sunrise.getMinutes());
+                document.getElementById('sunsetTime').textContent = pad(sunset.getHours()) + ':' + pad(sunset.getMinutes());
+            });
+    }, function() {
+        document.getElementById('sunriseTime').textContent = '--:--';
+        document.getElementById('sunsetTime').textContent = '--:--';
+    });
+} else {
+    document.getElementById('sunriseTime').textContent = '--:--';
+    document.getElementById('sunsetTime').textContent = '--:--';
+}
+
+// Fetch today's tithi (free API)
+fetch('https://www.vedicrishiastro.com/api/v1/tithi?day=today&api_key=public')
+    .then(res => res.json())
+    .then(data => {
+        if(data && data.tithi && data.tithi.details) {
+            document.getElementById('tithiText').textContent = data.tithi.details.tithi_name;
+        } else {
+            document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
+        }
+    })
+    .catch(() => {
+        document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
+    });
 </script>
                 
                 <!-- No Results -->
