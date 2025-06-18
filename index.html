@@ -253,72 +253,115 @@
                     </p>
                 </div>
                 
-                  <!-- Filters Section with Titles --><!-- Filters Section with Titles -->
-<section id="filtersSection" class="bg-orange-50 py-6 px-4">
-  <div class="text-center mb-4">
-    <h2 class="text-2xl font-bold text-orange-700 hindi-font">🔍 सनातनी व्यापार खोजें</h2>
-    <p class="text-sm text-gray-600 hindi-font">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
+          <!-- Filters Section with Titles -->
+<section id="filtersSection" class="bg-orange-50 py-8 px-4">
+  <div class="text-center mb-6">
+    <h2 class="text-3xl font-extrabold text-orange-800 hindi-font">🔍 सनातनी व्यापार खोजें</h2>
+    <p class="text-base text-gray-700 hindi-font">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
   </div>
 
-  <div class="filters flex flex-wrap gap-4 justify-center">
+  <div class="filters flex flex-wrap gap-6 justify-center">
     <div>
-      <label for="districtFilter" class="block text-sm font-medium text-gray-700">जिला चुनें</label>
-      <select id="districtFilter" class="border border-gray-300 rounded-md px-3 py-2">
+      <label for="districtFilter" class="block text-base font-semibold text-gray-800">जिला चुनें</label>
+      <select id="districtFilter" class="border border-gray-300 rounded-md px-4 py-2 bg-white">
         <option value="">सभी जिले</option>
-        <option value="अमरेली">अमरेली</option>
-        <option value="आनन्द">आनन्द</option>
-        <option value="अरावली">अरावली</option>
-        <option value="बनासकांठा">बनासकांठा</option>
-        <option value="भरूच">भरूच</option>
-        <option value="भावनगर">भावनगर</option>
-        <option value="बोटाड">बोटाड</option>
-        <option value="छोटा उदयपुर">छोटा उदयपुर</option>
-        <option value="दाहोद">दाहोद</option>
-        <option value="डांग">डांग</option>
-        <option value="देवभूमि द्वारिका">देवभूमि द्वारिका</option>
-        <option value="गांधीनगर">गांधीनगर</option>
-        <option value="गिर सोमनाथ">गिर सोमनाथ</option>
-        <option value="जामनगर">जामनगर</option>
-        <option value="जूनागढ़">जूनागढ़</option>
-        <option value="कच्छ">कच्छ</option>
-        <option value="खेड़ा">खेड़ा</option>
-        <option value="महेसाणा">महेसाणा</option>
-        <option value="Mahisagar">Mahisagar</option>
-        <option value="मोरबी">मोरबी</option>
-        <option value="नर्मदा">नर्मदा</option>
-        <option value="नवसारी">नवसारी</option>
-        <option value="पंचमहल">पंचमहल</option>
-        <option value="पाटन">पाटन</option>
-        <option value="पोरबंदर">पोरबंदर</option>
-        <option value="राजकोट">राजकोट</option>
-        <option value="साबरकांठा">साबरकांठा</option>
-        <option value="सूरत">सूरत</option>
-        <option value="सुरेंद्रनगर">सुरेंद्रनगर</option>
-        <option value="तापी">तापी</option>
-        <option value="वडोदरा">वडोदरा</option>
-        <option value="वलसाड">वलसाड</option>
       </select>
     </div>
 
     <div>
-      <label for="pincodeFilter" class="block text-sm font-medium text-gray-700">पिनकोड चुनें</label>
-      <select id="pincodeFilter" class="border border-gray-300 rounded-md px-3 py-2">
+      <label for="pincodeFilter" class="block text-base font-semibold text-gray-800">पिनकोड चुनें</label>
+      <select id="pincodeFilter" class="border border-gray-300 rounded-md px-4 py-2 bg-white">
         <option value="">सभी पिनकोड</option>
       </select>
     </div>
 
     <div>
-      <label for="categoryFilter" class="block text-sm font-medium text-gray-700">व्यापार श्रेणी</label>
-      <select id="categoryFilter" class="border border-gray-300 rounded-md px-3 py-2">
+      <label for="categoryFilter" class="block text-base font-semibold text-gray-800">व्यापार श्रेणी</label>
+      <select id="categoryFilter" class="border border-gray-300 rounded-md px-4 py-2 bg-white">
         <option value="">सभी श्रेणियाँ</option>
       </select>
     </div>
 
     <div class="w-full text-center">
-      <input type="text" id="searchInput" placeholder="नाम, व्यापार, पता खोजें..." class="mt-2 w-full md:w-96 px-4 py-2 border border-gray-300 rounded-md">
+      <input type="text" id="searchInput" placeholder="नाम, व्यापार, पता खोजें..." class="mt-2 w-full md:w-96 px-4 py-3 border border-gray-300 rounded-md">
     </div>
   </div>
 </section>
+
+<!-- Business Cards Grid -->
+<section id="cardsSection" class="bg-white py-6 px-4">
+  <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- कार्ड्स यहाँ JavaScript से जोड़ेंगे -->
+  </div>
+</section>
+
+<script>
+let allData = [];
+
+fetch("https://opensheet.elk.sh/https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv) // REPLACE with actual Sheet ID
+  .then(res => res.json())
+  .then(data => {
+    allData = data;
+    populateFilters(data);
+    renderAllCards(data);
+  });
+
+function getDriveThumbnail(link) {
+  const fileIdMatch = link.match(/[-\w]{25,}/);
+  return fileIdMatch ? `https://drive.google.com/thumbnail?id=${fileIdMatch[0]}&sz=w300` : "https://via.placeholder.com/300x180?text=Invalid+Image";
+}
+
+function renderCard(entry) {
+  const card = document.createElement("div");
+  card.className = "bg-white shadow-md rounded-lg overflow-hidden border border-orange-200";
+  const imageUrl = entry[7] ? getDriveThumbnail(entry[7]) : "https://via.placeholder.com/300x180?text=No+Image";
+
+  card.innerHTML = `
+    <img src="${imageUrl}" alt="Shop Image" class="w-full h-40 object-cover">
+    <div class="p-4">
+      <h3 class="text-lg font-semibold text-orange-700">${entry[0]}</h3>
+      <p class="text-sm text-gray-700">📞 ${entry[1]}</p>
+      <p class="text-sm text-gray-600">🏪 ${entry[2]}</p>
+      <p class="text-sm text-gray-500">🗂️ ${entry[6]}</p>
+    </div>
+  `;
+  return card;
+}
+
+function renderAllCards(data) {
+  const container = document.getElementById("cardsContainer");
+  container.innerHTML = "";
+  data.forEach(entry => {
+    container.appendChild(renderCard(entry));
+  });
+}
+
+function populateFilters(data) {
+  const districtSet = new Set();
+  const categorySet = new Set();
+  const pincodeSet = new Set();
+
+  data.forEach(entry => {
+    if (entry[4]) districtSet.add(entry[4]);
+    if (entry[6]) categorySet.add(entry[6]);
+    if (entry[5]) pincodeSet.add(entry[5]);
+  });
+
+  const districtFilter = document.getElementById("districtFilter");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const pincodeFilter = document.getElementById("pincodeFilter");
+
+  [...districtSet].sort().forEach(d => {
+    districtFilter.innerHTML += `<option value="${d}">${d}</option>`;
+  });
+  [...categorySet].sort().forEach(c => {
+    categoryFilter.innerHTML += `<option value="${c}">${c}</option>`;
+  });
+  [...pincodeSet].sort().forEach(p => {
+    pincodeFilter.innerHTML += `<option value="${p}">${p}</option>`;
+  });
+}
+</script>
 
 <!-- Business Cards Grid -->
 <section id="cardsSection" class="bg-white py-6 px-4">
@@ -701,6 +744,73 @@ function getDriveThumbnail(link) {
   }
 
   loadBusinessData();
+// Fetch and populate filters + cards from Google Sheet
+fetch("https://opensheet.elk.sh/https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv")
+  .then(res => res.json())
+  .then(data => {
+    const cardsContainer = document.getElementById("cardsContainer");
+    const districtFilter = document.getElementById("districtFilter");
+    const pincodeFilter = document.getElementById("pincodeFilter");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const searchInput = document.getElementById("searchInput");
+
+    const uniquePincodes = new Set();
+    const uniqueCategories = new Set();
+
+    cardsContainer.innerHTML = "";
+    data.forEach(entry => {
+      uniquePincodes.add(entry[5]);
+      uniqueCategories.add(entry[6]);
+      cardsContainer.appendChild(renderCard(entry));
+    });
+
+    // Fill pincode filter
+    Array.from(uniquePincodes)
+      .filter(p => p)
+      .sort()
+      .forEach(pin => {
+        const option = document.createElement("option");
+        option.value = pin;
+        option.textContent = pin;
+        pincodeFilter.appendChild(option);
+      });
+
+    // Fill category filter
+    Array.from(uniqueCategories)
+      .filter(c => c)
+      .sort()
+      .forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.textContent = cat;
+        categoryFilter.appendChild(option);
+      });
+
+    function filterAndRender() {
+      const selectedDistrict = districtFilter.value;
+      const selectedPincode = pincodeFilter.value;
+      const selectedCategory = categoryFilter.value;
+      const searchQuery = searchInput.value.toLowerCase();
+
+      cardsContainer.innerHTML = "";
+      let filtered = data.filter(entry => {
+        return (
+          (!selectedDistrict || entry[4] === selectedDistrict) &&
+          (!selectedPincode || entry[5] === selectedPincode) &&
+          (!selectedCategory || entry[6] === selectedCategory) &&
+          (entry[0] + entry[2] + entry[4] + entry[5] + entry[6]).toLowerCase().includes(searchQuery)
+        );
+      });
+
+      filtered.forEach(entry => cardsContainer.appendChild(renderCard(entry)));
+    }
+
+    districtFilter.addEventListener("change", filterAndRender);
+    pincodeFilter.addEventListener("change", filterAndRender);
+    categoryFilter.addEventListener("change", filterAndRender);
+    searchInput.addEventListener("input", filterAndRender);
+  });
+
 </script>
 
     <script src="data.js"></script>
