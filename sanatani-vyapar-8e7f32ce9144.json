@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "sanatani-vyapar",
+  "private_key_id": "8e7f32ce9144fa7c690e796542ab1160470051ad",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCZGX6ktG3XXVO1\njnPL7bu/aFI5t+/NNlQZFhkEOLVWeWB4+iVEyv9je/AB6g/GtIrDdHVog+qZMef2\nje4OZZP20SPzV1ddmPoqe8nFX9odl+GA/oJ/NmkQwrIKTmR+R1/eMSM2azvIlV1F\naetPTghF324U4IQPKJCARIal5jiWNAsjpYemOdAqz4Qk6QWlVdTEKUm/eDhKvdLq\nTVSgsMSCb8tEpbvNgrgjEOhL1Xq7bp/lliqOU98T6ByKRuCmEStxK6DmJfjrTy/7\nBg7ifM85X7Pf3mcVWqCnidbjmWspXUzJVUf/angeQSqNFcDQxQFfvgrOwcFoAT0w\nSM/bZpfJAgMBAAECggEAD5vtkUnTBBjgCrvwGuvNT0XJ0lgqQwwltVwPJ2LHvD4K\nQ7NPPu0KbkBp1ywfuSTZm/Vg7gu7DKztpzHPwliBZjHq/imavvB0mwW9a9nqsUc1\nptLsB5/KxPpwsAPPk59fyxXL7wWuVfRCiuvyYYbFaahOvyKn3CrI1scFyl7HSKrz\nr8brS09oAO2a/gAyAtiZq2kxhhGIb5LhSY6ZReFibzNbbu39+Ha1rFCVut2Ur8BU\neK2GFpSJSp30jEGgM7tgXmb0dVH3flqXkak6UWogZhMWW+mXbp7iwYnf0fnSWtdN\nk+P9zJwWEjSRk0mPaacEUzWfGvAQ/3p2BJYaQJeFAQKBgQDXV6HvU6qH1hLZysiq\nToDcX5Ptw+2APmD3gX4gG1rC0uPguvDpRY0cFLX3F4izubWEhk/kh+yhE3XXUC1L\nm1cjEELaZ3Nl9U0wTYgaLrtcJy/bdqT8BzCLlVj1CdFYDdsU2ydtPz9BVVu1AYBH\nUz/NoI3ZNQDTukG7TRC5aTS+SQKBgQC2AWszeRrTp3X4iS/m50dHB9KTsI9/lHff\njypXA2F4KCVMY4LFFbY3CFISKkw9LlaavCL3mm59Av6MXd5LPw9Gp99OyLPdXNtL\nsPKwEWe1LEdfTXpOyBPAGFNen678ZBjGFaOhxl7QqyjrDFIt3HuJ2OruLS07qesW\nwwCnjOENgQKBgBaizpHiwJVAyoB8UXWdhOwlW95tbwTBCd5ajVCAr5y1IGEaJYLP\n3dJq1unfXm5OAiepGrLSGuyfqA53DhvZe2JjLjPZFgdMrs16COl/qhA4yk4Ofa9E\nbjTuAQjY/Fl+M15Q3ycbs+GBQH+ZZcuZk6Zgzyha6vhWptwycKScy3+JAoGAR0ws\n+4AAg1NBgnfzXOfS4z9sPVDYFelKQDhsJKP9Zb2MRu1gh+YmeE55IAaT0Q+6+2ih\n5g8II06t+ry23RE54brXXpx+4UOD4JXTrCdVUgKjfvDx7bSxD/o3hoTVXqezkL1f\nWXtFH0c9gz5TXwXVGz3vYhgudQXuQv9m3Tvx2YECgYAbGaIFs5skJnrfaDHpzagr\nP8WLtpE2W7BkFBryixHI6/fI10bvStnxuemj7tdVr97NR2dHkpdeaciN7F44U6VO\noxjSVqKkP8bqsJZEfQD+4XnaFehIYDfGQ1iI4j5HWNoWdAwIbUEk/hZcH9YZBoDL\nohiSMumvIKAPm1IlC58VyA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "sanatani-vyapar@sanatani-vyapar.iam.gserviceaccount.com",
+  "client_id": "113484590019216324703",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sanatani-vyapar%40sanatani-vyapar.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

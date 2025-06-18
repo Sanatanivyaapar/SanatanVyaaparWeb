@@ -275,8 +275,13 @@
                 <!-- Search and Filters -->
                 <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
                     <div class="grid md:grid-cols-4 gap-4 mb-4">
-                        <div>
-                            <input type="text" id="search-input" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        <div class="flex-1 flex gap-2">
+                            <input type="text" id="search-input" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="Search...">
+                            <button onclick="searchAndFilter()" class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50">
+                                <span class="gujarati-text">શોધો</span>
+                                <span class="hindi-text">खोजें</span>
+                                <span class="english-text">Search</span>
+                            </button>
                         </div>
                         <div>
                             <select id="district-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
@@ -567,7 +572,7 @@
                     <!-- DevRatna Charitable Trust -->
                     <div class="text-center">
                         <div class="mb-3">
-                            <img src="attached_assets/DRCT LOGO col.png" alt="DevRatna Charitable Trust" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="attached_assets/drct-logo.png" alt="DevRatna Charitable Trust" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div style="display:none; width:80px; height:80px; background:#f3f4f6; border-radius:50%; align-items:center; justify-content:center; margin:0 auto;"><span style="color:#6b7280;">🏢</span></div>
                         </div>
                         <h4 class="font-semibold text-white mb-1">DevRatna Charitable Trust</h4>
@@ -578,7 +583,7 @@
                     <!-- Antariksh Life Energy Healing Center -->
                     <div class="text-center">
                         <div class="mb-3">
-                            <img src="attached_assets/Antariksh Life Energy Healing Center_bg_removed.png" alt="Antariksh Life Energy Healing Center" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="attached_assets/antariksh-logo.png" alt="Antariksh Life Energy Healing Center" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div style="display:none; width:80px; height:80px; background:#f3f4f6; border-radius:50%; align-items:center; justify-content:center; margin:0 auto;"><span style="color:#6b7280;">🌟</span></div>
                         </div>
                         <h4 class="font-semibold text-white mb-1">Antariksh Life Energy Healing Center</h4>
@@ -589,7 +594,7 @@
                     <!-- DeepJyot Natural Farm -->
                     <div class="text-center">
                         <div class="mb-3">
-                            <img src="attached_assets/DJFARM LOGO (2).jpg" alt="DeepJyot Natural Farm" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="attached_assets/djfarm-logo.jpg" alt="DeepJyot Natural Farm" class="w-20 h-20 mx-auto rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div style="display:none; width:80px; height:80px; background:#f3f4f6; border-radius:50%; align-items:center; justify-content:center; margin:0 auto;"><span style="color:#6b7280;">🌱</span></div>
                         </div>
                         <h4 class="font-semibold text-white mb-1">DeepJyot Natural Farm</h4>
@@ -611,6 +616,7 @@
     </footer>
     
     <!-- JavaScript -->
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

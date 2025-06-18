@@ -3,17 +3,264 @@
 let currentViewMode = 'grid';
 let allBusinesses = [];
 let featuredBusinesses = [];
+let businessData = [];
+
+// Load data from static data file
+function loadBusinessData() {
+    try {
+        // Get data from data.js
+        businessData = window.businessDataService.getAllBusinesses();
+        console.log('Loaded business data:', businessData);
+        
+        // Add event listeners for filters
+        const searchInput = document.getElementById('search-input');
+        const districtFilter = document.getElementById('district-filter');
+        const categoryFilter = document.getElementById('category-filter');
+        const pincodeFilter = document.getElementById('pincode-filter');
+
+        if (searchInput) searchInput.addEventListener('input', searchAndFilter);
+        if (districtFilter) districtFilter.addEventListener('change', searchAndFilter);
+        if (categoryFilter) categoryFilter.addEventListener('change', searchAndFilter);
+        if (pincodeFilter) pincodeFilter.addEventListener('input', searchAndFilter);
+
+        // Initialize filters and display data
+        initializeFilters();
+        populateFilters(businessData);
+        searchAndFilter();
+        
+    } catch (error) {
+        console.error('Error loading business data:', error);
+        showNotification('डेटा लोड करने में समस्या हुई', 'error');
+    }
+}
+
+// Display business data
+function displayBusinessData(data) {
+    const container = document.getElementById('business-listings');
+    if (!container) return;
+    
+    // Clear existing content
+    container.innerHTML = '';
+
+    // Create business cards
+    data.forEach(row => {
+        if (!row || row.length < 8) return;
+
+        // Map form responses to variables
+        const name = row[1] || ''; // Column B: Name
+        const phone = row[2] || ''; // Column C: Phone
+        const email = row[3] || ''; // Column D: Email
+        const category = row[4] || ''; // Column E: Category
+        const address = row[5] || ''; // Column F: Address
+        const district = row[6] || ''; // Column G: District
+        const pincode = row[7] || ''; // Column H: Pincode
+        const description = row[8] || ''; // Column I: Description
+        
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-lg shadow-md p-6 mb-4';
+        
+        // Get current language
+        const currentLang = document.querySelector('html').lang;
+        let labels = {
+            category: 'Category',
+            district: 'District',
+            pincode: 'Pincode',
+            contact: 'Contact',
+            address: 'Address'
+        };
+
+        if (currentLang === 'gu') {
+            labels = {
+                category: 'શ્રેણી',
+                district: 'જિલ્લો',
+                pincode: 'પિનકોડ',
+                contact: 'સંપર્ક',
+                address: 'સરનામું'
+            };
+        } else if (currentLang === 'hi') {
+            labels = {
+                category: 'श्रेणी',
+                district: 'जिला',
+                pincode: 'पिनकोड',
+                contact: 'संपर्क',
+                address: 'पता'
+            };
+        }
+        
+        card.innerHTML = `
+            <h3 class="text-xl font-semibold mb-2">${name}</h3>
+            ${description ? `<p class="text-gray-600 mb-4">${description}</p>` : ''}
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-sm text-gray-500">${labels.category}:</p>
+                    <p class="font-medium">${category}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">${labels.district}:</p>
+                    <p class="font-medium">${district}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">${labels.address}:</p>
+                    <p class="font-medium">${address}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">${labels.pincode}:</p>
+                    <p class="font-medium">${pincode}</p>
+                </div>
+            </div>
+            <div class="flex gap-4 mt-4">
+                ${phone ? `<a href="tel:${phone}" class="flex items-center text-orange-600 hover:text-orange-700"><i class="fas fa-phone mr-2"></i>${phone}</a>` : ''}
+                ${email ? `<a href="mailto:${email}" class="flex items-center text-blue-600 hover:text-blue-700"><i class="fas fa-envelope mr-2"></i>${email}</a>` : ''}
+            </div>
+        `;
+        
+        container.appendChild(card);
+    });
+
+    // Update results count
+    const resultsCount = document.getElementById('results-count');
+    if (resultsCount) {
+        const currentLang = document.querySelector('html').lang;
+        let text = '';
+        if (currentLang === 'gu') {
+            text = `${data.length} પરિણામો મળ્યા`;
+        } else if (currentLang === 'hi') {
+            text = `${data.length} परिणाम मिले`;
+        } else {
+            text = `${data.length} results found`;
+        }
+        resultsCount.textContent = text;
+    }
+
+    // Show no results message if needed
+    const noResults = document.getElementById('no-results');
+    if (noResults) {
+        noResults.style.display = data.length === 0 ? 'block' : 'none';
+    }
+
+}
+
+// Search and filter functionality
+function searchAndFilter() {
+    console.log('Searching and filtering...');
+    const searchInput = document.getElementById('search-input').value.toLowerCase();
+    const districtFilter = document.getElementById('district-filter').value;
+    const categoryFilter = document.getElementById('category-filter').value;
+    const pincodeFilter = document.getElementById('pincode-filter').value;
+
+    console.log('Filters:', { searchInput, districtFilter, categoryFilter, pincodeFilter });
+
+    const filteredData = businessData.filter(row => {
+        if (!row || row.length < 8) return false;
+
+        // Map form responses to variables
+        const name = row[1] || ''; // Column B: Name
+        const phone = row[2] || ''; // Column C: Phone
+        const email = row[3] || ''; // Column D: Email
+        const category = row[4] || ''; // Column E: Category
+        const address = row[5] || ''; // Column F: Address
+        const district = row[6] || ''; // Column G: District
+        const pincode = row[7] || ''; // Column H: Pincode
+        const description = row[8] || ''; // Column I: Description
+
+        // Filter conditions
+        const matchesDistrict = !districtFilter || district.toLowerCase() === districtFilter.toLowerCase();
+        const matchesCategory = !categoryFilter || category.toLowerCase() === categoryFilter.toLowerCase();
+        const matchesPincode = !pincodeFilter || pincode.toString().includes(pincodeFilter);
+        
+        // Search in name, description, and address
+        const matchesSearch = !searchInput || 
+            name.toLowerCase().includes(searchInput) || 
+            description.toLowerCase().includes(searchInput) || 
+            address.toLowerCase().includes(searchInput);
+
+        return matchesDistrict && matchesCategory && matchesPincode && matchesSearch;
+    });
+
+    // Sort results by district and category
+    filteredData.sort((a, b) => {
+        const districtA = a[6] || '';
+        const districtB = b[6] || '';
+        const categoryA = a[4] || '';
+        const categoryB = b[4] || '';
+
+        if (districtA !== districtB) {
+            return districtA.localeCompare(districtB);
+        }
+        return categoryA.localeCompare(categoryB);
+    });
+
+    displayBusinessData(filteredData);
+
+    // Update results count based on current language
+    const resultsCount = document.getElementById('results-count');
+    if (resultsCount) {
+        const currentLang = document.querySelector('html').lang;
+        let text = '';
+        if (currentLang === 'gu') {
+            text = `${filteredData.length} પરિણામો મળ્યા`;
+        } else if (currentLang === 'hi') {
+            text = `${filteredData.length} परिणाम मिले`;
+        } else {
+            text = `${filteredData.length} results found`;
+        }
+        resultsCount.textContent = text;
+    }
+
+    // Show/hide no results message
+    const noResults = document.getElementById('no-results');
+    if (noResults) {
+        if (filteredData.length === 0) {
+            const currentLang = document.querySelector('html').lang;
+            let text = '';
+            if (currentLang === 'gu') {
+                text = 'કોઈ પરિણામ મળ્યા નથી';
+            } else if (currentLang === 'hi') {
+                text = 'कोई परिणाम नहीं मिला';
+            } else {
+                text = 'No results found';
+            }
+            noResults.textContent = text;
+            noResults.style.display = 'block';
+        } else {
+            noResults.style.display = 'none';
+        }
+    }
+}
 
 // Initialize all functions when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
-    initializeSearch();
-    initializeLanguageSelector();
-    initializePanchang();
-    setupNavigation();
-    
-    // Show home section by default
-    showSection('home');
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        loadBusinessData();
+        initializeApp();
+        initializeSearch();
+        initializeLanguageSelector();
+        initializePanchang();
+        setupNavigation();
+        
+        // Add search and filter event listeners
+        const searchInput = document.getElementById('search-input');
+        const districtFilter = document.getElementById('district-filter');
+        const categoryFilter = document.getElementById('category-filter');
+        const pincodeFilter = document.getElementById('pincode-filter');
+
+        [searchInput, districtFilter, categoryFilter, pincodeFilter].forEach(element => {
+            if (element) {
+                element.addEventListener('input', searchAndFilter);
+            }
+        });
+        
+        // Update Hindu time every second
+        setInterval(updateHinduTime, 1000);
+
+        // Update Panchang data
+        updatePanchangData();
+        
+        console.log('Application initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize application:', error);
+        showNotification('एप्लिकेशन लोड करने में समस्या हुई', 'error');
+    }
 });
 
 // Language switching functionality
@@ -52,20 +299,52 @@ function initializeLanguageSelector() {
     switchLanguage(savedLanguage);
 }
 
-function switchLanguage(language) {
-    // Hide all language variants
-    document.querySelectorAll('.gujarati-text, .hindi-text, .english-text').forEach(element => {
-        element.style.display = 'none';
+function switchLanguage(lang) {
+    // Update HTML lang attribute
+    const langMap = {
+        'gujarati': 'gu',
+        'hindi': 'hi',
+        'english': 'en'
+    };
+    document.querySelector('html').lang = langMap[lang];
+
+    // Hide all language elements
+    document.querySelectorAll('.gujarati-text, .hindi-text, .english-text').forEach(el => {
+        el.style.display = 'none';
     });
 
-    // Show selected language
-    const selector = `.${language}-text`;
-    document.querySelectorAll(selector).forEach(element => {
-        element.style.display = 'inline';
+    // Show selected language elements
+    document.querySelectorAll('.' + lang + '-text').forEach(el => {
+        el.style.display = 'inline-block';
     });
 
-    // Update search placeholders
-    updateSearchPlaceholders();
+    // Update search button text
+    const searchBtn = document.querySelector('button[onclick="searchAndFilter()"]');
+    if (searchBtn) {
+        searchBtn.querySelectorAll('span').forEach(span => {
+            span.style.display = 'none';
+        });
+        searchBtn.querySelector('.' + lang + '-text').style.display = 'inline-block';
+    }
+
+    // Update search results count
+    searchAndFilter();
+
+    // Update select elements for the chosen language
+    document.querySelectorAll('select').forEach(select => {
+        Array.from(select.options).forEach(option => {
+            if (option.classList.contains(lang + '-text')) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+        // Select first visible option
+        const visibleOptions = Array.from(select.options).filter(opt => opt.style.display !== 'none');
+        if (visibleOptions.length > 0) {
+            select.value = visibleOptions[0].value;
+        }
+    });
 
     // Update page direction and language attribute
     if (language === 'gujarati') {
@@ -233,7 +512,7 @@ function removeHighlights(element) {
     });
 }
 
-function populateFilters() {
+function populateFilters(data) {
     // This will be called after businesses are loaded
     const districtFilter = document.getElementById('district-filter');
     const categoryFilter = document.getElementById('category-filter');
@@ -552,7 +831,7 @@ function showSection(sectionId) {
 }
 
 // Call initialize when the DOM is ready
-document.addEventListener('DOMContentLoaded', initialize);
+document.addEventListener('DOMContentLoaded', initializeApp);
 
 // Load businesses from database
 async function loadBusinessesFromDatabase() {
@@ -572,82 +851,25 @@ async function loadBusinessesFromDatabase() {
                 displayBusinesses();
                 displayFeaturedBusinesses();
             }
-        } else {
-            console.error('Failed to load businesses');
-            showNotification('व्यापार लोड करने में समस्या हुई', 'error');
         }
     } catch (error) {
         console.error('Error loading businesses:', error);
-        showNotification('सर्वर से कनेक्शन में समस्या', 'error');
     }
 }
 
-// Populate filter dropdown options
-function populateFilterOptions() {
-    const districtFilter = document.getElementById('district-filter');
-    const categoryFilter = document.getElementById('category-filter');
-
-    if (districtFilter && categoryFilter) {
-        // Get unique districts and categories
-        const districts = [...new Set(allBusinesses.map(b => b.district))].sort();
-        const categories = [...new Set(allBusinesses.map(b => b.category))].sort();
-
-        // Populate district filter
-        districts.forEach(district => {
-            const option = document.createElement('option');
-            option.value = district;
-            option.textContent = district;
-            districtFilter.appendChild(option);
-        });
-
-        // Populate category filter
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            categoryFilter.appendChild(option);
-        });
-    }
-}
-
-// Setup event listeners
-function setupEventListeners() {
-    // Search and filter inputs
-    const searchInput = document.getElementById('search-input');
-    const districtFilter = document.getElementById('district-filter');
-    const categoryFilter = document.getElementById('category-filter');
-    const pincodeFilter = document.getElementById('pincode-filter');
-
-    if (searchInput) {
-        searchInput.addEventListener('input', debounce(filterBusinesses, 300));
-    }
-
-    if (districtFilter) {
-        districtFilter.addEventListener('change', filterBusinesses);
-    }
-
-    if (categoryFilter) {
-        categoryFilter.addEventListener('change', filterBusinesses);
-    }
-
-    if (pincodeFilter) {
-        pincodeFilter.addEventListener('input', debounce(filterBusinesses, 300));
-    }
-}
-
-// Filter businesses based on search criteria
+// Filter businesses based on search term, district, category, and pincode
 function filterBusinesses() {
-    const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
-    const selectedDistrict = document.getElementById('district-filter')?.value || '';
-    const selectedCategory = document.getElementById('category-filter')?.value || '';
-    const selectedPincode = document.getElementById('pincode-filter')?.value || '';
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    const selectedDistrict = districtFilter.value;
+    const selectedCategory = categoryFilter.value;
+    const selectedPincode = pincodeFilter.value;
 
     const filteredBusinesses = allBusinesses.filter(business => {
-        const businessName = business.business_name.toLowerCase();
+        const Name = business.business_name.toLowerCase();
         const ownerName = business.owner_name.toLowerCase();
         const description = business.description.toLowerCase();
 
-        const matchesSearch = businessName.includes(searchTerm) ||
+        const matchesSearch = Name.includes(searchTerm) ||
                             ownerName.includes(searchTerm) ||
                             description.includes(searchTerm);
 
@@ -765,7 +987,7 @@ function createBusinessCard(business) {
 // Create business list item for list view
 function createBusinessListItem(business) {
     const listItem = document.createElement('div');
-    listItem.className = 'bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300';
+    listItem.className = 'bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto';
 
     listItem.innerHTML = `
         <div class="flex flex-col md:flex-row gap-6">
@@ -779,35 +1001,72 @@ function createBusinessListItem(business) {
             </div>
 
             <div class="flex-1">
-                <div class="flex items-start justify-between mb-2">
+                <div class="flex items-start justify-between mb-4">
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800 hindi-font">${business.business_name}</h3>
-                        <p class="text-gray-600 hindi-font">${business.owner_name}</p>
+                        <h2 class="text-2xl font-bold text-gray-800 hindi-font">${business.business_name}</h2>
+                        <p class="text-lg text-gray-600 hindi-font">${business.owner_name}</p>
                     </div>
-                    ${business.featured ? '<span class="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-semibold">विशेष</span>' : ''}
+                    ${business.featured ? '<span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">विशेष व्यापार</span>' : ''}
                 </div>
 
-                <div class="flex items-center mb-3">
-                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-sm hindi-font">${business.category}</span>
-                    <span class="ml-3 text-gray-500">${business.district}, ${business.state}</span>
-                    <span class="ml-3 text-gray-500">${business.pincode}</span>
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2 hindi-font">व्यापार विवरण</h3>
+                        <p class="text-sm text-gray-600 hindi-font">प्रकार: ${business.business_type}</p>
+                        <p class="text-sm text-gray-600 hindi-font">श्रेणी: ${business.category}</p>
+                        <p class="text-sm text-gray-600">ID: ${business.sanatani_id}</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2 hindi-font">स्थान की जानकारी</h3>
+                        <p class="text-sm text-gray-600">${business.district}, ${business.state}</p>
+                        <p class="text-sm text-gray-600">पिनकोड: ${business.pincode}</p>
+                    </div>
                 </div>
 
-                <p class="text-gray-600 mb-4 hindi-font">${business.description || 'विवरण उपलब्ध नहीं'}</p>
+                ${business.address ? `
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-800 mb-2 hindi-font">पूरा पता</h3>
+                        <p class="text-gray-600 hindi-font">${business.address}</p>
+                    </div>
+                ` : ''}
 
-                <div class="flex items-center justify-between">
-                    <span class="text-xs text-gray-400">ID: ${business.sanatani_id}</span>
-                    <div class="flex gap-2">
+                ${business.description ? `
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-800 mb-2 hindi-font">विवरण</h3>
+                        <p class="text-gray-600 hindi-font">${business.description}</p>
+                    </div>
+                ` : ''}
+
+                <div class="border-t pt-6">
+                    <h3 class="font-semibold text-gray-800 mb-4 hindi-font">संपर्क करें</h3>
+                    <div class="flex flex-wrap gap-3">
                         ${business.whatsapp ? 
-                            `<a href="https://wa.me/91${business.whatsapp}" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600 transition-colors">
-                                <i class="fab fa-whatsapp mr-1"></i>WhatsApp
+                            `<a href="https://wa.me/91${business.whatsapp}" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                                <i class="fab fa-whatsapp mr-2"></i>WhatsApp
                             </a>` : ''
                         }
-                        <button onclick="shareBusinessWhatsApp('${business.sanatani_id}')" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-600 transition-colors">
-                            <i class="fas fa-share mr-1"></i>Share
-                        </button>
-                        <button onclick="viewBusinessProfile('${business.sanatani_id}')" class="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-orange-600 transition-colors">
-                            <i class="fas fa-eye mr-1"></i>View
+
+                        ${business.phone ? 
+                            `<a href="tel:+91${business.phone}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                                <i class="fas fa-phone mr-2"></i>कॉल करें
+                            </a>` : ''
+                        }
+
+                        ${business.email ? 
+                            `<a href="mailto:${business.email}" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                                <i class="fas fa-envelope mr-2"></i>ईमेल
+                            </a>` : ''
+                        }
+
+                        ${business.website ? 
+                            `<a href="${business.website}" target="_blank" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                                <i class="fas fa-globe mr-2"></i>वेबसाइट
+                            </a>` : ''
+                        }
+
+                        <button onclick="shareBusinessWhatsApp('${business.sanatani_id}')" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fas fa-share mr-2"></i>शेयर करें
                         </button>
                     </div>
                 </div>
