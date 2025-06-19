@@ -1,0 +1,162 @@
+<li><a href="vyapari.html" class="text-gray-400 hover:text-white transition-colors hindi-font">व्यापारी सूची</a></li>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>व्यापारी सूची</title>
+  <link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .hindi-font { font-family: 'Noto Sans Devanagari', sans-serif; }
+  </style>
+</head>
+<body class="bg-orange-50 text-gray-800">
+  <!-- Header (same as homepage) -->
+  <header class="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <h1 class="text-2xl font-bold text-orange-600 hindi-font">केवल सनातनी व्यापार</h1>
+        <a href="../index.html" class="text-base text-orange-700 hover:underline font-semibold">मुख्य पृष्ठ</a>
+        <a href="vyapari.html" class="text-base text-orange-700 font-bold underline">व्यापारी सूची</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Panchang Bar (same as homepage) -->
+  <div id="panchangBar" class="bg-gradient-to-r from-orange-600 to-red-600 text-white py-2 overflow-hidden relative">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between text-sm">
+        <div class="flex items-center space-x-6">
+          <div id="currentTithi" class="flex flex-col items-start">
+            <span class="font-semibold">आज की तिथि: <span id="tithiText" class="ml-2">लोड हो रही है...</span></span>
+            <span id="gregorianDate" style="font-size:0.85em;opacity:0.8;"></span>
+          </div>
+          <div id="hinduTime" class="flex flex-col items-start">
+            <span class="font-semibold">हिंदू समय: <span id="hinduTimeText" class="ml-2">--:--:--</span></span>
+            <span id="localTimeText" style="font-size:0.85em;opacity:0.8;"></span>
+          </div>
+          <div id="sunTimes" class="flex flex-col items-start">
+            <span>सूर्योदय: <span id="sunriseTime">--:--</span></span>
+            <span>सूर्यास्त: <span id="sunsetTime">--:--</span></span>
+            <span id="agnihotraTime" style="font-size:0.85em;opacity:0.8;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold text-center mb-8 hindi-font">व्यापारी सूची</h2>
+    <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-6 mt-10 text-center text-sm">
+    © 2024 केवल सनातनी व्यापार | सभी अधिकार सुरक्षित
+  </footer>
+
+  <script>
+    // Panchang, Tithi, Time, Sunrise/Sunset, Agnihotra (same as homepage)
+    function pad(n) { return n < 10 ? '0' + n : n; }
+    function showDate() {
+      const now = new Date();
+      const dateStr = pad(now.getDate()) + '/' + pad(now.getMonth() + 1) + '/' + now.getFullYear();
+      document.getElementById('gregorianDate').textContent = dateStr;
+    }
+    setInterval(showDate, 1000); showDate();
+    function showLocalTime() {
+      const now = new Date();
+      let time = now.toLocaleTimeString('hi-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+      document.getElementById('localTimeText').textContent = time;
+    }
+    setInterval(showLocalTime, 1000); showLocalTime();
+    function updateHinduTime() {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + now.getTimezoneOffset() + 330);
+      document.getElementById('hinduTimeText').textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+    }
+    setInterval(updateHinduTime, 1000); updateHinduTime();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`)
+          .then(res => res.json())
+          .then(data => {
+            const sunrise = new Date(data.results.sunrise);
+            const sunset = new Date(data.results.sunset);
+            sunrise.setMinutes(sunrise.getMinutes() + 330);
+            sunset.setMinutes(sunset.getMinutes() + 330);
+            document.getElementById('sunriseTime').textContent = pad(sunrise.getHours()) + ':' + pad(sunrise.getMinutes());
+            document.getElementById('sunsetTime').textContent = pad(sunset.getHours()) + ':' + pad(sunset.getMinutes());
+            // Agnihotra
+            const agniMorning = new Date(sunrise.getTime() + 5*60000);
+            const agniEvening = new Date(sunset.getTime() - 5*60000);
+            document.getElementById('agnihotraTime').textContent = `अग्निहोत्र: ${pad(agniMorning.getHours())}:${pad(agniMorning.getMinutes())} (सुबह), ${pad(agniEvening.getHours())}:${pad(agniEvening.getMinutes())} (शाम)`;
+          });
+      }, function() {
+        document.getElementById('sunriseTime').textContent = '--:--';
+        document.getElementById('sunsetTime').textContent = '--:--';
+      });
+    } else {
+      document.getElementById('sunriseTime').textContent = '--:--';
+      document.getElementById('sunsetTime').textContent = '--:--';
+    }
+    function fetchTithi() {
+      fetch('https://www.vedicrishiastro.com/api/v1/tithi?day=today&api_key=public')
+        .then(res => res.json())
+        .then(data => {
+          if(data && data.tithi && data.tithi.details) {
+            document.getElementById('tithiText').textContent = data.tithi.details.tithi_name;
+          } else {
+            document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
+          }
+        })
+        .catch(() => {
+          document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
+        });
+    }
+    fetchTithi(); setInterval(fetchTithi, 60000 * 10);
+
+    // Business Cards from Google Sheet (confirming data)
+    const sheetURL = "https://opensheet.elk.sh/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/Approved";
+    function getDriveThumbnail(link) {
+      if (!link) return "https://via.placeholder.com/600x400?text=No+Image";
+      const match = link.match(/[-\w]{25,}/);
+      return match ? `https://drive.google.com/thumbnail?id=${match[0]}&sz=w600` : "https://via.placeholder.com/600x400?text=No+Image";
+    }
+    function renderCard(entry) {
+      const imageUrl = getDriveThumbnail(entry["Shop Photo"]);
+      const card = document.createElement("div");
+      card.className = "bg-white rounded-lg shadow-md overflow-hidden border border-orange-200";
+      card.innerHTML = `
+        <img src="${imageUrl}" alt="Shop Image" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-bold text-orange-700">${entry["Full Name"] || "नाम उपलब्ध नहीं"}</h3>
+          <p class="text-sm text-gray-800">📞 ${entry["Mobile Number"] || "-"}</p>
+          <p class="text-sm text-gray-600">🏪 ${entry["Business Name"] || "-"}</p>
+          <p class="text-sm text-gray-500">🗂️ ${entry["Business Category"] || "-"}</p>
+          <p class="text-sm text-gray-500">📍 ${entry["District"] || "-"}, ${entry["Pincode"] || "-"}</p>
+        </div>
+      `;
+      return card;
+    }
+    function renderAllCards(data) {
+      const container = document.getElementById("cardsContainer");
+      container.innerHTML = "";
+      if (!data.length) {
+        container.innerHTML = '<div class="text-center text-gray-500 py-8">कोई व्यापार नहीं मिला</div>';
+        return;
+      }
+      data.forEach(entry => container.appendChild(renderCard(entry)));
+    }
+    fetch(sheetURL)
+      .then(res => res.json())
+      .then(data => renderAllCards(data))
+      .catch(err => {
+        document.getElementById("cardsContainer").innerHTML = `<p class="text-red-600">डेटा लोड करने में त्रुटि हुई।</p>`;
+        console.error("Error fetching data:", err);
+      });
+  </script>
+</body>
+</html>

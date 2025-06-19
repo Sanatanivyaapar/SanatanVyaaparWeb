@@ -470,6 +470,109 @@ function filterAndRender() {
 if (document.getElementById('searchBtn')) {
   document.getElementById('searchBtn').addEventListener('click', filterAndRender);
 }
+
+// --- Tithi, Gregorian Date, Hindu Time, Local Time, Sunrise/Sunset, Agnihotra ---
+function pad(n) { return n < 10 ? '0' + n : n; }
+
+// Show Gregorian date below tithi
+function showDate() {
+    const now = new Date();
+    const dateStr = pad(now.getDate()) + '/' + pad(now.getMonth() + 1) + '/' + now.getFullYear();
+    let dateElem = document.getElementById('gregorianDate');
+    if (!dateElem) {
+        dateElem = document.createElement('span');
+        dateElem.id = 'gregorianDate';
+        dateElem.style.display = 'block';
+        dateElem.style.fontSize = '0.85em';
+        dateElem.style.opacity = '0.8';
+        document.getElementById('tithiText').after(dateElem);
+    }
+    dateElem.textContent = dateStr;
+}
+setInterval(showDate, 1000);
+showDate();
+
+// Show local time below Hindu time
+function showLocalTime() {
+    const now = new Date();
+    let time = now.toLocaleTimeString('hi-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+    let timeElem = document.getElementById('localTimeText');
+    if (!timeElem) {
+        timeElem = document.createElement('span');
+        timeElem.id = 'localTimeText';
+        timeElem.style.display = 'block';
+        timeElem.style.fontSize = '0.85em';
+        timeElem.style.opacity = '0.8';
+        document.getElementById('hinduTimeText').after(timeElem);
+    }
+    timeElem.textContent = time;
+}
+setInterval(showLocalTime, 1000);
+showLocalTime();
+
+// Hindu time (IST)
+function updateHinduTime() {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + now.getTimezoneOffset() + 330);
+    document.getElementById('hinduTimeText').textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+}
+setInterval(updateHinduTime, 1000);
+updateHinduTime();
+
+// Sunrise/Sunset (location-based)
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`)
+            .then(res => res.json())
+            .then(data => {
+                const sunrise = new Date(data.results.sunrise);
+                const sunset = new Date(data.results.sunset);
+                sunrise.setMinutes(sunrise.getMinutes() + 330);
+                sunset.setMinutes(sunset.getMinutes() + 330);
+                document.getElementById('sunriseTime').textContent = pad(sunrise.getHours()) + ':' + pad(sunrise.getMinutes());
+                document.getElementById('sunsetTime').textContent = pad(sunset.getHours()) + ':' + pad(sunset.getMinutes());
+                // Agnihotra time: 5 min after sunrise, 5 min before sunset
+                let agnihotraElem = document.getElementById('agnihotraTime');
+                if (!agnihotraElem) {
+                    agnihotraElem = document.createElement('span');
+                    agnihotraElem.id = 'agnihotraTime';
+                    agnihotraElem.style.display = 'block';
+                    agnihotraElem.style.fontSize = '0.85em';
+                    agnihotraElem.style.opacity = '0.8';
+                    document.getElementById('sunsetTime').parentElement.after(agnihotraElem);
+                }
+                const agniMorning = new Date(sunrise.getTime() + 5*60000);
+                const agniEvening = new Date(sunset.getTime() - 5*60000);
+                agnihotraElem.textContent = `अग्निहोत्र: ${pad(agniMorning.getHours())}:${pad(agniMorning.getMinutes())} (सुबह), ${pad(agniEvening.getHours())}:${pad(agniEvening.getMinutes())} (शाम)`;
+            });
+    }, function() {
+        document.getElementById('sunriseTime').textContent = '--:--';
+        document.getElementById('sunsetTime').textContent = '--:--';
+    });
+} else {
+    document.getElementById('sunriseTime').textContent = '--:--';
+    document.getElementById('sunsetTime').textContent = '--:--';
+}
+
+// Tithi (realtime)
+function fetchTithi() {
+    fetch('https://www.vedicrishiastro.com/api/v1/tithi?day=today&api_key=public')
+        .then(res => res.json())
+        .then(data => {
+            if(data && data.tithi && data.tithi.details) {
+                document.getElementById('tithiText').textContent = data.tithi.details.tithi_name;
+            } else {
+                document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
+            }
+        })
+        .catch(() => {
+            document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
+        });
+}
+fetchTithi();
+setInterval(fetchTithi, 60000 * 10); // update every 10 min
 </script>
                 
                 <!-- No Results -->
