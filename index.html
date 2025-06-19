@@ -214,7 +214,8 @@
         </section>
         
         <!-- Search & Filter Section (immediately after home) -->
-        <section id="filtersSection" class="bg-orange-50 py-12 px-4 rounded-xl shadow-lg max-w-3xl mx-auto mb-8">
+        <!-- Filters Section: Only District & Category, with your provided lists -->
+<section id="filtersSection" class="bg-orange-50 py-12 px-4 rounded-xl shadow-lg max-w-3xl mx-auto mb-8">
   <div class="text-center mb-8">
     <h2 class="text-4xl font-extrabold text-orange-800 hindi-font flex items-center justify-center gap-2"><span>🔍</span> सनातनी व्यापार खोजें</h2>
     <p class="text-xl text-gray-700 hindi-font mt-2">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
@@ -224,18 +225,147 @@
       <label for="districtFilter" class="block text-lg font-semibold text-gray-800 mb-2">जिला चुनें</label>
       <select id="districtFilter" class="border-2 border-orange-400 rounded-lg px-6 py-3 bg-white text-lg font-medium focus:ring-2 focus:ring-orange-500">
         <option value="">सभी जिले</option>
-      </select>
-    </div>
-    <div>
-      <label for="pincodeFilter" class="block text-lg font-semibold text-gray-800 mb-2">पिनकोड चुनें</label>
-      <select id="pincodeFilter" class="border-2 border-orange-400 rounded-lg px-6 py-3 bg-white text-lg font-medium focus:ring-2 focus:ring-orange-500">
-        <option value="">सभी पिनकोड</option>
+        <option>AMRELI</option>
+        <option>ANAND</option>
+        <option>ARAVALLI</option>
+        <option>BANASKANTHA</option>
+        <option>BHARUCH</option>
+        <option>BHAVNAGAR</option>
+        <option>BOTAD</option>
+        <option>CHHOTA UDEPUR</option>
+        <option>DAHOD</option>
+        <option>DANGS</option>
+        <option>DEVBHUMI DWARKA</option>
+        <option>GANDHINAGAR</option>
+        <option>GIR SOMNATH</option>
+        <option>JAMNAGAR</option>
+        <option>JUNAGADH</option>
+        <option>KACHCHH</option>
+        <option>KHEDA</option>
+        <option>MAHESANA</option>
+        <option>MAHISAGAR</option>
+        <option>MORBI</option>
+        <option>NARMADA</option>
+        <option>NAVSARI</option>
+        <option>PANCHMAHALS</option>
+        <option>PATAN</option>
+        <option>PORBANDAR</option>
+        <option>RAJKOT</option>
+        <option>SABARKANTHA</option>
+        <option>SURAT</option>
+        <option>SURENDRANAGAR</option>
+        <option>TAPI</option>
+        <option>VADODARA</option>
+        <option>VALSAD</option>
       </select>
     </div>
     <div>
       <label for="categoryFilter" class="block text-lg font-semibold text-gray-800 mb-2">व्यापार श्रेणी</label>
       <select id="categoryFilter" class="border-2 border-orange-400 rounded-lg px-6 py-3 bg-white text-lg font-medium focus:ring-2 focus:ring-orange-500">
         <option value="">सभी श्रेणियाँ</option>
+        <option>फ्रीलांसर / Web Designer / IT Services</option>
+        <option>फ्रीलांसर / सॉफ्टवेयर सेवा (Freelancer / Software Developer)</option>
+        <option>रिटेल विक्रेता (Retailer)</option>
+        <option>ऑटो रिपेयरिंग / गैराज (Auto Repair / Garage)</option>
+        <option>राज मिस्त्री / कारीगर (Mason / Artisan)</option>
+        <option>डेकोरेटर / इवेंट प्लानर (Decorator / Event Planner)</option>
+        <option>हॉस्पिटल / नर्सिंग होम (Hospital / Nursing Home)</option>
+        <option>कुटीर उद्योग / घरेलू निर्माण कार्य (Cottage Industry / Hand made Crafts)</option>
+        <option>प्रिंटर / डिज़ाइनर (Printer / Designer)</option>
+        <option>NGO / समाजसेवी संस्था</option>
+        <option>हस्तकला व्यापारी (Handicraft Seller)</option>
+        <option>कपड़े की दुकान (Clothing Store)</option>
+        <option>डिजिटल पेशेवर (Freelancer, IT)</option>
+        <option>फर्नीचर व्यवसाय (Furniture Business)</option>
+        <option>ऑनलाइन व्यवसाय (Online Business / E-commerce Seller)</option>
+        <option>ठेले वाले / स्ट्रीट वेंडर</option>
+        <option>चाय / नाश्ता ठेला (Tea / Breakfast Stall)</option>
+        <option>थोक विक्रेता (Wholesaler)</option>
+        <option>शिक्षक / कोचिंग क्लास (Teacher / Coaching)</option>
+        <option>वाहन धोने वाले (Vehicle Washing Service)</option>
+        <option>सेवा प्रदाता (Doctor, Plumber)</option>
+        <option>इंटीरियर डेकोरेटर (Interior Decorator)</option>
+        <option>पंडित / पूजारी / पुजा सामग्री विक्रेता (Priest / Puja Material Seller)</option>
+        <option>MSMEs / Manufacturer</option>
+        <option>ऑनलाइन व्यवसाय / डिजिटल marketer</option>
+        <option>NGO / समाजसेवी संस्था (NGO / Social Welfare Group)</option>
+        <option>राखी / दीया / त्योहार संबंधित निर्माण (Festival Product Maker)</option>
+        <option>हरे कपड़े / होलसेल व्यापार (Fabrics / Wholesale Garments)</option>
+        <option>कूरियर एजेंसी (Courier Agency / Delivery Partner)</option>
+        <option>खेल सामग्री विक्रेता (Sports Goods Seller)</option>
+        <option>जूते / चप्पल विक्रेता (Footwear Shop)</option>
+        <option>हेयर ड्रेसर / सैलून (Hairdresser / Salon)</option>
+        <option>संधान / सिंचाई उपकरण (Agricultural Equipments Seller)</option>
+        <option>फर्नीचर व्यापारी (Furniture Showroom / Carpenter)</option>
+        <option>बेकरी / मिठाई की दुकान (Bakery / Sweet Shop)</option>
+        <option>डेयरी / दूध केंद्र (Dairy / Milk Booth)</option>
+        <option>इलेक्ट्रॉनिक्स शोरूम (Electronics Store)</option>
+        <option>इंटरनेट / फोटोस्टीट / स्टेशनरी (Cyber Cafe / Photocopy / Stationery)</option>
+        <option>पैथोलॉजिस्ट / जांच केंद्र (Pathology / Diagnostic Lab)</option>
+        <option>कपड़ा धुलाई / लॉन्ड्री (Laundry / Dry Cleaning)</option>
+        <option>बीज / खाद विक्रेता (Seed / Fertilizer Seller)</option>
+        <option>आयुर्वेदिक सेवा / पंचकर्म (Ayurveda / Panchkarma Center)</option>
+        <option>किराणा स्टोर (Grocery Store)</option>
+        <option>कपड़े की दुकान (Clothing Store)</option>
+        <option>जिम / फिटनेस सेंटर (Gym / Fitness Center)</option>
+        <option>ऑटो गैराज / मैकेनिक (Auto Garage / Mechanic)</option>
+        <option>मैन्युफैक्चरर / उद्योगपति (Manufacturer / Industrialist)</option>
+        <option>इलेक्ट्रिशियन / प्लंबर (Electrician / Plumber)</option>
+        <option>प्लंबर (Plumber)</option>
+        <option>रंग रोगन / POP कार्य (POP / Painting Worker)</option>
+        <option>फल / सब्ज़ी विक्रेता (Fruit / Vegetable Vendor)</option>
+        <option>ऑटो पार्ट्स / बैटरी सेलर (Auto Parts / Battery Seller)</option>
+        <option>इलेक्ट्रिशियन (Electrician)</option>
+        <option>पुस्तक विक्रेता / शिक्षण सामग्री (Books / Education Material Seller)</option>
+        <option>रेडीमेड गारमेंट्स (Readymade Garments)</option>
+        <option>पत्रकार / लेखक / लेखक सेवाएं (Writer / Editor / Journalist)</option>
+        <option>ट्रैवल एजेंट / टिकट बुकिंग (Travel Agent / Ticket Booking)</option>
+        <option>अगरबत्ती / मोमबत्ती बनाने वाले (Incense Stick / Candle Maker)</option>
+        <option>कंप्यूटर / लैपटॉप शॉप (Computer / Laptop Store)</option>
+        <option>NGO / समाजसेवी क्षेत्र</option>
+        <option>रेडीमेड वस्त्र विक्रेता (Readymade Garments Seller)</option>
+        <option>ब्यूटी पार्लर / मेकअप आर्टिस्ट (Beauty Parlour/Makeup Artist)</option>
+        <option>कृषि व्यापारी / बीज-उर्वरक विक्रेता</option>
+        <option>MSME / लघु उद्योग (Small Scale Manufacturer / MSME)</option>
+        <option>कंस्ट्रक्शन मटेरियल सप्लायर (Construction Material Supplier)</option>
+        <option>डॉक्टर / चिकित्सक (Doctor / Physician)</option>
+        <option>फार्मेसी / मेडिकल स्टोर (Pharmacy / Medical Store)</option>
+        <option>वकील / लॉ ऑफिस (Lawyer / Legal Service)</option>
+        <option>इलेक्ट्रॉनिक्स सामान / टीवी, फ्रीज (Electronics Appliances Seller)</option>
+        <option>जूते / चप्पल विक्रेता (Footwear Seller)</option>
+        <option>फूड वैन / खाना देने वाले (Food Truck / Tiffin Supplier)</option>
+        <option>किराणा स्टोर (Grocery Shop)</option>
+        <option>रेस्टॉरेंट / होटल (Restaurant / Hotel)</option>
+        <option>फल / सब्ज़ी विक्रेता (Fruit / Vegetable Seller)</option>
+        <option>CA / वकील / Tax Consultant</option>
+        <option>थेले वाले / स्ट्रीट वेंडर (Hawker / Street Vendor)</option>
+        <option>घरेलू धंधे</option>
+        <option>चाय / नाश्ता ठेला (Tea / Snack Stall)</option>
+        <option>डिजिटल सेवाएं / डिज़ाइनिंग (Graphic / Web Designer / DTP)</option>
+        <option>सोशल मीडिया मार्केटर / एजेंसी (Digital Marketer / Social Media Management)</option>
+        <option>व्यवसायिक वाहन / ट्रांसपोर्ट सेवा (Transport / Loading Service)</option>
+        <option>योग / फिटनेस ट्रेनर (Yoga / Fitness Instructor)</option>
+        <option>फोटोग्राफर / विडियोग्राफर (Photographer / Videographer)</option>
+        <option>ट्रांसपोर्ट / ट्रैवल व्यवसाय</option>
+        <option>क्लिनिक / अस्पताल / नर्सिंग होम (Clinic / Hospital / Nursing Home)</option>
+        <option>पेंटिंग / कलरिंग सेवा (Painter / Color Work)</option>
+        <option>भूमि एजेंट / बिल्डर (Land Agent / Builder)</option>
+        <option>फोटोग्राफर / विडियोग्राफर (Photographer / Videographer)</option>
+        <option>वेल्डर / Fabrication (Welder / Fabricator)</option>
+        <option>बिल्डर / कॉन्ट्रैक्टर (Builder / Contractor)</option>
+        <option>इवेंट प्लानर / डेकोरेटर (Event Planner / Decorator)</option>
+        <option>Other - अन्य (Please specify)</option>
+        <option>Home Based Business (घर से व्यापार करने वाले)</option>
+        <option>लघु और कुटीर उद्योग</option>
+        <option>ब्यूटी पार्लर / सैलून (Salon / Parlour)</option>
+        <option>मोबाइल दुकान / रिपेयरिंग (Mobile Shop / Repair)</option>
+        <option>फार्मेसी / मेडिकल स्टोर (Pharmacy / Medical Shop)</option>
+        <option>Online व्यापारी</option>
+        <option>क्लिनिक / डॉक्टर (Clinic / Doctor)</option>
+        <option>पाठशाला / कोचिंग क्लास (School / Coaching Center)</option>
+        <option>सी.ए. / अकाउंटेंट / टैक्स कंसल्टेंट (CA / Accountant / Tax Consultant)</option>
+        <option>केटरिंग सेवाएं (Catering Services)</option>
+        <option>सीसीटीवी / सिक्योरिटी सर्विसेज (CCTV / Security Services)</option>
       </select>
     </div>
   </div>
@@ -244,16 +374,11 @@
     <button id="searchBtn" class="bg-orange-600 hover:bg-orange-700 text-white font-bold px-8 py-4 rounded-lg text-lg shadow transition-all duration-200"><i class="fas fa-search mr-2"></i>खोजें</button>
   </div>
 </section>
-
-<!-- Business Cards Section (show only 6 latest) -->
-<section id="cardsSection" class="bg-white py-6 px-4">
-  <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-</section>
 <script>
 let allData = [];
 
-// SIRF EK Sahi fetch block
-fetch("https://opensheet.elk.sh/1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk/Approved")
+// Use your provided Google Sheet link via opensheet.elk.sh
+fetch("https://opensheet.elk.sh/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/Approved")
   .then(res => res.json())
   .then(data => {
     allData = data;
@@ -329,13 +454,11 @@ function populateFilters(data) {
 
 function filterAndRender() {
   const d = document.getElementById("districtFilter").value;
-  const p = document.getElementById("pincodeFilter").value;
   const c = document.getElementById("categoryFilter").value;
   const q = document.getElementById("searchInput").value.toLowerCase();
 
   const filtered = allData.filter(entry =>
     (!d || entry["District"] === d) &&
-    (!p || entry["Pincode"] === p) &&
     (!c || entry["Business Category"] === c) &&
     (entry["Full Name"] + entry["Business Name"] + entry["Business Category"]).toLowerCase().includes(q)
   );
