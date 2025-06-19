@@ -159,6 +159,56 @@
         document.getElementById("cardsContainer").innerHTML = `<p class="text-red-600">डेटा लोड करने में त्रुटि हुई।</p>`;
         console.error("Error fetching data:", err);
       });
+
+
+    function csvToArray(str, delimiter = ",") {
+      const rows = str.trim().split("\n");
+      const headers = rows[0].split(delimiter).map(h => h.trim());
+      return rows.slice(1).map(row => {
+        const values = row.split(delimiter).map(v => v.trim());
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = values[i]);
+        return obj;
+      });
+    }
+
+    function displayCards(data) {
+      const container = document.getElementById('cards');
+      container.innerHTML = '';
+      data.forEach(row => {
+        const card = document.createElement('div');
+        card.className = 'business-card';
+        card.innerHTML = `
+          <h3>${row.Name || ''}</h3>
+          <p><strong>Business:</strong> ${row.Business || ''}</p>
+          <p><strong>Phone:</strong> ${row.Phone || ''}</p>
+          <p><strong>Email:</strong> ${row.Email || ''}</p>
+          <p><strong>Address:</strong> ${row.Address || ''}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Try JSON API first, fallback to CSV if fails
+    const SHEET_ID = 'YOUR_SHEET_ID_HERE';
+    const SHEET_NAME = 'Sheet1';
+    const API_URL = `https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`;
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv';
+
+    fetch(API_URL)
+      .then(res => {
+        if (!res.ok) throw new Error('API failed');
+        return res.json();
+      })
+      .then(displayCards)
+      .catch(() => {
+        fetch(CSV_URL)
+          .then(res => res.text())
+          .then(csv => displayCards(csvToArray(csv)))
+          .catch(() => {
+            document.getElementById('cards').innerText = 'Unable to load business cards.';
+          });
+      });
   </script>
 </body>
 </html>
