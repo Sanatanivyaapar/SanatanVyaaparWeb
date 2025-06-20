@@ -6,22 +6,24 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>केवल सनातनी व्यापार - Only Sanatani Business</title>
-    <meta name="description" content="सनातनी व्यापारियों को जोड़ने वाला धार्मिक आर्थिक नेटवर्क">
+    <title>सनातनी व्यापारियों का सबसे बड़ा नेटवर्क | Sanatani Vyapari</title>
+    <meta name="description" content="केवल सनातनी व्यापारियों के लिए भारत का सबसे बड़ा ऑनलाइन नेटवर्क। अपने जिले के विश्वसनीय सनातनी व्यापारियों से जुड़ें, खोजें और व्यापार बढ़ाएं।">
     
     <!-- Open Graph & WhatsApp Thumbnail -->
 <meta property="og:title" content="केवल सनातनी व्यापार" />
 <meta property="og:description" content="सनातनी व्यापारियों को जोड़ने वाला धार्मिक आर्थिक नेटवर्क" />
-<meta property="og:image" content="https://sanatanivyaapar.netlify.app/attached_assets/ram-thumbnail.jpg?width=600" />
+<meta property="og:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
 <meta property="og:url" content="https://sanatanivyaapar.netlify.app/" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="केवल सनातनी व्यापार" />
 <meta name="twitter:description" content="सनातनी व्यापारियों को जोड़ने वाला धार्मिक आर्थिक नेटवर्क" />
-<meta name="twitter:image" content="https://sanatanivyaapar.netlify.app/attached_assets/ram-thumbnail.jpg?width=600" />
+<meta name="twitter:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🕉️%3C/text%3E%3C/svg%3E">
+    <meta property="og:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
+<meta name="twitter:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
     
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -322,7 +324,7 @@ function populateDropdowns(data, headers) {
     return;
   }
   const districts = [...new Set(data.map(row => row[districtKey]).filter(Boolean))].sort();
-  const categories = [...new Set(data.map row => row[categoryKey]).filter(Boolean))].sort();
+  const categories = [...new Set(data.map(row => row[categoryKey]).filter(Boolean))].sort();
   districts.forEach(d => {
     const opt = document.createElement('option');
     opt.value = d;
@@ -376,7 +378,7 @@ function renderCards(data) {
     card.innerHTML = `
       <div class="w-full flex flex-col md:flex-row items-center gap-3 md:gap-0">
         <div class="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mb-2 md:mb-0 md:mr-4">
-          ${image ? `<img src="${image}" alt="${business}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
+          ${image ? `<img src="${image}" alt="${business ? business + ' - व्यापारी की दुकान की फोटो' : 'व्यापारी की दुकान की फोटो'}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
         </div>
         <div class="flex-1 w-full">
           <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-1 break-words">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
@@ -690,7 +692,7 @@ fetchCSVData();
         <!-- DevRatna Charitable Trust -->
         <div class="text-center">
             <div class="flex flex-col items-center mb-3">
-                <img src="attached_assets/drct-logo.png" alt="DevRatna Charitable Trust" class="w-20 h-20 rounded-full object-cover mb-2">
+                <img src="attached_assets/drct-logo.png" alt="DevRatna Charitable Trust का लोगो" class="w-20 h-20 rounded-full object-cover mb-2">
             </div>
             <h4 class="font-semibold text-white mb-1">DevRatna Charitable Trust</h4>
             <p class="text-gray-400 text-sm">संस्थापक</p>
@@ -699,7 +701,7 @@ fetchCSVData();
         <!-- Antariksh Life Energy Healing Center -->
         <div class="text-center">
             <div class="flex flex-col items-center mb-3">
-                <img src="attached_assets/antariksh-logo.png" alt="Antariksh Life Energy Healing Center" class="w-20 h-20 rounded-full object-cover mb-2">
+                <img src="attached_assets/antariksh-logo.png" alt="Antariksh Life Energy Healing Center का लोगो" class="w-20 h-20 rounded-full object-cover mb-2">
             </div>
             <h4 class="font-semibold text-white mb-1">Antariksh Life Energy Healing Center</h4>
             <p class="text-gray-400 text-sm">ऊर्जा चिकित्सा केंद्र</p>
@@ -708,7 +710,7 @@ fetchCSVData();
         <!-- DeepJyot Natural Farm -->
         <div class="text-center">
             <div class="flex flex-col items-center mb-3">
-                <img src="attached_assets/DJFARM LOGO (2).jpg" alt="DeepJyot Natural Farm" class="w-20 h-20 rounded-full object-cover mb-2">
+                <img src="attached_assets/DJFARM LOGO (2).jpg" alt="DeepJyot Natural Farm का लोगो" class="w-20 h-20 rounded-full object-cover mb-2">
             </div>
             <h4 class="font-semibold text-white mb-1">DeepJyot Natural Farm</h4>
             <p class="text-gray-400 text-sm">100% प्राकृतिक</p>
@@ -852,7 +854,7 @@ function renderCards(data) {
     card.innerHTML = `
       <div class="w-full flex flex-col md:flex-row items-center gap-3 md:gap-0">
         <div class="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mb-2 md:mb-0 md:mr-4">
-          ${image ? `<img src="${image}" alt="${business}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
+          ${image ? `<img src="${image}" alt="${business ? business + ' - व्यापारी की दुकान की फोटो' : 'व्यापारी की दुकान की फोटो'}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
         </div>
         <div class="flex-1 w-full">
           <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-1 break-words">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
