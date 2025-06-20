@@ -136,88 +136,64 @@ main {
 
     <!-- Navigation -->
     <nav class="bg-white shadow-lg fixed w-full top-[4.5rem] z-50">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <!-- Logo -->
-                <div class="flex items-center space-x-3">
-                    <div class="text-3xl">🕉️</div>
-                    <div>
-                        <h1 class="text-xl font-bold text-orange-600 hindi-font">
-                            केवल सनातनी व्यापार
-                        </h1>
-                        <p class="text-xs text-gray-600">
-                            धार्मिक व्यापारिक नेटवर्क
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Language Selector -->
-                <div class="hidden md:flex items-center space-x-2">
-                    <select id="language-selector" aria-label="भाषा चुनें" class="bg-white border border-gray-300 rounded-md px-2 py-1 text-sm">
-                        <option value="gujarati">ગુજરાતી</option>
-                        <option value="hindi" selected>हिंदी</option>
-                        <option value="english">English</option>
-                    </select>
-                </div>
-
-                <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="index.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
-                        मुख्य पृष्ठ
-                    </a>
-                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
-                        पंजीकरण
-                    </a>
-                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
-                        हमारे बारे में
-                    </a>
-                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
-                        <i class="fab fa-whatsapp mr-2"></i>
-                        समुदाय जुड़ें
-                    </a>
-                    <a href="vyapari.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
-                        व्यापारी सूची
-                    </a>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-gray-700" aria-label="Open mobile menu" title="Open mobile menu">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
-            
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="md:hidden hidden pb-4">
-                <div class="flex flex-col space-y-3">
-                    <div class="mb-2">
-                        <select id="mobile-language-selector" class="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm w-full" aria-label="भाषा चुनें" title="ભાષા પસંદ કરો">
-                            <option value="gujarati">ગુજરાતી</option>
-                            <option value="hindi" selected>हिंदी</option>
-                            <option value="english">English</option>
-                        </select>
-                    </div>
-                    <a href="index.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
-                        मुख्य पृष्ठ
-                    </a>
-                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
-                        पंजीकरण
-                    </a>
-                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
-                        हमारे बारे में
-                    </a>
-                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors inline-block text-center">
-                        <i class="fab fa-whatsapp mr-2"></i>
-                        समुदाय जुड़ें
-                    </a>
-                    <a href="vyapari.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
-                        व्यापारी सूची
-                    </a>
-                </div>
-            </div>
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <div class="text-3xl">🕉️</div>
+        <div>
+          <h1 class="text-xl font-bold text-orange-600 hindi-font">केवल सनातनी व्यापार</h1>
+          <p class="text-xs text-gray-600">धार्मिक व्यापारिक नेटवर्क</p>
         </div>
-    </nav>
+      </div>
+      <!-- Language Selector (desktop only) -->
+      <div class="hidden md:flex items-center space-x-2">
+        <select id="language-selector" aria-label="भाषा चुनें" class="bg-white border border-gray-300 rounded-md px-2 py-1 text-sm">
+          <option value="gujarati">ગુજરાતી</option>
+          <option value="hindi" selected>हिंदी</option>
+          <option value="english">English</option>
+        </select>
+      </div>
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="index.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">मुख्य पृष्ठ</a>
+        <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">पंजीकरण</a>
+        <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">हमारे बारे में</a>
+        <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"><i class="fab fa-whatsapp mr-2"></i>समुदाय जुड़ें</a>
+        <a href="vyapari.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">व्यापारी सूची</a>
+      </div>
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-gray-700" aria-label="Open mobile menu" title="Open mobile menu">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden pb-4">
+      <div class="flex flex-col space-y-3">
+        <div class="mb-2">
+          <select id="mobile-language-selector" class="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm w-full" aria-label="भाषा चुनें" title="ભાષા પસંદ કરો">
+            <option value="gujarati">ગુજરાતી</option>
+            <option value="hindi" selected>हिंदी</option>
+            <option value="english">English</option>
+          </select>
+        </div>
+        <a href="index.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">मुख्य पृष्ठ</a>
+        <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">पंजीकरण</a>
+        <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">हमारे बारे में</a>
+        <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors inline-block text-center"><i class="fab fa-whatsapp mr-2"></i>समुदाय जुड़ें</a>
+        <a href="vyapari.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">व्यापारी सूची</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+// Mobile menu toggle
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('hidden');
+});
+</script>
     
     <!-- Main Content -->
     <main class="pt-20">
@@ -246,30 +222,30 @@ main {
         
         <!-- Search & Filter Section (immediately after home) -->
         <!-- Filters Section: Only District & Category, with your provided lists -->
-<section id="filtersSection" class="bg-orange-50 py-12 px-4 rounded-xl shadow-lg max-w-3xl mx-auto mb-8">
-  <div class="text-center mb-8">
-    <h2 class="text-4xl font-extrabold text-orange-800 hindi-font flex items-center justify-center gap-2"><span>🔍</span> सनातनी व्यापार खोजें</h2>
-    <p class="text-xl text-gray-700 hindi-font mt-2">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
+<section id="filtersSection" class="bg-orange-50 py-8 px-2 md:py-12 md:px-4 rounded-xl shadow-lg max-w-3xl mx-auto mb-8">
+  <div class="text-center mb-6 md:mb-8">
+    <h2 class="text-2xl md:text-4xl font-extrabold text-orange-800 hindi-font flex items-center justify-center gap-2"><span>🔍</span> सनातनी व्यापार खोजें</h2>
+    <p class="text-base md:text-xl text-gray-700 hindi-font mt-2">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
   </div>
-  <div class="filters flex flex-wrap gap-8 justify-center items-end mb-6">
-    <div>
-      <label for="districtFilter" class="block text-lg font-semibold text-gray-800 mb-2">जिला चुनें</label>
-      <select id="districtFilter" class="border-2 border-orange-400 rounded-lg px-6 py-3 bg-white text-lg font-medium focus:ring-2 focus:ring-orange-500">
+  <div class="filters flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-stretch md:items-end mb-4 md:mb-6">
+    <div class="flex-1">
+      <label for="districtFilter" class="block text-base md:text-lg font-semibold text-gray-800 mb-2">जिला चुनें</label>
+      <select id="districtFilter" class="w-full border-2 border-orange-400 rounded-lg px-4 py-2 md:px-6 md:py-3 bg-white text-base md:text-lg font-medium focus:ring-2 focus:ring-orange-500">
         <option value="">सभी जिले</option>
       </select>
     </div>
-    <div>
-      <label for="categoryFilter" class="block text-lg font-semibold text-gray-800 mb-2">व्यापार श्रेणी</label>
-      <select id="categoryFilter" class="border-2 border-orange-400 rounded-lg px-6 py-3 bg-white text-lg font-medium focus:ring-2 focus:ring-orange-500">
+    <div class="flex-1">
+      <label for="categoryFilter" class="block text-base md:text-lg font-semibold text-gray-800 mb-2">व्यापार श्रेणी</label>
+      <select id="categoryFilter" class="w-full border-2 border-orange-400 rounded-lg px-4 py-2 md:px-6 md:py-3 bg-white text-base md:text-lg font-medium focus:ring-2 focus:ring-orange-500">
         <option value="">सभी श्रेणियाँ</option>
       </select>
     </div>
-    <div class="flex items-end">
-      <input id="searchInput" type="text" placeholder="नाम, व्यापार, जिला, श्रेणी..." class="border-2 border-orange-400 rounded-lg px-6 py-3 text-lg font-medium focus:ring-2 focus:ring-orange-500" />
-      <button id="searchBtn" class="ml-2 bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors">खोजें</button>
+    <div class="flex-1 flex items-end">
+      <input id="searchInput" type="text" placeholder="नाम, व्यापार, जिला, श्रेणी..." class="w-full border-2 border-orange-400 rounded-lg px-4 py-2 md:px-6 md:py-3 text-base md:text-lg font-medium focus:ring-2 focus:ring-orange-500" />
+      <button id="searchBtn" class="ml-2 bg-orange-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors">खोजें</button>
     </div>
   </div>
-  <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+  <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"></div>
 </section>
 <div class="card-container" id="cards">
   <!-- JS se business cards appear honge -->
@@ -346,7 +322,7 @@ function populateDropdowns(data, headers) {
     return;
   }
   const districts = [...new Set(data.map(row => row[districtKey]).filter(Boolean))].sort();
-  const categories = [...new Set(data.map(row => row[categoryKey]).filter(Boolean))].sort();
+  const categories = [...new Set(data.map row => row[categoryKey]).filter(Boolean))].sort();
   districts.forEach(d => {
     const opt = document.createElement('option');
     opt.value = d;
@@ -398,15 +374,17 @@ function renderCards(data) {
     const card = document.createElement('div');
     card.className = 'business-card bg-white border border-orange-200 rounded-lg p-4 mb-4 shadow flex flex-col md:flex-row items-center';
     card.innerHTML = `
-      <div class="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mr-4 mb-2 md:mb-0">
-        ${image ? `<img src="${image}" alt="${business}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
-      </div>
-      <div class="flex-1">
-        <h3 class="text-xl font-bold text-orange-700 mb-1">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
-        <p class="text-base font-semibold text-gray-800 mb-1">${name || ''}</p>
-        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">मोबाइल:</span> ${phone || '-'}</p>
-        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">श्रेणी:</span> ${category || '-'}</p>
-        <p class="text-sm text-gray-700"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+      <div class="w-full flex flex-col md:flex-row items-center gap-3 md:gap-0">
+        <div class="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mb-2 md:mb-0 md:mr-4">
+          ${image ? `<img src="${image}" alt="${business}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
+        </div>
+        <div class="flex-1 w-full">
+          <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-1 break-words">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
+          <p class="text-base font-semibold text-gray-800 mb-1 break-words">${name || ''}</p>
+          <p class="text-sm text-gray-700 mb-1"><span class="font-medium">मोबाइल:</span> ${phone || '-'}</p>
+          <p class="text-sm text-gray-700 mb-1"><span class="font-medium">श्रेणी:</span> ${category || '-'}</p>
+          <p class="text-sm text-gray-700"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+        </div>
       </div>
     `;
     container.appendChild(card);
@@ -872,15 +850,17 @@ function renderCards(data) {
     const card = document.createElement('div');
     card.className = 'business-card bg-white border border-orange-200 rounded-lg p-4 mb-4 shadow flex flex-col md:flex-row items-center';
     card.innerHTML = `
-      <div class="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mr-4 mb-2 md:mb-0">
-        ${image ? `<img src="${image}" alt="${business}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
-      </div>
-      <div class="flex-1">
-        <h3 class="text-xl font-bold text-orange-700 mb-1">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
-        <p class="text-base font-semibold text-gray-800 mb-1">${name || ''}</p>
-        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">मोबाइल:</span> ${phone || '-'}</p>
-        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">श्रेणी:</span> ${category || '-'}</p>
-        <p class="text-sm text-gray-700"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+      <div class="w-full flex flex-col md:flex-row items-center gap-3 md:gap-0">
+        <div class="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mb-2 md:mb-0 md:mr-4">
+          ${image ? `<img src="${image}" alt="${business}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
+        </div>
+        <div class="flex-1 w-full">
+          <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-1 break-words">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
+          <p class="text-base font-semibold text-gray-800 mb-1 break-words">${name || ''}</p>
+          <p class="text-sm text-gray-700 mb-1"><span class="font-medium">मोबाइल:</span> ${phone || '-'}</p>
+          <p class="text-sm text-gray-700 mb-1"><span class="font-medium">श्रेणी:</span> ${category || '-'}</p>
+          <p class="text-sm text-gray-700"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+        </div>
       </div>
     `;
     container.appendChild(card);
