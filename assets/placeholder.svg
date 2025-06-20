@@ -1,0 +1,7 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="160" rx="24" fill="#F3F4F6"/>
+  <g>
+    <text x="50%" y="54%" text-anchor="middle" fill="#D97706" font-size="48" font-family="Arial, sans-serif" dy=".3em">QR</text>
+    <text x="50%" y="75%" text-anchor="middle" fill="#9CA3AF" font-size="16" font-family="Arial, sans-serif">No Image</text>
+  </g>
+</svg>

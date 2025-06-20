@@ -2,102 +2,49 @@
 <html lang="hi">
 <head>
     <meta property="og:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>सनातनी व्यापारियों का सबसे बड़ा नेटवर्क | Sanatani Vyapari</title>
     <meta name="description" content="केवल सनातनी व्यापारियों के लिए भारत का सबसे बड़ा ऑनलाइन नेटवर्क। अपने जिले के विश्वसनीय सनातनी व्यापारियों से जुड़ें, खोजें और व्यापार बढ़ाएं।">
-    
     <!-- Open Graph & WhatsApp Thumbnail -->
-<meta property="og:title" content="केवल सनातनी व्यापार" />
-<meta property="og:description" content="सनातनी व्यापारियों को जोड़ने वाला धार्मिक आर्थिक नेटवर्क" />
-<meta property="og:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
-<meta property="og:url" content="https://sanatanivyaapar.netlify.app/" />
-<meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="केवल सनातनी व्यापार" />
-<meta name="twitter:description" content="सनातनी व्यापारियों को जोड़ने वाला धार्मिक आर्थिक नेटवर्क" />
-<meta name="twitter:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
-    
+    <meta property="og:title" content="केवल सनातनी व्यापार" />
+    <meta property="og:description" content="सनातनी व्यापारियों को जोड़ने वाला धार्मिक आर्थिक नेटवर्क" />
+    <meta property="og:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
+    <meta property="og:url" content="https://sanatanivyaapar.netlify.app/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="केवल सनातनी व्यापार" />
+    <meta name="twitter:description" content="सनातनी व्यापारियों को जोड़ने वाला धार्मिक आर्थिक नेटवर्क" />
+    <meta name="twitter:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🕉️%3C/text%3E%3C/svg%3E">
     <meta property="og:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
-<meta name="twitter:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
-    
+    <meta name="twitter:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
         .hindi-font { font-family: 'Noto Sans Devanagari', sans-serif; }
         .english-font { font-family: 'Inter', sans-serif; }
-        
         .hindi-text { display: inline; }
         .english-text { display: none; }
         .gujarati-text { display: none; }
-        
         .gradient-bg { background: linear-gradient(135deg, #ff6b35, #f7931e, #ffcc02); }
         .saffron-bg { background: linear-gradient(135deg, #ff6b35, #ff8c00); }
         .floating { animation: float 6s ease-in-out infinite; }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
         .fade-in { animation: fadeIn 0.6s ease-in-out; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .animate-marquee {
-            animation: marquee 20s linear infinite;
-        }
-        .org-logo-fallback {
-            display: none;
-            width: 80px;
-            height: 80px;
-            background: #f3f4f6;
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
-        .org-logo-fallback span {
-            color: #6b7280;
-        }
-        
-        footer {
-  background: #ffa726;
-  color: #fff;
-  text-align: center;
-  padding: 10px 0 6px 0; /* height kam ki gayi */
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  margin-top: 40px;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-body {
-  /* ...existing code... */
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-main {
-  /* ...existing code... */
-  flex: 1 0 auto;
-}
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .animate-marquee { animation: marquee 20s linear infinite; }
+        .org-logo-fallback { display: none; width: 80px; height: 80px; background: #f3f4f6; border-radius: 50%; align-items: center; justify-content: center; margin: 0 auto; }
+        .org-logo-fallback span { color: #6b7280; }
+        footer { background: #ffa726; color: #fff; text-align: center; padding: 10px 0 6px 0; font-size: 1rem; letter-spacing: 0.5px; margin-top: 40px; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); position: relative; bottom: 0; width: 100%; }
+        body { min-height: 100vh; display: flex; flex-direction: column; }
+        main { flex: 1 0 auto; }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -110,10 +57,6 @@ main {
                         <span class="font-semibold">आज की तिथि:</span>
                         <span id="tithiText" class="ml-2">लोड हो रही है...</span>
                     </div>
-                    <body class="bg-gray-50 min-h-screen">
-    <!-- Sanatani Panchang Bar -->
-    <div id="panchangBar" class="...">...</div>
-
                     <div id="hinduTime" class="flex items-center">
                         <span class="font-semibold">हिंदू समय:</span>
                         <span id="hinduTimeText" class="ml-2">--:--:--</span>
@@ -249,19 +192,15 @@ mobileMenuBtn.addEventListener('click', () => {
   </div>
   <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"></div>
 </section>
-<div class="card-container" id="cards">
-  <!-- JS se business cards appear honge -->
-</div>
 <script>
+const csvUrl = 'test-business.csv'; // यहाँ अपना सही CSV path दें
+let allData = [];
 // --- केवल CSV से data fetch और business cards दिखाने वाला code ---
 function cleanQuotes(text) {
   return text
     .replace(/[“”]/g, '"')
     .replace(/[‘’]/g, "'");
 }
-
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv';
-let allData = [];
 
 function fetchCSVData() {
   fetch(csvUrl)
@@ -354,6 +293,9 @@ function renderCards(data) {
     const phone = row['Mobile Number'] || row.Phone || row['फोन'] || '';
     const district = row['District'] || row['जिला'] || '';
     const category = row['Business Category'] || row['व्यापार श्रेणी'] || '';
+    // Google Map Location (col D)
+    let mapLink = row['Location'] || row['Google Map'] || row['गूगल मैप'] || row['Address'] || row['स्थान'] || row['लोकेशन'] || row['Column D'] || '';
+    mapLink = (mapLink || '').trim();
     // Image link (col H) - Google Drive/Photos link ko bhi handle karo
     let image = row['Shop Photo Link'] || row['Image'] || row['फोटो'] || row['Image Link'] || '';
     // Google Drive sharing link ko direct image link me convert karo
@@ -374,18 +316,25 @@ function renderCards(data) {
     if (!(name || business || phone || district || category || image)) return;
     found = true;
     const card = document.createElement('div');
+    // Business card ka HTML banate waqt, Google Map link dikhane ka code:
     card.className = 'business-card bg-white border border-orange-200 rounded-lg p-4 mb-4 shadow flex flex-col md:flex-row items-center';
     card.innerHTML = `
       <div class="w-full flex flex-col md:flex-row items-center gap-3 md:gap-0">
         <div class="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mb-2 md:mb-0 md:mr-4">
-          ${image ? `<img src="${image}" alt="${business ? business + ' - व्यापारी की दुकान की फोटो' : 'व्यापारी की दुकान की फोटो'}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
+          ${image ? `<img src="${image}" alt="${business ? business + ' - व्यापारी की दुकान की फोटो' : 'व्यापारी की दुकान की फोटो'}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
         </div>
         <div class="flex-1 w-full">
           <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-1 break-words">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
           <p class="text-base font-semibold text-gray-800 mb-1 break-words">${name || ''}</p>
           <p class="text-sm text-gray-700 mb-1"><span class="font-medium">मोबाइल:</span> ${phone || '-'}</p>
           <p class="text-sm text-gray-700 mb-1"><span class="font-medium">श्रेणी:</span> ${category || '-'}</p>
-          <p class="text-sm text-gray-700"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+          <p class="text-sm text-gray-700 mb-1"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+          ${
+            mapLink
+              ? `<a href="${mapLink}" target="_blank" rel="noopener" class="inline-flex items-center mt-2 text-blue-600 hover:text-blue-800 font-medium text-sm" title="Google Map पर लोकेशन देखें"><i class="fas fa-map-marker-alt mr-1"></i>लोकेशन देखें</a>
+              <span class="block text-xs text-gray-400 mt-1 break-all">${mapLink}</span>`
+              : ''
+          }
         </div>
       </div>
     `;
@@ -633,99 +582,122 @@ fetchCSVData();
                 </div>
             </div>
         </section>
+        
+        <!-- आर्थिक सहयोग / डोनेशन सेक्शन -->
+<section id="donation" class="max-w-2xl mx-auto my-10 bg-orange-50 rounded-xl shadow-lg p-6 md:p-10 flex flex-col items-center">
+  <h2 class="text-2xl md:text-3xl font-bold text-orange-800 mb-2">आर्थिक सहयोग करें</h2>
+  <div class="text-lg text-gray-700 mb-4 text-center">सनातनी नेटवर्क को आगे बढ़ाने के लिए आपका सहयोग अमूल्य है।</div>
+  <div class="text-orange-700 font-semibold text-center mb-2">DEVRATNA CHARITABLE TRUST</div>
+  <div class="w-full flex flex-col md:flex-row gap-6 items-center justify-center mb-4">
+    <div class="flex-1 min-w-[180px]">
+      <div class="bg-white rounded-lg p-4 shadow text-sm">
+        <div class="mb-1"><span class="font-semibold">बैंक:</span> THE SURAT DISTRICT CO-OPERATIVE BANK LTD</div>
+        <div class="mb-1"><span class="font-semibold">A/C:</span> 808037131747</div>
+        <div class="mb-1"><span class="font-semibold">IFSC:</span> SDCB0000037</div>
+        <div class="mb-1 flex items-center"><span class="font-semibold">UPI:</span> <span id="upi-id" class="ml-1 select-all">8460572088@okbizaxis</span>
+          <button onclick="navigator.clipboard.writeText('8460572088@okbizaxis')" class="ml-2 px-2 py-1 bg-orange-600 text-white rounded text-xs hover:bg-orange-700">कॉपी</button>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 flex flex-col items-center">
+      <img src="assets/DRCT%20QR.jpg" alt="DEVRATNA CHARITABLE TRUST का QR कोड" class="w-40 h-40 object-contain rounded-lg border border-orange-200 bg-white shadow mb-2" onerror="this.onerror=null;this.src='assets/placeholder.svg';">
+      <div class="text-xs text-gray-500 text-center">QR कोड स्कैन कर UPI से सहयोग करें</div>
+    </div>
+  </div>
+  <div class="italic text-orange-700 text-center mt-2 text-base md:text-lg">
+    दानं धर्मस्य कारणम्।<br>
+    <span class="text-sm text-gray-600">(दान ही धर्म का कारण है)</span>
+  </div>
+</section>
     </main>
     
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <!-- Logo & About -->
-                <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="text-2xl">🕉️</div>
-                        <div>
-                            <h3 class="text-lg font-bold hindi-font">केवल सनातनी व्यापार</h3>
-                            <p class="text-sm text-gray-400">धार्मिक व्यापारिक नेटवर्क</p>
-                        </div>
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+            <!-- Logo & About -->
+            <div>
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="text-2xl">🕉️</div>
+                    <div>
+                        <h3 class="text-lg font-bold hindi-font">केवल सनातनी व्यापार</h3>
+                        <p class="text-sm text-gray-400">धार्मिक व्यापारिक नेटवर्क</p>
                     </div>
-                    <p class="text-gray-400 text-sm hindi-font"></p>
-                        सनातनी व्यापारियों को जोड़ने वाला एक विश्वसनीय मंच
-                    </p>
                 </div>
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="text-lg font-semibold mb-4 hindi-font">त्वरित लिंक</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors hindi-font">मुख्य पृष्ठ</a></li>
-                        <li><a href="#register" class="text-gray-400 hover:text-white transition-colors hindi-font">पंजीकरण</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors hindi-font">हमारे बारे में</a></li>
-                    </ul>
-                </div>
-                <!-- Categories -->
-                                <!-- Contact -->
-                <div>
-                    <h4 class="text-lg font-semibold mb-4 hindi-font">संपर्क</h4>
-                    <div class="space-y-3 text-sm">
-                        <div class="text-gray-400">
-                            <i class="fas fa-envelope mr-2"></i>
-                            <a href="mailto:hindubalsanskaarkendra@gmail.com" class="hover:text-white">
-                                hindubalsanskaarkendra@gmail.com
-                            </a>
-                        </div>
-                        
-                        <div class="flex space-x-2">
-                            <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-green-600 transition-colors inline-block">
-                                <i class="fab fa-whatsapp mr-1"></i>WhatsApp
-                            </a>
-                            <a href="https://t.me/+40O2yI1B2vsyOThl" target="_blank" rel="noopener" title="Join us on Telegram" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-blue-600 transition-colors inline-block">
-                                <i class="fab fa-telegram mr-1"></i>Telegram
-                            </a>
-                        </div>
+                <p class="text-gray-400 text-sm hindi-font">सनातनी व्यापारियों को जोड़ने वाला एक विश्वसनीय मंच</p>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 hindi-font">त्वरित लिंक</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#home" class="text-gray-400 hover:text-white transition-colors hindi-font">मुख्य पृष्ठ</a></li>
+                    <li><a href="#register" class="text-gray-400 hover:text-white transition-colors hindi-font">पंजीकरण</a></li>
+                    <li><a href="#about" class="text-gray-400 hover:text-white transition-colors hindi-font">हमारे बारे में</a></li>
+                </ul>
+            </div>
+            <!-- Contact -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 hindi-font">संपर्क</h4>
+                <div class="space-y-3 text-sm">
+                    <div class="text-gray-400">
+                        <i class="fas fa-envelope mr-2"></i>
+                        <a href="mailto:hindubalsanskaarkendra@gmail.com" class="hover:text-white">
+                            hindubalsanskaarkendra@gmail.com
+                        </a>
+                    </div>
+                    <div class="flex space-x-2">
+                        <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-green-600 transition-colors inline-block">
+                            <i class="fab fa-whatsapp mr-1"></i>WhatsApp
+                        </a>
+                        <a href="https://t.me/+40O2yI1B2vsyOThl" target="_blank" rel="noopener" title="Join us on Telegram" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-blue-600 transition-colors inline-block">
+                            <i class="fab fa-telegram mr-1"></i>Telegram
+                        </a>
                     </div>
                 </div>
             </div>
-
-            <!-- Organizations Section -->
-            <div class="border-t border-gray-700 mt-12 pt-8">
-    <h3 class="text-lg font-semibold mb-6 text-center hindi-font">हमारे संगठन</h3>
-    <div class="grid md:grid-cols-3 gap-8">
-        <!-- DevRatna Charitable Trust -->
-        <div class="text-center">
-            <div class="flex flex-col items-center mb-3">
-                <img src="attached_assets/drct-logo.png" alt="DevRatna Charitable Trust का लोगो" class="w-20 h-20 rounded-full object-cover mb-2">
-            </div>
-            <h4 class="font-semibold text-white mb-1">DevRatna Charitable Trust</h4>
-            <p class="text-gray-400 text-sm">संस्थापक</p>
-            <p class="text-gray-400 text-xs mt-1">सूरत - गुजरात</p>
+            <!-- Empty for 4th column if needed -->
+            <div></div>
         </div>
-        <!-- Antariksh Life Energy Healing Center -->
-        <div class="text-center">
-            <div class="flex flex-col items-center mb-3">
-                <img src="attached_assets/antariksh-logo.png" alt="Antariksh Life Energy Healing Center का लोगो" class="w-20 h-20 rounded-full object-cover mb-2">
+        <!-- Organizations Section -->
+        <div class="border-t border-gray-700 mt-12 pt-8">
+            <h3 class="text-lg font-semibold mb-6 text-center hindi-font">हमारे संगठन</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- DevRatna Charitable Trust -->
+                <div class="text-center">
+                    <div class="flex flex-col items-center mb-3">
+                        <img src="attached_assets/drct-logo.png" alt="DevRatna Charitable Trust का लोगो" class="w-20 h-20 rounded-full object-cover mb-2">
+                    </div>
+                    <h4 class="font-semibold text-white mb-1">DevRatna Charitable Trust</h4>
+                    <p class="text-gray-400 text-sm">संस्थापक</p>
+                    <p class="text-gray-400 text-xs mt-1">सूरत - गुजरात</p>
+                </div>
+                <!-- Antariksh Life Energy Healing Center -->
+                <div class="text-center">
+                    <div class="flex flex-col items-center mb-3">
+                        <img src="attached_assets/antariksh-logo.png" alt="Antariksh Life Energy Healing Center का लोगो" class="w-20 h-20 rounded-full object-cover mb-2">
+                    </div>
+                    <h4 class="font-semibold text-white mb-1">Antariksh Life Energy Healing Center</h4>
+                    <p class="text-gray-400 text-sm">ऊर्जा चिकित्सा केंद्र</p>
+                    <p class="text-gray-400 text-xs mt-1">Powered by</p>
+                </div>
+                <!-- DeepJyot Natural Farm -->
+                <div class="text-center">
+                    <div class="flex flex-col items-center mb-3">
+                        <img src="attached_assets/DJFARM LOGO (2).jpg" alt="DeepJyot Natural Farm का लोगो" class="w-20 h-20 rounded-full object-cover mb-2">
+                    </div>
+                    <h4 class="font-semibold text-white mb-1">DeepJyot Natural Farm</h4>
+                    <p class="text-gray-400 text-sm">100% प्राकृतिक</p>
+                    <p class="text-gray-400 text-xs mt-1">जैविक कृषि फार्म</p>
+                </div>
             </div>
-            <h4 class="font-semibold text-white mb-1">Antariksh Life Energy Healing Center</h4>
-            <p class="text-gray-400 text-sm">ऊर्जा चिकित्सा केंद्र</p>
-            <p class="text-gray-400 text-xs mt-1">Powered by</p>
         </div>
-        <!-- DeepJyot Natural Farm -->
-        <div class="text-center">
-            <div class="flex flex-col items-center mb-3">
-                <img src="attached_assets/DJFARM LOGO (2).jpg" alt="DeepJyot Natural Farm का लोगो" class="w-20 h-20 rounded-full object-cover mb-2">
-            </div>
-            <h4 class="font-semibold text-white mb-1">DeepJyot Natural Farm</h4>
-            <p class="text-gray-400 text-sm">100% प्राकृतिक</p>
-            <p class="text-gray-400 text-xs mt-1">जैविक कृषि फार्म</p>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+            <p class="text-gray-400 text-sm hindi-font">
+                © 2024 केवल सनातनी व्यापार। सभी अधिकार सुरक्षित。
+            </p>
         </div>
     </div>
-    </div>
-
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p class="text-gray-400 text-sm hindi-font">
-                    © 2024 केवल सनातनी व्यापार। सभी अधिकार सुरक्षित。
-                </p>
-            </div>
-        </div>
-    </footer>
+</footer>
     
     <!-- JavaScript -->
     <script>
@@ -735,9 +707,6 @@ function cleanQuotes(text) {
     .replace(/[“”]/g, '"')
     .replace(/[‘’]/g, "'");
 }
-
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv';
-let allData = [];
 
 function fetchCSVData() {
   fetch(csvUrl)
@@ -830,6 +799,9 @@ function renderCards(data) {
     const phone = row['Mobile Number'] || row.Phone || row['फोन'] || '';
     const district = row['District'] || row['जिला'] || '';
     const category = row['Business Category'] || row['व्यापार श्रेणी'] || '';
+    // Google Map Location (col D)
+    let mapLink = row['Location'] || row['Google Map'] || row['गूगल मैप'] || row['Address'] || row['स्थान'] || row['लोकेशन'] || row['Column D'] || '';
+    mapLink = (mapLink || '').trim();
     // Image link (col H) - Google Drive/Photos link ko bhi handle karo
     let image = row['Shop Photo Link'] || row['Image'] || row['फोटो'] || row['Image Link'] || '';
     // Google Drive sharing link ko direct image link me convert karo
@@ -850,18 +822,25 @@ function renderCards(data) {
     if (!(name || business || phone || district || category || image)) return;
     found = true;
     const card = document.createElement('div');
+    // Business card ka HTML banate waqt, Google Map link dikhane ka code:
     card.className = 'business-card bg-white border border-orange-200 rounded-lg p-4 mb-4 shadow flex flex-col md:flex-row items-center';
     card.innerHTML = `
       <div class="w-full flex flex-col md:flex-row items-center gap-3 md:gap-0">
         <div class="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mb-2 md:mb-0 md:mr-4">
-          ${image ? `<img src="${image}" alt="${business ? business + ' - व्यापारी की दुकान की फोटो' : 'व्यापारी की दुकान की फोटो'}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
+          ${image ? `<img src="${image}" alt="${business ? business + ' - व्यापारी की दुकान की फोटो' : 'व्यापारी की दुकान की फोटो'}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
         </div>
         <div class="flex-1 w-full">
           <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-1 break-words">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
           <p class="text-base font-semibold text-gray-800 mb-1 break-words">${name || ''}</p>
           <p class="text-sm text-gray-700 mb-1"><span class="font-medium">मोबाइल:</span> ${phone || '-'}</p>
           <p class="text-sm text-gray-700 mb-1"><span class="font-medium">श्रेणी:</span> ${category || '-'}</p>
-          <p class="text-sm text-gray-700"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+          <p class="text-sm text-gray-700 mb-1"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+          ${
+            mapLink
+              ? `<a href="${mapLink}" target="_blank" rel="noopener" class="inline-flex items-center mt-2 text-blue-600 hover:text-blue-800 font-medium text-sm" title="Google Map पर लोकेशन देखें"><i class="fas fa-map-marker-alt mr-1"></i>लोकेशन देखें</a>
+              <span class="block text-xs text-gray-400 mt-1 break-all">${mapLink}</span>`
+              : ''
+          }
         </div>
       </div>
     `;
