@@ -436,3 +436,51 @@ a:hover {
   margin: 0.2rem 0;
   font-size: 0.95rem;
 }
+
+/* Text Size Adjust for Better Browser Compatibility */
+:host,
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%; /* Chrome, Edge, Firefox, Safari */
+}
+
+/* Rotator Animation for Best Practices */
+@keyframes rotator {
+    to {
+        -ms-transform: rotate(360deg); /* IE 9 */
+        transform: rotate(270deg);     /* Modern browsers */
+    }
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  min-height: 200px;
+  margin: 0 auto;
+  max-width: 1100px;
+  /* vyapari.html jaisa look ke liye */
+}
+.business-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+}
+.business-card:hover {
+  transform: translateY(-4px);
+}
+@media (min-width: 700px) {
+  .card-container {
+    justify-content: flex-start;
+  }
+  .business-card {
+    margin: 0;
+  }
+}

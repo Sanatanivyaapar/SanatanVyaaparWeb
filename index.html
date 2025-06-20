@@ -72,6 +72,30 @@
         .org-logo-fallback span {
             color: #6b7280;
         }
+        
+        footer {
+  background: #ffa726;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0 6px 0; /* height kam ki gayi */
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  margin-top: 40px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+body {
+  /* ...existing code... */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  /* ...existing code... */
+  flex: 1 0 auto;
+}
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -135,13 +159,14 @@
                         <option value="english">English</option>
                     </select>
                 </div>
-                
+
+                <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                    <a href="index.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
                         मुख्य पृष्ठ
                     </a>
-                    
                     <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
                         पंजीकरण
                     </a>
@@ -151,6 +176,9 @@
                     <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
                         <i class="fab fa-whatsapp mr-2"></i>
                         समुदाय जुड़ें
+                    </a>
+                    <a href="vyapari.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                        व्यापारी सूची
                     </a>
                 </div>
                 
@@ -170,7 +198,7 @@
                             <option value="english">English</option>
                         </select>
                     </div>
-                    <a href="#home" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                    <a href="index.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
                         मुख्य पृष्ठ
                     </a>
                     <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
@@ -182,6 +210,9 @@
                     <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors inline-block text-center">
                         <i class="fab fa-whatsapp mr-2"></i>
                         समुदाय जुड़ें
+                    </a>
+                    <a href="vyapari.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                        व्यापारी सूची
                     </a>
                 </div>
             </div>
@@ -225,365 +256,217 @@
       <label for="districtFilter" class="block text-lg font-semibold text-gray-800 mb-2">जिला चुनें</label>
       <select id="districtFilter" class="border-2 border-orange-400 rounded-lg px-6 py-3 bg-white text-lg font-medium focus:ring-2 focus:ring-orange-500">
         <option value="">सभी जिले</option>
-        <option>AMRELI</option>
-        <option>ANAND</option>
-        <option>ARAVALLI</option>
-        <option>BANASKANTHA</option>
-        <option>BHARUCH</option>
-        <option>BHAVNAGAR</option>
-        <option>BOTAD</option>
-        <option>CHHOTA UDEPUR</option>
-        <option>DAHOD</option>
-        <option>DANGS</option>
-        <option>DEVBHUMI DWARKA</option>
-        <option>GANDHINAGAR</option>
-        <option>GIR SOMNATH</option>
-        <option>JAMNAGAR</option>
-        <option>JUNAGADH</option>
-        <option>KACHCHH</option>
-        <option>KHEDA</option>
-        <option>MAHESANA</option>
-        <option>MAHISAGAR</option>
-        <option>MORBI</option>
-        <option>NARMADA</option>
-        <option>NAVSARI</option>
-        <option>PANCHMAHALS</option>
-        <option>PATAN</option>
-        <option>PORBANDAR</option>
-        <option>RAJKOT</option>
-        <option>SABARKANTHA</option>
-        <option>SURAT</option>
-        <option>SURENDRANAGAR</option>
-        <option>TAPI</option>
-        <option>VADODARA</option>
-        <option>VALSAD</option>
       </select>
     </div>
     <div>
       <label for="categoryFilter" class="block text-lg font-semibold text-gray-800 mb-2">व्यापार श्रेणी</label>
       <select id="categoryFilter" class="border-2 border-orange-400 rounded-lg px-6 py-3 bg-white text-lg font-medium focus:ring-2 focus:ring-orange-500">
         <option value="">सभी श्रेणियाँ</option>
-        <option>फ्रीलांसर / Web Designer / IT Services</option>
-        <option>फ्रीलांसर / सॉफ्टवेयर सेवा (Freelancer / Software Developer)</option>
-        <option>रिटेल विक्रेता (Retailer)</option>
-        <option>ऑटो रिपेयरिंग / गैराज (Auto Repair / Garage)</option>
-        <option>राज मिस्त्री / कारीगर (Mason / Artisan)</option>
-        <option>डेकोरेटर / इवेंट प्लानर (Decorator / Event Planner)</option>
-        <option>हॉस्पिटल / नर्सिंग होम (Hospital / Nursing Home)</option>
-        <option>कुटीर उद्योग / घरेलू निर्माण कार्य (Cottage Industry / Hand made Crafts)</option>
-        <option>प्रिंटर / डिज़ाइनर (Printer / Designer)</option>
-        <option>NGO / समाजसेवी संस्था</option>
-        <option>हस्तकला व्यापारी (Handicraft Seller)</option>
-        <option>कपड़े की दुकान (Clothing Store)</option>
-        <option>डिजिटल पेशेवर (Freelancer, IT)</option>
-        <option>फर्नीचर व्यवसाय (Furniture Business)</option>
-        <option>ऑनलाइन व्यवसाय (Online Business / E-commerce Seller)</option>
-        <option>ठेले वाले / स्ट्रीट वेंडर</option>
-        <option>चाय / नाश्ता ठेला (Tea / Breakfast Stall)</option>
-        <option>थोक विक्रेता (Wholesaler)</option>
-        <option>शिक्षक / कोचिंग क्लास (Teacher / Coaching)</option>
-        <option>वाहन धोने वाले (Vehicle Washing Service)</option>
-        <option>सेवा प्रदाता (Doctor, Plumber)</option>
-        <option>इंटीरियर डेकोरेटर (Interior Decorator)</option>
-        <option>पंडित / पूजारी / पुजा सामग्री विक्रेता (Priest / Puja Material Seller)</option>
-        <option>MSMEs / Manufacturer</option>
-        <option>ऑनलाइन व्यवसाय / डिजिटल marketer</option>
-        <option>NGO / समाजसेवी संस्था (NGO / Social Welfare Group)</option>
-        <option>राखी / दीया / त्योहार संबंधित निर्माण (Festival Product Maker)</option>
-        <option>हरे कपड़े / होलसेल व्यापार (Fabrics / Wholesale Garments)</option>
-        <option>कूरियर एजेंसी (Courier Agency / Delivery Partner)</option>
-        <option>खेल सामग्री विक्रेता (Sports Goods Seller)</option>
-        <option>जूते / चप्पल विक्रेता (Footwear Shop)</option>
-        <option>हेयर ड्रेसर / सैलून (Hairdresser / Salon)</option>
-        <option>संधान / सिंचाई उपकरण (Agricultural Equipments Seller)</option>
-        <option>फर्नीचर व्यापारी (Furniture Showroom / Carpenter)</option>
-        <option>बेकरी / मिठाई की दुकान (Bakery / Sweet Shop)</option>
-        <option>डेयरी / दूध केंद्र (Dairy / Milk Booth)</option>
-        <option>इलेक्ट्रॉनिक्स शोरूम (Electronics Store)</option>
-        <option>इंटरनेट / फोटोस्टीट / स्टेशनरी (Cyber Cafe / Photocopy / Stationery)</option>
-        <option>पैथोलॉजिस्ट / जांच केंद्र (Pathology / Diagnostic Lab)</option>
-        <option>कपड़ा धुलाई / लॉन्ड्री (Laundry / Dry Cleaning)</option>
-        <option>बीज / खाद विक्रेता (Seed / Fertilizer Seller)</option>
-        <option>आयुर्वेदिक सेवा / पंचकर्म (Ayurveda / Panchkarma Center)</option>
-        <option>किराणा स्टोर (Grocery Store)</option>
-        <option>कपड़े की दुकान (Clothing Store)</option>
-        <option>जिम / फिटनेस सेंटर (Gym / Fitness Center)</option>
-        <option>ऑटो गैराज / मैकेनिक (Auto Garage / Mechanic)</option>
-        <option>मैन्युफैक्चरर / उद्योगपति (Manufacturer / Industrialist)</option>
-        <option>इलेक्ट्रिशियन / प्लंबर (Electrician / Plumber)</option>
-        <option>प्लंबर (Plumber)</option>
-        <option>रंग रोगन / POP कार्य (POP / Painting Worker)</option>
-        <option>फल / सब्ज़ी विक्रेता (Fruit / Vegetable Vendor)</option>
-        <option>ऑटो पार्ट्स / बैटरी सेलर (Auto Parts / Battery Seller)</option>
-        <option>इलेक्ट्रिशियन (Electrician)</option>
-        <option>पुस्तक विक्रेता / शिक्षण सामग्री (Books / Education Material Seller)</option>
-        <option>रेडीमेड गारमेंट्स (Readymade Garments)</option>
-        <option>पत्रकार / लेखक / लेखक सेवाएं (Writer / Editor / Journalist)</option>
-        <option>ट्रैवल एजेंट / टिकट बुकिंग (Travel Agent / Ticket Booking)</option>
-        <option>अगरबत्ती / मोमबत्ती बनाने वाले (Incense Stick / Candle Maker)</option>
-        <option>कंप्यूटर / लैपटॉप शॉप (Computer / Laptop Store)</option>
-        <option>NGO / समाजसेवी क्षेत्र</option>
-        <option>रेडीमेड वस्त्र विक्रेता (Readymade Garments Seller)</option>
-        <option>ब्यूटी पार्लर / मेकअप आर्टिस्ट (Beauty Parlour/Makeup Artist)</option>
-        <option>कृषि व्यापारी / बीज-उर्वरक विक्रेता</option>
-        <option>MSME / लघु उद्योग (Small Scale Manufacturer / MSME)</option>
-        <option>कंस्ट्रक्शन मटेरियल सप्लायर (Construction Material Supplier)</option>
-        <option>डॉक्टर / चिकित्सक (Doctor / Physician)</option>
-        <option>फार्मेसी / मेडिकल स्टोर (Pharmacy / Medical Store)</option>
-        <option>वकील / लॉ ऑफिस (Lawyer / Legal Service)</option>
-        <option>इलेक्ट्रॉनिक्स सामान / टीवी, फ्रीज (Electronics Appliances Seller)</option>
-        <option>जूते / चप्पल विक्रेता (Footwear Seller)</option>
-        <option>फूड वैन / खाना देने वाले (Food Truck / Tiffin Supplier)</option>
-        <option>किराणा स्टोर (Grocery Shop)</option>
-        <option>रेस्टॉरेंट / होटल (Restaurant / Hotel)</option>
-        <option>फल / सब्ज़ी विक्रेता (Fruit / Vegetable Seller)</option>
-        <option>CA / वकील / Tax Consultant</option>
-        <option>थेले वाले / स्ट्रीट वेंडर (Hawker / Street Vendor)</option>
-        <option>घरेलू धंधे</option>
-        <option>चाय / नाश्ता ठेला (Tea / Snack Stall)</option>
-        <option>डिजिटल सेवाएं / डिज़ाइनिंग (Graphic / Web Designer / DTP)</option>
-        <option>सोशल मीडिया मार्केटर / एजेंसी (Digital Marketer / Social Media Management)</option>
-        <option>व्यवसायिक वाहन / ट्रांसपोर्ट सेवा (Transport / Loading Service)</option>
-        <option>योग / फिटनेस ट्रेनर (Yoga / Fitness Instructor)</option>
-        <option>फोटोग्राफर / विडियोग्राफर (Photographer / Videographer)</option>
-        <option>ट्रांसपोर्ट / ट्रैवल व्यवसाय</option>
-        <option>क्लिनिक / अस्पताल / नर्सिंग होम (Clinic / Hospital / Nursing Home)</option>
-        <option>पेंटिंग / कलरिंग सेवा (Painter / Color Work)</option>
-        <option>भूमि एजेंट / बिल्डर (Land Agent / Builder)</option>
-        <option>फोटोग्राफर / विडियोग्राफर (Photographer / Videographer)</option>
-        <option>वेल्डर / Fabrication (Welder / Fabricator)</option>
-        <option>बिल्डर / कॉन्ट्रैक्टर (Builder / Contractor)</option>
-        <option>इवेंट प्लानर / डेकोरेटर (Event Planner / Decorator)</option>
-        <option>Other - अन्य (Please specify)</option>
-        <option>Home Based Business (घर से व्यापार करने वाले)</option>
-        <option>लघु और कुटीर उद्योग</option>
-        <option>ब्यूटी पार्लर / सैलून (Salon / Parlour)</option>
-        <option>मोबाइल दुकान / रिपेयरिंग (Mobile Shop / Repair)</option>
-        <option>फार्मेसी / मेडिकल स्टोर (Pharmacy / Medical Shop)</option>
-        <option>Online व्यापारी</option>
-        <option>क्लिनिक / डॉक्टर (Clinic / Doctor)</option>
-        <option>पाठशाला / कोचिंग क्लास (School / Coaching Center)</option>
-        <option>सी.ए. / अकाउंटेंट / टैक्स कंसल्टेंट (CA / Accountant / Tax Consultant)</option>
-        <option>केटरिंग सेवाएं (Catering Services)</option>
-        <option>सीसीटीवी / सिक्योरिटी सर्विसेज (CCTV / Security Services)</option>
       </select>
     </div>
+    <div class="flex items-end">
+      <input id="searchInput" type="text" placeholder="नाम, व्यापार, जिला, श्रेणी..." class="border-2 border-orange-400 rounded-lg px-6 py-3 text-lg font-medium focus:ring-2 focus:ring-orange-500" />
+      <button id="searchBtn" class="ml-2 bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors">खोजें</button>
+    </div>
   </div>
-  <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
-    <input type="text" id="searchInput" placeholder="नाम, व्यापार खोजें..." class="w-full md:w-96 px-6 py-4 border-2 border-orange-400 rounded-lg text-lg focus:ring-2 focus:ring-orange-500" />
-    <button id="searchBtn" class="bg-orange-600 hover:bg-orange-700 text-white font-bold px-8 py-4 rounded-lg text-lg shadow transition-all duration-200"><i class="fas fa-search mr-2"></i>खोजें</button>
-  </div>
+  <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
 </section>
+<div class="card-container" id="cards">
+  <!-- JS se business cards appear honge -->
+</div>
 <script>
-let allData = [];
-
-// Use your provided Google Sheet link via opensheet.elk.sh
-fetch("https://opensheet.elk.sh/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/Approved")
-  .then(res => res.json())
-  .then(data => {
-    allData = data;
-    populateFilters(data);
-    renderCards(data);
-  });
-
-function getDriveThumbnail(link) {
-  if (!link) return "https://via.placeholder.com/300x180?text=No+Image";
-  const match = link.match(/[-\w]{25,}/);
-  return match ? `https://drive.google.com/thumbnail?id=${match[0]}&sz=w300` : "https://via.placeholder.com/300x180?text=No+Image";
+// --- केवल CSV से data fetch और business cards दिखाने वाला code ---
+function cleanQuotes(text) {
+  return text
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'");
 }
 
-function renderCard(entry) {
-  const imageUrl = getDriveThumbnail(entry["Shop Photo"]);
-  const card = document.createElement("div");
-  card.className = "bg-white shadow-md rounded-lg overflow-hidden border border-orange-200";
-  card.innerHTML = `
-    <img src="${imageUrl}" alt="Shop Image" class="w-full h-40 object-cover">
-    <div class="p-4">
-      <h3 class="text-lg font-semibold text-orange-700">${entry["Full Name"] || "नाम उपलब्ध नहीं"}</h3>
-      <p class="text-sm text-gray-700">📞 ${entry["Mobile Number"] || "-"}</p>
-      <p class="text-sm text-gray-600">🏪 ${entry["Business Name"] || "-"}</p>
-      <p class="text-sm text-gray-500">🗂️ ${entry["Business Category"] || "-"}</p>
-      <p class="text-sm text-gray-500">📍 ${entry["District"] || "-"}, ${entry["Pincode"] || "-"}</p>
-    </div>
-  `;
-  return card;
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv';
+let allData = [];
+
+function fetchCSVData() {
+  fetch(csvUrl)
+    .then(res => {
+      if (!res.ok) throw new Error('Network response was not ok');
+      return res.text();
+    })
+    .then(text => {
+      const cleanedText = cleanQuotes(text);
+      const rows = cleanedText.split(/\r?\n/).filter(Boolean);
+      if (rows.length < 2) throw new Error('No data rows found');
+      const headers = rows[0].split(',').map(h => h.trim());
+      console.log('CSV Headers:', headers); // DEBUG: headers check
+      allData = rows.slice(1).map(row => {
+        const values = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < row.length; i++) {
+          const char = row[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(current);
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        values.push(current);
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = (values[i] || '').replace(/^"|"$/g, '').trim());
+        return obj;
+      });
+      populateDropdowns(allData, headers);
+      renderCards(allData);
+      setupFilterSearch();
+    })
+    .catch(err => {
+      renderNoDataCard('डेटा प्राप्त नहीं हो रहा है');
+      console.error('CSV Parse Error:', err);
+    });
+}
+
+function populateDropdowns(data, headers) {
+  const districtFilter = document.getElementById('districtFilter');
+  const categoryFilter = document.getElementById('categoryFilter');
+  districtFilter.innerHTML = '<option value="">सभी जिले</option>';
+  categoryFilter.innerHTML = '<option value="">सभी श्रेणियाँ</option>';
+  // Robust: Only use exact header 'District' (case-insensitive)
+  let districtKey = headers.find(h => h.trim().toLowerCase() === 'district');
+  if (!districtKey) districtKey = headers.find(h => h.trim().toLowerCase() === 'जिला');
+  if (!districtKey) {
+    alert('District header not found in data!');
+    return;
+  }
+  let categoryKey = headers.find(h => h.trim().toLowerCase() === 'business category');
+  if (!categoryKey) categoryKey = headers.find(h => h.trim().toLowerCase() === 'व्यापार श्रेणी');
+  if (!categoryKey) {
+    alert('Business Category header not found in data!');
+    return;
+  }
+  const districts = [...new Set(data.map(row => row[districtKey]).filter(Boolean))].sort();
+  const categories = [...new Set(data.map(row => row[categoryKey]).filter(Boolean))].sort();
+  districts.forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = d;
+    districtFilter.appendChild(opt);
+  });
+  categories.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    categoryFilter.appendChild(opt);
+  });
 }
 
 function renderCards(data) {
-  const container = document.getElementById("cardsContainer");
-  container.innerHTML = "";
-  if (!data.length) {
-    container.innerHTML = '<div class="text-center text-gray-500 py-8">कोई व्यापार नहीं मिला</div>';
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+  if (!data || !data.length) {
+    renderNoDataCard('कोई व्यवसाय उपलब्ध नहीं है');
     return;
   }
-  // Show only 6 latest cards
-  data.slice(0, 6).forEach(entry => container.appendChild(renderCard(entry)));
-}
+  let found = false;
+  data.forEach(row => {
+    // Relevant fields
+    const name = row['Full Name'] || row.Name || row['नाम'] || '';
+    const business = row['Business Name'] || row.Business || row['व्यापार'] || '';
+    const phone = row['Mobile Number'] || row.Phone || row['फोन'] || '';
+    const district = row['District'] || row['जिला'] || '';
+    const category = row['Business Category'] || row['व्यापार श्रेणी'] || '';
+    // Image link (col H) - Google Drive/Photos link ko bhi handle karo
+    let image = row['Shop Photo Link'] || row['Image'] || row['फोटो'] || row['Image Link'] || '';
+    // Google Drive sharing link ko direct image link me convert karo
+    if (image && image.includes('drive.google.com')) {
+      const match = image.match(/\/d\/([\w-]+)/);
+      if (match && match[1]) {
+        image = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+      }
+    }
+    // Google Photos sharing link ko handle karo
+    if (image && image.includes('photos.google.com')) {
+      image = image.split('=')[0] + '=w400-h400';
+    }
+    // DEBUG: image aur row console me print karo
+    console.log('CARD IMAGE:', image, row);
 
-function populateFilters(data) {
-  const districtSet = new Set();
-  const pincodeSet = new Set();
-  const categorySet = new Set();
-
-  data.forEach(entry => {
-    if (entry["District"]) districtSet.add(entry["District"]);
-    if (entry["Pincode"]) pincodeSet.add(entry["Pincode"]);
-    if (entry["Business Category"]) categorySet.add(entry["Business Category"]);
+    // Agar sabhi main fields blank hain to skip
+    if (!(name || business || phone || district || category || image)) return;
+    found = true;
+    const card = document.createElement('div');
+    card.className = 'business-card bg-white border border-orange-200 rounded-lg p-4 mb-4 shadow flex flex-col md:flex-row items-center';
+    card.innerHTML = `
+      <div class="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mr-4 mb-2 md:mb-0">
+        ${image ? `<img src="${image}" alt="${business}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
+      </div>
+      <div class="flex-1">
+        <h3 class="text-xl font-bold text-orange-700 mb-1">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
+        <p class="text-base font-semibold text-gray-800 mb-1">${name || ''}</p>
+        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">मोबाइल:</span> ${phone || '-'}</p>
+        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">श्रेणी:</span> ${category || '-'}</p>
+        <p class="text-sm text-gray-700"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+      </div>
+    `;
+    container.appendChild(card);
   });
+  if (!found) {
+    renderNoDataCard('कोई व्यवसाय उपलब्ध नहीं है');
+  }
+}
 
-  const addOptions = (selectId, items) => {
-    const select = document.getElementById(selectId);
-    select.innerHTML = '<option value="">सभी</option>';
-    items.forEach(item => {
-      const opt = document.createElement("option");
-      opt.value = item;
-      opt.textContent = item;
-      select.appendChild(opt);
+function renderNoDataCard(message) {
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'business-card bg-white border-2 border-dashed border-orange-300 rounded-lg p-6 mb-4 shadow flex flex-col items-center justify-center';
+  card.innerHTML = `
+    <div class="text-4xl mb-2 text-orange-400">😕</div>
+    <div class="text-lg text-gray-700 font-semibold mb-1">${message}</div>
+    <div class="text-sm text-gray-500">कृपया बाद में पुनः प्रयास करें</div>
+  `;
+  container.appendChild(card);
+}
+
+// SEARCH/FILTER LOGIC: Address ya col D ka koi use nahi, sirf relevant fields hi search/filter me rahenge
+function setupFilterSearch() {
+  const districtFilter = document.getElementById('districtFilter');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+
+  function filterAndRender() {
+    const selectedDistrict = districtFilter.value.trim();
+    const selectedCategory = categoryFilter.value.trim();
+    const searchQuery = searchInput.value.trim().toLowerCase();
+    let filtered = allData.filter(row => {
+      const district = row['District'] || row['जिला'] || '';
+      const category = row['Business Category'] || row['व्यापार श्रेणी'] || '';
+      const name = row['Full Name'] || row.Name || row['नाम'] || '';
+      const business = row['Business Name'] || row.Business || row['व्यापार'] || '';
+      const phone = row['Mobile Number'] || row.Phone || row['फोन'] || '';
+      // District/category filter: must match if selected
+      if (selectedDistrict && district !== selectedDistrict) return false;
+      if (selectedCategory && category !== selectedCategory) return false;
+      // Search: match only allowed fields (address nahi)
+      if (searchQuery && !(name.toLowerCase().includes(searchQuery) || business.toLowerCase().includes(searchQuery) || district.toLowerCase().includes(searchQuery) || category.toLowerCase().includes(searchQuery) || phone.toLowerCase().includes(searchQuery))) return false;
+      return true;
     });
-  };
+    renderCards(filtered);
+  }
 
-  addOptions("districtFilter", [...districtSet].sort());
-  addOptions("pincodeFilter", [...pincodeSet].sort());
-  addOptions("categoryFilter", [...categorySet].sort());
-
-  document.getElementById("districtFilter").addEventListener("change", filterAndRender);
-  document.getElementById("pincodeFilter").addEventListener("change", filterAndRender);
-  document.getElementById("categoryFilter").addEventListener("change", filterAndRender);
-  document.getElementById("searchInput").addEventListener("input", filterAndRender);
+  districtFilter.addEventListener('change', filterAndRender);
+  categoryFilter.addEventListener('change', filterAndRender);
+  searchInput.addEventListener('input', filterAndRender);
+  searchBtn.addEventListener('click', filterAndRender);
 }
 
-function filterAndRender() {
-  const d = document.getElementById("districtFilter").value;
-  const c = document.getElementById("categoryFilter").value;
-  const q = document.getElementById("searchInput").value.toLowerCase();
-
-  const filtered = allData.filter(entry =>
-    (!d || entry["District"] === d) &&
-    (!c || entry["Business Category"] === c) &&
-    (entry["Full Name"] + entry["Business Name"] + entry["Business Category"]).toLowerCase().includes(q)
-  );
-
-  renderCards(filtered);
-}
-
-// Add search button click event for filtering
-if (document.getElementById('searchBtn')) {
-  document.getElementById('searchBtn').addEventListener('click', filterAndRender);
-}
-
-// --- Tithi, Gregorian Date, Hindu Time, Local Time, Sunrise/Sunset, Agnihotra ---
-function pad(n) { return n < 10 ? '0' + n : n; }
-
-// Show Gregorian date below tithi
-function showDate() {
-    const now = new Date();
-    const dateStr = pad(now.getDate()) + '/' + pad(now.getMonth() + 1) + '/' + now.getFullYear();
-    let dateElem = document.getElementById('gregorianDate');
-    if (!dateElem) {
-        dateElem = document.createElement('span');
-        dateElem.id = 'gregorianDate';
-        dateElem.style.display = 'block';
-        dateElem.style.fontSize = '0.85em';
-        dateElem.style.opacity = '0.8';
-        document.getElementById('tithiText').after(dateElem);
-    }
-    dateElem.textContent = dateStr;
-}
-setInterval(showDate, 1000);
-showDate();
-
-// Show local time below Hindu time
-function showLocalTime() {
-    const now = new Date();
-    let time = now.toLocaleTimeString('hi-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-    let timeElem = document.getElementById('localTimeText');
-    if (!timeElem) {
-        timeElem = document.createElement('span');
-        timeElem.id = 'localTimeText';
-        timeElem.style.display = 'block';
-        timeElem.style.fontSize = '0.85em';
-        timeElem.style.opacity = '0.8';
-        document.getElementById('hinduTimeText').after(timeElem);
-    }
-    timeElem.textContent = time;
-}
-setInterval(showLocalTime, 1000);
-showLocalTime();
-
-// Hindu time (IST)
-function updateHinduTime() {
-    const now = new Date();
-    now.setMinutes(now.getMinutes() + now.getTimezoneOffset() + 330);
-    document.getElementById('hinduTimeText').textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
-}
-setInterval(updateHinduTime, 1000);
-updateHinduTime();
-
-// Sunrise/Sunset (location-based)
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(pos) {
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
-        fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`)
-            .then(res => res.json())
-            .then(data => {
-                const sunrise = new Date(data.results.sunrise);
-                const sunset = new Date(data.results.sunset);
-                sunrise.setMinutes(sunrise.getMinutes() + 330);
-                sunset.setMinutes(sunset.getMinutes() + 330);
-                document.getElementById('sunriseTime').textContent = pad(sunrise.getHours()) + ':' + pad(sunrise.getMinutes());
-                document.getElementById('sunsetTime').textContent = pad(sunset.getHours()) + ':' + pad(sunset.getMinutes());
-                // Agnihotra time: 5 min after sunrise, 5 min before sunset
-                let agnihotraElem = document.getElementById('agnihotraTime');
-                if (!agnihotraElem) {
-                    agnihotraElem = document.createElement('span');
-                    agnihotraElem.id = 'agnihotraTime';
-                    agnihotraElem.style.display = 'block';
-                    agnihotraElem.style.fontSize = '0.85em';
-                    agnihotraElem.style.opacity = '0.8';
-                    document.getElementById('sunsetTime').parentElement.after(agnihotraElem);
-                }
-                const agniMorning = new Date(sunrise.getTime() + 5*60000);
-                const agniEvening = new Date(sunset.getTime() - 5*60000);
-                agnihotraElem.textContent = `अग्निहोत्र: ${pad(agniMorning.getHours())}:${pad(agniMorning.getMinutes())} (सुबह), ${pad(agniEvening.getHours())}:${pad(agniEvening.getMinutes())} (शाम)`;
-            });
-    }, function() {
-        document.getElementById('sunriseTime').textContent = '--:--';
-        document.getElementById('sunsetTime').textContent = '--:--';
-    });
-} else {
-    document.getElementById('sunriseTime').textContent = '--:--';
-    document.getElementById('sunsetTime').textContent = '--:--';
-}
-
-// Tithi (realtime)
-function fetchTithi() {
-    fetch('https://www.vedicrishiastro.com/api/v1/tithi?day=today&api_key=public')
-        .then(res => res.json())
-        .then(data => {
-            if(data && data.tithi && data.tithi.details) {
-                document.getElementById('tithiText').textContent = data.tithi.details.tithi_name;
-            } else {
-                document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
-            }
-        })
-        .catch(() => {
-            document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
-        });
-}
-fetchTithi();
-setInterval(fetchTithi, 60000 * 10); // update every 10 min
+fetchCSVData();
 </script>
                 
-                <!-- No Results -->
-                <div id="no-results" class="text-center py-12 hidden">
-                    <div class="text-6xl mb-4">😔</div>
-                    <h3 class="text-xl font-semibold text-gray-700 mb-2 hindi-font">कोई व्यापार नहीं मिला</h3>
-                    <p class="text-gray-600 hindi-font">कृपया अपने खोज मापदंड बदलकर पुनः प्रयास करें</p>
-                </div>
-            </div>
+        </div>
         </section>
-        
         <!-- Registration Form Section (Google Form) -->
         <section id="register" class="py-20 bg-white">
             <div class="container mx-auto px-4 max-w-4xl">
@@ -704,6 +587,7 @@ setInterval(fetchTithi, 60000 * 10); // update every 10 min
         <!-- About Section -->
         <section id="about" class="py-20 bg-gray-50">
             <div class="container mx-auto px-4">
+            <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 hindi-font">हमारे बारे में</h2>
                     <p class="text-lg text-gray-600 hindi-font">सनातनी व्यापारिक समुदाय का मिशन और विजन</p>
@@ -800,7 +684,7 @@ setInterval(fetchTithi, 60000 * 10); // update every 10 min
                 <!-- Categories -->
                                 <!-- Contact -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-4 hindi-font">સંપર્ક</h4>
+                    <h4 class="text-lg font-semibold mb-4 hindi-font">संपर्क</h4>
                     <div class="space-y-3 text-sm">
                         <div class="text-gray-400">
                             <i class="fas fa-envelope mr-2"></i>
@@ -857,7 +741,7 @@ setInterval(fetchTithi, 60000 * 10); // update every 10 min
 
             <div class="border-t border-gray-700 mt-8 pt-8 text-center">
                 <p class="text-gray-400 text-sm hindi-font">
-                    © 2024 केवल सनातनी व्यापार। सभी अधिकार सुरक्षित।
+                    © 2024 केवल सनातनी व्यापार। सभी अधिकार सुरक्षित。
                 </p>
             </div>
         </div>
@@ -865,125 +749,195 @@ setInterval(fetchTithi, 60000 * 10); // update every 10 min
     
     <!-- JavaScript -->
     <script>
-  async function loadBusinessData() {
-    const sheetID = '1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk';
-    const sheetName = 'View';
-    const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
+// --- केवल CSV से data fetch और business cards दिखाने वाला code ---
+function cleanQuotes(text) {
+  return text
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'");
+}
 
-    const response = await fetch(url);
-    const data = await response.json();
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv';
+let allData = [];
 
-    const container = document.getElementById('cardsContainer');
-    container.innerHTML = '';
-
-    data.forEach(row => {
-      // Column A: Full Name
-      // Column B: Mobile
-      // Column C: Business Name
-      // Column D: Business Address (isko hata diya gaya)
-      // Column E: District
-      // Column F: Pincode
-      // Column G: Business Category
-      // Column H: Shop Photo Link
-
-      const name = row['Full Name'] || '';
-      const mobile = row['Mobile Number'] || '';
-      const businessName = row['Business Name'] || '';
-      const district = row['District'] || '';
-      const pincode = row['Pincode'] || '';
-      const category = row['Business Category'] || '';
-      // const address = row['Business Address']; // HATA DIYA
-      const photoUrl = row['Shop Photo Link'];
-
-      const card = document.createElement('div');
-      card.className = 'bg-white shadow rounded-lg p-4 border border-orange-200';
-
-      card.innerHTML = `
-        <div class="text-lg font-bold text-orange-700">${businessName}</div>
-        <div class="text-sm text-gray-700">${name}</div>
-        <div class="text-sm text-gray-600">📞 ${mobile}</div>
-        <div class="text-sm text-gray-600">🏷️ ${category}</div>
-        <div class="text-sm text-gray-600">📍 ${district}, ${pincode}</div>
-        <div class="w-full h-40 bg-gray-100 mt-2 rounded overflow-hidden flex items-center justify-center text-gray-400 text-sm">
-          ફોટો ઉપલબ્ધ નથી
-        </div>
-      `;
-
-      container.appendChild(card);
+function fetchCSVData() {
+  fetch(csvUrl)
+    .then(res => {
+      if (!res.ok) throw new Error('Network response was not ok');
+      return res.text();
+    })
+    .then(text => {
+      const cleanedText = cleanQuotes(text);
+      const rows = cleanedText.split(/\r?\n/).filter(Boolean);
+      if (rows.length < 2) throw new Error('No data rows found');
+      const headers = rows[0].split(',').map(h => h.trim());
+      console.log('CSV Headers:', headers); // DEBUG: headers check
+      allData = rows.slice(1).map(row => {
+        const values = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < row.length; i++) {
+          const char = row[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(current);
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        values.push(current);
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = (values[i] || '').replace(/^"|"$/g, '').trim());
+        return obj;
+      });
+      populateDropdowns(allData, headers);
+      renderCards(allData);
+      setupFilterSearch();
+    })
+    .catch(err => {
+      renderNoDataCard('डेटा प्राप्त नहीं हो रहा है');
+      console.error('CSV Parse Error:', err);
     });
+}
+
+function populateDropdowns(data, headers) {
+  const districtFilter = document.getElementById('districtFilter');
+  const categoryFilter = document.getElementById('categoryFilter');
+  districtFilter.innerHTML = '<option value="">सभी जिले</option>';
+  categoryFilter.innerHTML = '<option value="">सभी श्रेणियाँ</option>';
+  // Robust: Only use exact header 'District' (case-insensitive)
+  let districtKey = headers.find(h => h.trim().toLowerCase() === 'district');
+  if (!districtKey) districtKey = headers.find(h => h.trim().toLowerCase() === 'जिला');
+  if (!districtKey) {
+    alert('District header not found in data!');
+    return;
+  }
+  let categoryKey = headers.find(h => h.trim().toLowerCase() === 'business category');
+  if (!categoryKey) categoryKey = headers.find(h => h.trim().toLowerCase() === 'व्यापार श्रेणी');
+  if (!categoryKey) {
+    alert('Business Category header not found in data!');
+    return;
+  }
+  const districts = [...new Set(data.map(row => row[districtKey]).filter(Boolean))].sort();
+  const categories = [...new Set(data.map(row => row[categoryKey]).filter(Boolean))].sort();
+  districts.forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = d;
+    districtFilter.appendChild(opt);
+  });
+  categories.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    categoryFilter.appendChild(opt);
+  });
+}
+
+function renderCards(data) {
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+  if (!data || !data.length) {
+    renderNoDataCard('कोई व्यवसाय उपलब्ध नहीं है');
+    return;
+  }
+  let found = false;
+  data.forEach(row => {
+    // Relevant fields
+    const name = row['Full Name'] || row.Name || row['नाम'] || '';
+    const business = row['Business Name'] || row.Business || row['व्यापार'] || '';
+    const phone = row['Mobile Number'] || row.Phone || row['फोन'] || '';
+    const district = row['District'] || row['जिला'] || '';
+    const category = row['Business Category'] || row['व्यापार श्रेणी'] || '';
+    // Image link (col H) - Google Drive/Photos link ko bhi handle karo
+    let image = row['Shop Photo Link'] || row['Image'] || row['फोटो'] || row['Image Link'] || '';
+    // Google Drive sharing link ko direct image link me convert karo
+    if (image && image.includes('drive.google.com')) {
+      const match = image.match(/\/d\/([\w-]+)/);
+      if (match && match[1]) {
+        image = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+      }
+    }
+    // Google Photos sharing link ko handle karo
+    if (image && image.includes('photos.google.com')) {
+      image = image.split('=')[0] + '=w400-h400';
+    }
+    // DEBUG: image aur row console me print karo
+    console.log('CARD IMAGE:', image, row);
+
+    // Agar sabhi main fields blank hain to skip
+    if (!(name || business || phone || district || category || image)) return;
+    found = true;
+    const card = document.createElement('div');
+    card.className = 'business-card bg-white border border-orange-200 rounded-lg p-4 mb-4 shadow flex flex-col md:flex-row items-center';
+    card.innerHTML = `
+      <div class="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mr-4 mb-2 md:mb-0">
+        ${image ? `<img src="${image}" alt="${business}" class="object-cover w-full h-full" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=\'text-gray-400 text-sm\'>फोटो उपलब्ध नहीं</span>';">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
+      </div>
+      <div class="flex-1">
+        <h3 class="text-xl font-bold text-orange-700 mb-1">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
+        <p class="text-base font-semibold text-gray-800 mb-1">${name || ''}</p>
+        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">मोबाइल:</span> ${phone || '-'}</p>
+        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">श्रेणी:</span> ${category || '-'}</p>
+        <p class="text-sm text-gray-700"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+  if (!found) {
+    renderNoDataCard('कोई व्यवसाय उपलब्ध नहीं है');
+  }
+}
+
+function renderNoDataCard(message) {
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'business-card bg-white border-2 border-dashed border-orange-300 rounded-lg p-6 mb-4 shadow flex flex-col items-center justify-center';
+  card.innerHTML = `
+    <div class="text-4xl mb-2 text-orange-400">😕</div>
+    <div class="text-lg text-gray-700 font-semibold mb-1">${message}</div>
+    <div class="text-sm text-gray-500">कृपया बाद में पुनः प्रयास करें</div>
+  `;
+  container.appendChild(card);
+}
+
+// SEARCH/FILTER LOGIC: Address ya col D ka koi use nahi, sirf relevant fields hi search/filter me rahenge
+function setupFilterSearch() {
+  const districtFilter = document.getElementById('districtFilter');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+
+  function filterAndRender() {
+    const selectedDistrict = districtFilter.value.trim();
+    const selectedCategory = categoryFilter.value.trim();
+    const searchQuery = searchInput.value.trim().toLowerCase();
+    let filtered = allData.filter(row => {
+      const district = row['District'] || row['जिला'] || '';
+      const category = row['Business Category'] || row['व्यापार श्रेणी'] || '';
+      const name = row['Full Name'] || row.Name || row['नाम'] || '';
+      const business = row['Business Name'] || row.Business || row['व्यापार'] || '';
+      const phone = row['Mobile Number'] || row.Phone || row['फोन'] || '';
+      // District/category filter: must match if selected
+      if (selectedDistrict && district !== selectedDistrict) return false;
+      if (selectedCategory && category !== selectedCategory) return false;
+      // Search: match only allowed fields (address nahi)
+      if (searchQuery && !(name.toLowerCase().includes(searchQuery) || business.toLowerCase().includes(searchQuery) || district.toLowerCase().includes(searchQuery) || category.toLowerCase().includes(searchQuery) || phone.toLowerCase().includes(searchQuery))) return false;
+      return true;
+    });
+    renderCards(filtered);
   }
 
-  loadBusinessData();
-// Fetch and populate filters + cards from Google Sheet
-fetch("https://opensheet.elk.sh/https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv")
-  .then(res => res.json())
-  .then(data => {
-    const cardsContainer = document.getElementById("cardsContainer");
-    const districtFilter = document.getElementById("districtFilter");
-    const pincodeFilter = document.getElementById("pincodeFilter");
-    const categoryFilter = document.getElementById("categoryFilter");
-    const searchInput = document.getElementById("searchInput");
+  districtFilter.addEventListener('change', filterAndRender);
+  categoryFilter.addEventListener('change', filterAndRender);
+  searchInput.addEventListener('input', filterAndRender);
+  searchBtn.addEventListener('click', filterAndRender);
+}
 
-    const uniquePincodes = new Set();
-    const uniqueCategories = new Set();
-
-    cardsContainer.innerHTML = "";
-    data.forEach(entry => {
-      uniquePincodes.add(entry[5]);
-      uniqueCategories.add(entry[6]);
-      cardsContainer.appendChild(renderCard(entry));
-    });
-
-    // Fill pincode filter
-    Array.from(uniquePincodes)
-      .filter(p => p)
-      .sort()
-      .forEach(pin => {
-        const option = document.createElement("option");
-        option.value = pin;
-        option.textContent = pin;
-        pincodeFilter.appendChild(option);
-      });
-
-    // Fill category filter
-    Array.from(uniqueCategories)
-      .filter(c => c)
-      .sort()
-      .forEach(cat => {
-        const option = document.createElement("option");
-        option.value = cat;
-        option.textContent = cat;
-        categoryFilter.appendChild(option);
-      });
-
-    function filterAndRender() {
-      const selectedDistrict = districtFilter.value;
-      const selectedPincode = pincodeFilter.value;
-      const selectedCategory = categoryFilter.value;
-      const searchQuery = searchInput.value.toLowerCase();
-
-      cardsContainer.innerHTML = "";
-      let filtered = data.filter(entry => {
-        return (
-          (!selectedDistrict || entry[4] === selectedDistrict) &&
-          (!selectedPincode || entry[5] === selectedPincode) &&
-          (!selectedCategory || entry[6] === selectedCategory) &&
-          (entry[0] + entry[2] + entry[4] + entry[5] + entry[6]).toLowerCase().includes(searchQuery)
-        );
-      });
-
-      filtered.forEach(entry => cardsContainer.appendChild(renderCard(entry)));
-    }
-
-    districtFilter.addEventListener("change", filterAndRender);
-    pincodeFilter.addEventListener("change", filterAndRender);
-    categoryFilter.addEventListener("change", filterAndRender);
-    searchInput.addEventListener("input", filterAndRender);
-  });
-
+fetchCSVData();
 </script>
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>

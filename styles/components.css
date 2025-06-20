@@ -717,3 +717,16 @@
         transform: translateY(0);
     }
 }
+
+:host,
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%; /* Chrome, Edge, Firefox, Safari */
+}
+
+@keyframes rotator {
+    to {
+        -ms-transform: rotate(360deg); /* IE 9 */
+        transform: rotate(270deg);     /* Modern browsers */
+    }
+}

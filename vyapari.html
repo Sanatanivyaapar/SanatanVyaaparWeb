@@ -1,214 +1,645 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>व्यापारी सूची</title>
-  <link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    .hindi-font { font-family: 'Noto Sans Devanagari', sans-serif; }
-    .gregorian-date { font-size: 0.85em; opacity: 0.8; }
-    .local-time-style { font-size: 0.85em; opacity: 0.8; }
-    .agnihotra-time-style { font-size: 0.85em; opacity: 0.8; }
-  </style>
-</head>
-<body class="bg-orange-50 text-gray-800">
-  <!-- Header (same as homepage) -->
-  <header class="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
-    <div class="container mx-auto flex justify-between items-center">
-      <div class="flex items-center gap-6">
-        <h1 class="text-2xl font-bold text-orange-600 hindi-font">केवल सनातनी व्यापार</h1>
-        <a href="../index.html" class="text-base text-orange-700 hover:underline font-semibold">मुख्य पृष्ठ</a>
-        <a href="vyapari.html" class="text-base text-orange-700 font-bold underline">व्यापारी सूची</a>
-      </div>
-    </div>
-  </header>
+    <meta property="og:image" content="https://sanatanivyaapar.netlify.app/assets/om.png" />
 
-  <!-- Panchang Bar (same as homepage) -->
-  <div id="panchangBar" class="bg-gradient-to-r from-orange-600 to-red-600 text-white py-2 overflow-hidden relative">
-    <div class="container mx-auto px-4">
-      <div class="flex items-center justify-between text-sm">
-        <div class="flex items-center space-x-6">
-          <div id="currentTithi" class="flex flex-col items-start">
-            <span id="gregorianDate" class="gregorian-date"></span>
-            <span id="gregorianDate" class="gregorian-date"></span>
-          </div>
-          <div id="hinduTime" class="flex flex-col items-start">
-            <span id="localTimeText" class="local-time-style"></span>
-            <span id="localTimeText" class="local-time-style"></span>
-          </div>
-          <div id="sunTimes" class="flex flex-col items-start">
-            <span>सूर्योदय: <span id="sunriseTime">--:--</span></span>
-            <span id="agnihotraTime" class="agnihotra-time-style"></span>
-            <span id="agnihotraTime" class="agnihotra-time-style"></span>
-          </div>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>केवल सनातनी व्यापार - Only Sanatani Business</title>
+    <meta name="description" content="सनातनी व्यापारियों को जोड़ने वाला धार्मिक आर्थिक नेटवर्क">
+    
+       <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🕉️%3C/text%3E%3C/svg%3E">
+    
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .hindi-font { font-family: 'Noto Sans Devanagari', sans-serif; }
+        .english-font { font-family: 'Inter', sans-serif; }
+        
+        .hindi-text { display: inline; }
+        .english-text { display: none; }
+        .gujarati-text { display: none; }
+        
+        .gradient-bg { background: linear-gradient(135deg, #ff6b35, #f7931e, #ffcc02); }
+        .saffron-bg { background: linear-gradient(135deg, #ff6b35, #ff8c00); }
+        .floating { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .fade-in { animation: fadeIn 0.6s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            animation: marquee 20s linear infinite;
+        }
+        .org-logo-fallback {
+            display: none;
+            width: 80px;
+            height: 80px;
+            background: #f3f4f6;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .org-logo-fallback span {
+            color: #6b7280;
+        }
+        main {
+    max-width: 1100px;
+    margin: 40px auto 40px auto;
+    padding: 0 16px;
+    min-height: 60vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .section-title {
+    font-size: 2rem;
+    color: #fff;
+    background: #e65100;
+    border-radius: 8px;
+    padding: 18px 0;
+    margin-bottom: 28px;
+    margin-top: 48px; /* NAVBAR ke niche space ke liye */
+    box-shadow: 0 2px 8px rgba(230,81,0,0.10);
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px #b85b00;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    min-height: 200px;
+  }
+  .business-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    padding: 1.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+  .business-card:hover {
+    transform: translateY(-4px);
+  }
+  .error-card {
+    border-color: #e53935 !important;
+    color: #e53935 !important;
+    background: #fff0f0 !important;
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+  header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Sanatani Panchang Bar -->
+    <div id="panchangBar" class="bg-gradient-to-r from-orange-600 to-red-600 text-white py-2 overflow-hidden relative">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between text-sm">
+                <div class="flex items-center space-x-6">
+                    <div id="currentTithi" class="flex items-center">
+                        <span class="font-semibold">आज की तिथि:</span>
+                        <span id="tithiText" class="ml-2">लोड हो रही है...</span>
+                    </div>
+                    <body class="bg-gray-50 min-h-screen">
+    <!-- Sanatani Panchang Bar -->
+    <div id="panchangBar" class="...">...</div>
+
+                    <div id="hinduTime" class="flex items-center">
+                        <span class="font-semibold">हिंदू समय:</span>
+                        <span id="hinduTimeText" class="ml-2">--:--:--</span>
+                    </div>
+                    <div id="sunTimes" class="flex items-center space-x-4">
+                        <span>सूर्योदय: <span id="sunriseTime">--:--</span></span>
+                        <span>सूर्यास्त: <span id="sunsetTime">--:--</span></span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+
+    <!-- Scrolling Events Banner -->
+    <div id="eventsBanner" class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-1 overflow-hidden">
+        <div class="whitespace-nowrap animate-marquee">
+            <span id="specialEvents" class="inline-block px-4 font-medium">
+                🚩 आज के विशेष अवसर लोड हो रहे हैं... 🚩
+            </span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-[4.5rem] z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="text-3xl">🕉️</div>
+                    <div>
+                        <h1 class="text-xl font-bold text-orange-600 hindi-font">
+                            केवल सनातनी व्यापार
+                        </h1>
+                        <p class="text-xs text-gray-600">
+                            धार्मिक व्यापारिक नेटवर्क
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Language Selector -->
+                <div class="hidden md:flex items-center space-x-2">
+                    <select id="language-selector" aria-label="भाषा चुनें" class="bg-white border border-gray-300 rounded-md px-2 py-1 text-sm">
+                        <option value="gujarati">ગુજરાતી</option>
+                        <option value="hindi" selected>हिंदी</option>
+                        <option value="english">English</option>
+                    </select>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                        मुख्य पृष्ठ
+                    </a>
+                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                        पंजीकरण
+                    </a>
+                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                        हमारे बारे में
+                    </a>
+                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        समुदाय जुड़ें
+                    </a>
+                    <a href="vyapari.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium">
+                        व्यापारी सूची
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700" aria-label="Open mobile menu" title="Open mobile menu">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <div class="mb-2">
+                        <select id="mobile-language-selector" class="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm w-full" aria-label="भाषा चुनें" title="ભાષા પસંદ કરો">
+                            <option value="gujarati">ગુજરાતી</option>
+                            <option value="hindi" selected>हिंदी</option>
+                            <option value="english">English</option>
+                        </select>
+                    </div>
+                    <a href="index.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                        मुख्य पृष्ठ
+                    </a>
+                    <a href="#register" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                        पंजीकरण
+                    </a>
+                    <a href="#about" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                        हमारे बारे में
+                    </a>
+                    <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors inline-block text-center">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        समुदाय जुड़ें
+                    </a>
+                    <a href="vyapari.html" class="text-gray-700 hover:text-orange-600 transition-colors font-medium py-2">
+                        व्यापारी सूची
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<main>
+  <div class="section-title">
+    <span style="vertical-align:middle;">🛍️</span> व्यापारी सूची
   </div>
 
-  <main class="container mx-auto px-4 py-10">
-    <h2 class="text-3xl font-bold text-center mb-8 hindi-font">व्यापारी सूची</h2>
-    <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
-  </main>
+  <!-- Filters Section: Only District & Category, with your provided lists -->
+<section id="filtersSection" class="bg-orange-50 py-12 px-4 rounded-xl shadow-lg max-w-3xl mx-auto mb-8">
+  <div class="text-center mb-8">
+    <h2 class="text-4xl font-extrabold text-orange-800 hindi-font flex items-center justify-center gap-2"><span>🔍</span> सनातनी व्यापार खोजें</h2>
+    <p class="text-xl text-gray-700 hindi-font mt-2">अपने क्षेत्र के विश्वसनीय व्यापारियों से जुड़ें</p>
+  </div>
+  <div class="filters flex flex-wrap gap-8 justify-center items-end mb-6">
+    <div>
+      <label for="districtFilter" class="block text-lg font-semibold text-gray-800 mb-2">जिला चुनें</label>
+      <select id="districtFilter" class="border-2 border-orange-400 rounded-lg px-6 py-3 bg-white text-lg font-medium focus:ring-2 focus:ring-orange-500">
+        <option value="">सभी जिले</option>
+      </select>
+    </div>
+    <div>
+      <label for="categoryFilter" class="block text-lg font-semibold text-gray-800 mb-2">व्यापार श्रेणी</label>
+      <select id="categoryFilter" class="border-2 border-orange-400 rounded-lg px-6 py-3 bg-white text-lg font-medium focus:ring-2 focus:ring-orange-500">
+        <option value="">सभी श्रेणियाँ</option>
+      </select>
+    </div>
+    <div class="flex items-end">
+      <input id="searchInput" type="text" placeholder="नाम, व्यापार, जिला, श्रेणी..." class="border-2 border-orange-400 rounded-lg px-6 py-3 text-lg font-medium focus:ring-2 focus:ring-orange-500" />
+      <button id="searchBtn" class="ml-2 bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors">खोजें</button>
+    </div>
+  </div>
+  <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+</section>
 
-  <footer class="bg-gray-800 text-white py-6 mt-10 text-center text-sm">
-    © 2024 केवल सनातनी व्यापार | सभी अधिकार सुरक्षित
-  </footer>
+  <div class="card-container" id="cards">
+    <div class="business-card" style="opacity:0.5; text-align:center;">
+      <em>डेटा लोड हो रहा है...</em>
+    </div>
+  </div>
+</main>
+<script>
+// --- केवल CSV से data fetch और business cards दिखाने वाला code ---
+function cleanQuotes(text) {
+  return text
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'");
+}
 
-  <script>
-    // Panchang, Tithi, Time, Sunrise/Sunset, Agnihotra (same as homepage)
-    function pad(n) { return n < 10 ? '0' + n : n; }
-    function showDate() {
-      const now = new Date();
-      const dateStr = pad(now.getDate()) + '/' + pad(now.getMonth() + 1) + '/' + now.getFullYear();
-      document.getElementById('gregorianDate').textContent = dateStr;
-    }
-    setInterval(showDate, 1000); showDate();
-    function showLocalTime() {
-      const now = new Date();
-      let time = now.toLocaleTimeString('hi-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-      document.getElementById('localTimeText').textContent = time;
-    }
-    setInterval(showLocalTime, 1000); showLocalTime();
-    function updateHinduTime() {
-      const now = new Date();
-      now.setMinutes(now.getMinutes() + now.getTimezoneOffset() + 330);
-      document.getElementById('hinduTimeText').textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
-    }
-    setInterval(updateHinduTime, 1000); updateHinduTime();
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(pos) {
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
-        fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`)
-          .then(res => res.json())
-          .then(data => {
-            const sunrise = new Date(data.results.sunrise);
-            const sunset = new Date(data.results.sunset);
-            sunrise.setMinutes(sunrise.getMinutes() + 330);
-            sunset.setMinutes(sunset.getMinutes() + 330);
-            document.getElementById('sunriseTime').textContent = pad(sunrise.getHours()) + ':' + pad(sunrise.getMinutes());
-            document.getElementById('sunsetTime').textContent = pad(sunset.getHours()) + ':' + pad(sunset.getMinutes());
-            // Agnihotra
-            const agniMorning = new Date(sunrise.getTime() + 5*60000);
-            const agniEvening = new Date(sunset.getTime() - 5*60000);
-            document.getElementById('agnihotraTime').textContent = `अग्निहोत्र: ${pad(agniMorning.getHours())}:${pad(agniMorning.getMinutes())} (सुबह), ${pad(agniEvening.getHours())}:${pad(agniEvening.getMinutes())} (शाम)`;
-          });
-      }, function() {
-        document.getElementById('sunriseTime').textContent = '--:--';
-        document.getElementById('sunsetTime').textContent = '--:--';
-      });
-    } else {
-      document.getElementById('sunriseTime').textContent = '--:--';
-      document.getElementById('sunsetTime').textContent = '--:--';
-    }
-    function fetchTithi() {
-      fetch('https://www.vedicrishiastro.com/api/v1/tithi?day=today&api_key=public')
-        .then(res => res.json())
-        .then(data => {
-          if(data && data.tithi && data.tithi.details) {
-            document.getElementById('tithiText').textContent = data.tithi.details.tithi_name;
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv';
+
+let allData = []; // Global variable to store all fetched data
+
+function fetchCSVData() {
+  fetch(csvUrl)
+    .then(res => {
+      if (!res.ok) throw new Error('Network response was not ok');
+      return res.text();
+    })
+    .then(text => {
+      const cleanedText = cleanQuotes(text);
+      const rows = cleanedText.split(/\r?\n/).filter(Boolean);
+      if (rows.length < 2) throw new Error('No data rows found');
+      const headers = rows[0].split(',').map(h => h.trim());
+      allData = rows.slice(1).map(row => {
+        const values = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < row.length; i++) {
+          const char = row[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(current);
+            current = '';
           } else {
-            document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
+            current += char;
           }
-        })
-        .catch(() => {
-          document.getElementById('tithiText').textContent = 'उपलब्ध नहीं';
-        });
-    }
-    fetchTithi(); setInterval(fetchTithi, 60000 * 10);
-
-    // Business Cards from Google Sheet (confirming data)
-    const sheetURL = "https://opensheet.elk.sh/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/Approved";
-    function getDriveThumbnail(link) {
-      if (!link) return "https://via.placeholder.com/600x400?text=No+Image";
-      const match = link.match(/[-\w]{25,}/);
-      return match ? `https://drive.google.com/thumbnail?id=${match[0]}&sz=w600` : "https://via.placeholder.com/600x400?text=No+Image";
-    }
-    function renderCard(entry) {
-      const imageUrl = getDriveThumbnail(entry["Shop Photo"]);
-      const card = document.createElement("div");
-      card.className = "bg-white rounded-lg shadow-md overflow-hidden border border-orange-200";
-      card.innerHTML = `
-        <img src="${imageUrl}" alt="Shop Image" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <h3 class="text-lg font-bold text-orange-700">${entry["Full Name"] || "नाम उपलब्ध नहीं"}</h3>
-          <p class="text-sm text-gray-800">📞 ${entry["Mobile Number"] || "-"}</p>
-          <p class="text-sm text-gray-600">🏪 ${entry["Business Name"] || "-"}</p>
-          <p class="text-sm text-gray-500">🗂️ ${entry["Business Category"] || "-"}</p>
-          <p class="text-sm text-gray-500">📍 ${entry["District"] || "-"}, ${entry["Pincode"] || "-"}</p>
-        </div>
-      `;
-      return card;
-    }
-    function renderAllCards(data) {
-      const container = document.getElementById("cardsContainer");
-      container.innerHTML = "";
-      if (!data.length) {
-        container.innerHTML = '<div class="text-center text-gray-500 py-8">कोई व्यापार नहीं मिला</div>';
-        return;
-      }
-      data.forEach(entry => container.appendChild(renderCard(entry)));
-    }
-    fetch(sheetURL)
-      .then(res => res.json())
-      .then(data => renderAllCards(data))
-      .catch(err => {
-        document.getElementById("cardsContainer").innerHTML = `<p class="text-red-600">डेटा लोड करने में त्रुटि हुई।</p>`;
-        console.error("Error fetching data:", err);
-      });
-
-
-    function csvToArray(str, delimiter = ",") {
-      const rows = str.trim().split("\n");
-      const headers = rows[0].split(delimiter).map(h => h.trim());
-      return rows.slice(1).map(row => {
-        const values = row.split(delimiter).map(v => v.trim());
+        }
+        values.push(current);
         const obj = {};
-        headers.forEach((h, i) => obj[h] = values[i]);
+        headers.forEach((h, i) => obj[h] = (values[i] || '').replace(/^"|"$/g, '').trim());
         return obj;
       });
+      populateDropdowns(allData);
+      renderCards(allData);
+      setupFilterSearch();
+    })
+    .catch(err => {
+      renderNoDataCard('डेटा प्राप्त नहीं हो रहा है');
+      console.error('CSV Parse Error:', err);
+    });
+}
+
+function renderCards(data) {
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+  if (!data || !data.length) {
+    renderNoDataCard('कोई व्यापारी उपलब्ध नहीं है');
+    return;
+  }
+  let found = false;
+  data.forEach(row => {
+    // Relevant fields
+    const name = row['Full Name'] || row.Name || row['नाम'] || '';
+    const business = row['Business Name'] || row.Business || row['व्यापार'] || '';
+    const phone = row['Mobile Number'] || row.Phone || row['फोन'] || '';
+    const district = row['District'] || row['जिला'] || '';
+    const category = row['Business Category'] || row['व्यापार श्रेणी'] || '';
+    // Image link (col H)
+    const image = row['Shop Photo Link'] || row['Image'] || row['फोटो'] || row['Image Link'] || '';
+
+    // Agar sabhi main fields blank hain to skip
+    if (!(name || business || phone || district || category || image)) return;
+    found = true;
+    const card = document.createElement('div');
+    card.className = 'business-card bg-white border border-orange-200 rounded-lg p-4 mb-4 shadow flex flex-col md:flex-row items-center';
+    card.innerHTML = `
+      <div class="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center mr-4 mb-2 md:mb-0">
+        ${image ? `<img src="${image}" alt="${business}" class="object-cover w-full h-full">` : `<span class='text-gray-400 text-sm'>फोटो उपलब्ध नहीं</span>`}
+      </div>
+      <div class="flex-1">
+        <h3 class="text-xl font-bold text-orange-700 mb-1">${(business || 'व्यापार नाम उपलब्ध नहीं').toUpperCase()}</h3>
+        <p class="text-base font-semibold text-gray-800 mb-1">${name || ''}</p>
+        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">मोबाइल:</span> ${phone || '-'}</p>
+        <p class="text-sm text-gray-700 mb-1"><span class="font-medium">श्रेणी:</span> ${category || '-'}</p>
+        <p class="text-sm text-gray-700"><span class="font-medium">जिला:</span> ${district || '-'}</p>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+  if (!found) {
+    renderNoDataCard('कोई व्यापारी उपलब्ध नहीं है');
+  }
+}
+
+function renderNoDataCard(message) {
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'business-card bg-white border-2 border-dashed border-orange-300 rounded-lg p-6 mb-4 shadow flex flex-col items-center justify-center';
+  card.innerHTML = `
+    <div class="text-4xl mb-2 text-orange-400">😕</div>
+    <div class="text-lg text-gray-700 font-semibold mb-1">${message}</div>
+    <div class="text-sm text-gray-500">कृपया बाद में पुनः प्रयास करें</div>
+  `;
+  container.appendChild(card);
+}
+
+// Dropdowns and Filter/Search setup
+function populateDropdowns(data) {
+  const districtSet = new Set();
+  const categorySet = new Set();
+  data.forEach(row => {
+    const district = row['District'] || row['जिला'] || '';
+    const category = row['Business Category'] || row['व्यापार श्रेणी'] || '';
+    if (district) districtSet.add(district.trim());
+    if (category) categorySet.add(category.trim());
+  });
+  const districtSelect = document.getElementById('districtFilter');
+  const categorySelect = document.getElementById('categoryFilter');
+  districtSelect.innerHTML = '<option value="">सभी जिले</option>';
+  categorySelect.innerHTML = '<option value="">सभी श्रेणियाँ</option>';
+  Array.from(districtSet).sort().forEach(district => {
+    const option = document.createElement('option');
+    option.value = district;
+    option.textContent = district;
+    districtSelect.appendChild(option);
+  });
+  Array.from(categorySet).sort().forEach(category => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = category;
+    categorySelect.appendChild(option);
+  });
+}
+
+function setupFilterSearch() {
+  const districtFilter = document.getElementById('districtFilter');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const searchInput = document.getElementById('searchInput');
+  const container = document.getElementById('cards');
+
+  function filterAndRender() {
+    const selectedDistrict = districtFilter.value;
+    const selectedCategory = categoryFilter.value;
+    const searchTerm = searchInput.value.toLowerCase();
+
+    const filteredData = allData.filter(row => {
+      const district = row['District'] || row['जिला'] || '';
+      const category = row['Business Category'] || row['व्यापार श्रेणी'] || '';
+      const name = row['Full Name'] || row.Name || row['नाम'] || '';
+      const business = row['Business Name'] || row.Business || row['व्यापार'] || '';
+      const phone = row['Mobile Number'] || row.Phone || row['फोन'] || '';
+      // District/category filter: must match if selected
+      const districtMatch = selectedDistrict ? district === selectedDistrict : true;
+      const categoryMatch = selectedCategory ? category === selectedCategory : true;
+      // Search: match only allowed fields (address nahi)
+      const searchMatch = searchTerm ? (
+        name.toLowerCase().includes(searchTerm) ||
+        business.toLowerCase().includes(searchTerm) ||
+        district.toLowerCase().includes(searchTerm) ||
+        category.toLowerCase().includes(searchTerm) ||
+        phone.toLowerCase().includes(searchTerm)
+      ) : true;
+      return districtMatch && categoryMatch && searchMatch;
+    });
+
+    container.innerHTML = '';
+    if (filteredData.length) {
+      renderCards(filteredData);
+    } else {
+      renderNoDataCard('कोई व्यापारी उपलब्ध नहीं है');
     }
+  }
 
-    function displayCards(data) {
-      const container = document.getElementById('cards');
-      container.innerHTML = '';
-      data.forEach(row => {
-        const card = document.createElement('div');
-        card.className = 'business-card';
-        card.innerHTML = `
-          <h3>${row.Name || ''}</h3>
-          <p><strong>Business:</strong> ${row.Business || ''}</p>
-          <p><strong>Phone:</strong> ${row.Phone || ''}</p>
-          <p><strong>Email:</strong> ${row.Email || ''}</p>
-          <p><strong>Address:</strong> ${row.Address || ''}</p>
-        `;
-        container.appendChild(card);
-      });
-    }
+  districtFilter.addEventListener('change', filterAndRender);
+  categoryFilter.addEventListener('change', filterAndRender);
+  searchInput.addEventListener('input', filterAndRender);
+}
 
-    // Try JSON API first, fallback to CSV if fails
-    const SHEET_ID = 'YOUR_SHEET_ID_HERE';
-    const SHEET_NAME = 'Sheet1';
-    const API_URL = `https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`;
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPxPguZfmRO6sfXoq59g2WVSzPc0Xi677vlXnBtbvVeOQ34YrxG0hIs6CP7q8LCV3672s4qazssR6x/pub?gid=1529767758&single=true&output=csv';
+fetchCSVData();
+</script>
 
-    fetch(API_URL)
-      .then(res => {
-        if (!res.ok) throw new Error('API failed');
-        return res.json();
-      })
-      .then(displayCards)
-      .catch(() => {
-        fetch(CSV_URL)
-          .then(res => res.text())
-          .then(csv => displayCards(csvToArray(csv)))
-          .catch(() => {
-            document.getElementById('cards').innerText = 'Unable to load business cards.';
-          });
-      });
-  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Logo & About -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="text-2xl">🕉️</div>
+                        <div>
+                            <h3 class="text-lg font-bold hindi-font">केवल सनातनी व्यापार</h3>
+                            <p class="text-sm text-gray-400">धार्मिक व्यापारिक नेटवर्क</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm hindi-font"></p>
+                        सनातनी व्यापारियों को जोड़ने वाला एक विश्वसनीय मंच
+                    </p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 hindi-font">त्वरित लिंक</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors hindi-font">मुख्य पृष्ठ</a></li>
+                        <li><a href="#register" class="text-gray-400 hover:text-white transition-colors hindi-font">पंजीकरण</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors hindi-font">हमारे बारे में</a></li>
+                    </ul>
+                </div>
+                <!-- Categories -->
+                                <!-- Contact -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 hindi-font">સંપર્ક</h4>
+                    <div class="space-y-3 text-sm">
+                        <div class="text-gray-400">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <a href="mailto:hindubalsanskaarkendra@gmail.com" class="hover:text-white">
+                                hindubalsanskaarkendra@gmail.com
+                            </a>
+                        </div>
+                        
+                        <div class="flex space-x-2">
+                            <a href="https://chat.whatsapp.com/DJiDDsHy0PS2bml68ixbKK" target="_blank" rel="noopener" class="bg-green-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-green-600 transition-colors inline-block">
+                                <i class="fab fa-whatsapp mr-1"></i>WhatsApp
+                            </a>
+                            <a href="https://t.me/+40O2yI1B2vsyOThl" target="_blank" rel="noopener" title="Join us on Telegram" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-xs hover:bg-blue-600 transition-colors inline-block">
+                                <i class="fab fa-telegram mr-1"></i>Telegram
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organizations Section -->
+            <div class="border-t border-gray-700 mt-12 pt-8">
+    <h3 class="text-lg font-semibold mb-6 text-center hindi-font">हमारे संगठन</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+        <!-- DevRatna Charitable Trust -->
+        <div class="text-center">
+            <div class="flex flex-col items-center mb-3">
+                <img src="attached_assets/drct-logo.png" alt="DevRatna Charitable Trust" class="w-20 h-20 rounded-full object-cover mb-2">
+            </div>
+            <h4 class="font-semibold text-white mb-1">DevRatna Charitable Trust</h4>
+            <p class="text-gray-400 text-sm">संस्थापक</p>
+            <p class="text-gray-400 text-xs mt-1">सूरत - गुजरात</p>
+        </div>
+        <!-- Antariksh Life Energy Healing Center -->
+        <div class="text-center">
+            <div class="flex flex-col items-center mb-3">
+                <img src="attached_assets/antariksh-logo.png" alt="Antariksh Life Energy Healing Center" class="w-20 h-20 rounded-full object-cover mb-2">
+            </div>
+            <h4 class="font-semibold text-white mb-1">Antariksh Life Energy Healing Center</h4>
+            <p class="text-gray-400 text-sm">ऊर्जा चिकित्सा केंद्र</p>
+            <p class="text-gray-400 text-xs mt-1">Powered by</p>
+        </div>
+        <!-- DeepJyot Natural Farm -->
+        <div class="text-center">
+            <div class="flex flex-col items-center mb-3">
+                <img src="attached_assets/DJFARM LOGO (2).jpg" alt="DeepJyot Natural Farm" class="w-20 h-20 rounded-full object-cover mb-2">
+            </div>
+            <h4 class="font-semibold text-white mb-1">DeepJyot Natural Farm</h4>
+            <p class="text-gray-400 text-sm">100% प्राकृतिक</p>
+            <p class="text-gray-400 text-xs mt-1">जैविक कृषि फार्म</p>
+        </div>
+    </div>
+    </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400 text-sm hindi-font">
+                    © 2024 केवल सनातनी व्यापार। सभी अधिकार सुरक्षित。
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+  async function loadBusinessData() {
+    const sheetID = '1knsAd84F6ZY2ka8aIEbbwE1OSX5Tkx2XG_6v3CoHCSk';
+    const sheetName = 'View';
+    const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const container = document.getElementById('cardsContainer');
+    container.innerHTML = '';
+
+    data.forEach(row => {
+      // Column A: Full Name
+      // Column B: Mobile
+      // Column C: Business Name
+      // Column D: Business Address (isko hata diya gaya)
+      // Column E: District
+      // Column F: Pincode
+      // Column G: Business Category
+      // Column H: Shop Photo Link
+
+      const name = row['Full Name'] || '';
+      const mobile = row['Mobile Number'] || '';
+      const businessName = row['Business Name'] || '';
+      const district = row['District'] || '';
+      const pincode = row['Pincode'] || '';
+      const category = row['Business Category'] || '';
+      // const address = row['Business Address']; // HATA DIYA
+      const photoUrl = row['Shop Photo Link'];
+
+      const card = document.createElement('div');
+      card.className = 'bg-white shadow rounded-lg p-4 border border-orange-200';
+
+      card.innerHTML = `
+        <div class="text-lg font-bold text-orange-700">${businessName}</div>
+        <div class="text-sm text-gray-700">${name}</div>
+        <div class="text-sm text-gray-600">📞 ${mobile}</div>
+        <div class="text-sm text-gray-600">🏷️ ${category}</div>
+        <div class="text-sm text-gray-600">📍 ${district}, ${pincode}</div>
+        <div class="w-full h-40 bg-gray-100 mt-2 rounded overflow-hidden flex items-center justify-center text-gray-400 text-sm">
+          ફોટો ઉપલબ્ધ નથી
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+}
+
+// Ensure all open script and HTML tags are properly closed
+</script>
 </body>
 </html>
